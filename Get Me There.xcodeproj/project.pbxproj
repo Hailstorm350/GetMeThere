@@ -1,0 +1,460 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02683CD81534C3F1008E5147 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD71534C3F1008E5147 /* UIKit.framework */; };
+		02683CDA1534C3F1008E5147 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD91534C3F1008E5147 /* Foundation.framework */; };
+		02683CDC1534C3F1008E5147 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CDB1534C3F1008E5147 /* CoreGraphics.framework */; };
+		02683CDE1534C3F1008E5147 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CDD1534C3F1008E5147 /* CoreData.framework */; };
+		02683CE41534C3F1008E5147 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02683CE21534C3F1008E5147 /* InfoPlist.strings */; };
+		02683CE61534C3F1008E5147 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683CE51534C3F1008E5147 /* main.m */; };
+		02683CEA1534C3F2008E5147 /* Get_Me_ThereAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683CE91534C3F2008E5147 /* Get_Me_ThereAppDelegate.m */; };
+		02683CED1534C3F2008E5147 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02683CEB1534C3F2008E5147 /* MainWindow.xib */; };
+		02683CF01534C3F2008E5147 /* Get_Me_There.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02683CEE1534C3F2008E5147 /* Get_Me_There.xcdatamodeld */; };
+		02683CF81534C3F2008E5147 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CF71534C3F2008E5147 /* SenTestingKit.framework */; };
+		02683CF91534C3F2008E5147 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD71534C3F1008E5147 /* UIKit.framework */; };
+		02683CFA1534C3F2008E5147 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD91534C3F1008E5147 /* Foundation.framework */; };
+		02683CFB1534C3F2008E5147 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CDB1534C3F1008E5147 /* CoreGraphics.framework */; };
+		02683CFC1534C3F2008E5147 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CDD1534C3F1008E5147 /* CoreData.framework */; };
+		02683D041534C3F2008E5147 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02683D021534C3F2008E5147 /* InfoPlist.strings */; };
+		02683D061534C3F2008E5147 /* Get_Me_ThereTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 02683D051534C3F2008E5147 /* Get_Me_ThereTests.h */; };
+		02683D081534C3F2008E5147 /* Get_Me_ThereTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683D071534C3F2008E5147 /* Get_Me_ThereTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		02683CFD1534C3F2008E5147 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02683CCA1534C3F1008E5147 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02683CD21534C3F1008E5147;
+			remoteInfo = "Get Me There";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02683CD31534C3F1008E5147 /* Get Me There.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Get Me There.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		02683CD71534C3F1008E5147 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		02683CD91534C3F1008E5147 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		02683CDB1534C3F1008E5147 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		02683CDD1534C3F1008E5147 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		02683CE11534C3F1008E5147 /* Get Me There-Info.plist */ = {isa = PBXFileReference; path = "Get Me There-Info.plist"; sourceTree = "<group>"; };
+		02683CE31534C3F1008E5147 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		02683CE51534C3F1008E5147 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		02683CE71534C3F2008E5147 /* Get Me There-Prefix.pch */ = {isa = PBXFileReference; path = "Get Me There-Prefix.pch"; sourceTree = "<group>"; };
+		02683CE81534C3F2008E5147 /* Get_Me_ThereAppDelegate.h */ = {isa = PBXFileReference; path = Get_Me_ThereAppDelegate.h; sourceTree = "<group>"; };
+		02683CE91534C3F2008E5147 /* Get_Me_ThereAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Get_Me_ThereAppDelegate.m; sourceTree = "<group>"; };
+		02683CEC1534C3F2008E5147 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		02683CEF1534C3F2008E5147 /* Get_Me_There.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Get_Me_There.xcdatamodel; sourceTree = "<group>"; };
+		02683CF61534C3F2008E5147 /* Get Me ThereTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Get Me ThereTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		02683CF71534C3F2008E5147 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		02683D011534C3F2008E5147 /* Get Me ThereTests-Info.plist */ = {isa = PBXFileReference; path = "Get Me ThereTests-Info.plist"; sourceTree = "<group>"; };
+		02683D031534C3F2008E5147 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		02683D051534C3F2008E5147 /* Get_Me_ThereTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Get_Me_ThereTests.h; sourceTree = "<group>"; };
+		02683D071534C3F2008E5147 /* Get_Me_ThereTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Get_Me_ThereTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		02683CD01534C3F1008E5147 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02683CD81534C3F1008E5147 /* UIKit.framework in Frameworks */,
+				02683CDA1534C3F1008E5147 /* Foundation.framework in Frameworks */,
+				02683CDC1534C3F1008E5147 /* CoreGraphics.framework in Frameworks */,
+				02683CDE1534C3F1008E5147 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		02683CF21534C3F2008E5147 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02683CF81534C3F2008E5147 /* SenTestingKit.framework in Frameworks */,
+				02683CF91534C3F2008E5147 /* UIKit.framework in Frameworks */,
+				02683CFA1534C3F2008E5147 /* Foundation.framework in Frameworks */,
+				02683CFB1534C3F2008E5147 /* CoreGraphics.framework in Frameworks */,
+				02683CFC1534C3F2008E5147 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		02683CC81534C3F1008E5147 = {
+			isa = PBXGroup;
+			children = (
+				02683CDF1534C3F1008E5147 /* Get Me There */,
+				02683CFF1534C3F2008E5147 /* Get Me ThereTests */,
+				02683CD61534C3F1008E5147 /* Frameworks */,
+				02683CD41534C3F1008E5147 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		02683CD41534C3F1008E5147 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				02683CD31534C3F1008E5147 /* Get Me There.app */,
+				02683CF61534C3F2008E5147 /* Get Me ThereTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		02683CD61534C3F1008E5147 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02683CD71534C3F1008E5147 /* UIKit.framework */,
+				02683CD91534C3F1008E5147 /* Foundation.framework */,
+				02683CDB1534C3F1008E5147 /* CoreGraphics.framework */,
+				02683CDD1534C3F1008E5147 /* CoreData.framework */,
+				02683CF71534C3F2008E5147 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		02683CDF1534C3F1008E5147 /* Get Me There */ = {
+			isa = PBXGroup;
+			children = (
+				02683CE81534C3F2008E5147 /* Get_Me_ThereAppDelegate.h */,
+				02683CE91534C3F2008E5147 /* Get_Me_ThereAppDelegate.m */,
+				02683CEB1534C3F2008E5147 /* MainWindow.xib */,
+				02683CEE1534C3F2008E5147 /* Get_Me_There.xcdatamodeld */,
+				02683CE01534C3F1008E5147 /* Supporting Files */,
+			);
+			path = "Get Me There";
+			sourceTree = "<group>";
+		};
+		02683CE01534C3F1008E5147 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				02683CE11534C3F1008E5147 /* Get Me There-Info.plist */,
+				02683CE21534C3F1008E5147 /* InfoPlist.strings */,
+				02683CE51534C3F1008E5147 /* main.m */,
+				02683CE71534C3F2008E5147 /* Get Me There-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		02683CFF1534C3F2008E5147 /* Get Me ThereTests */ = {
+			isa = PBXGroup;
+			children = (
+				02683D051534C3F2008E5147 /* Get_Me_ThereTests.h */,
+				02683D071534C3F2008E5147 /* Get_Me_ThereTests.m */,
+				02683D001534C3F2008E5147 /* Supporting Files */,
+			);
+			path = "Get Me ThereTests";
+			sourceTree = "<group>";
+		};
+		02683D001534C3F2008E5147 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				02683D011534C3F2008E5147 /* Get Me ThereTests-Info.plist */,
+				02683D021534C3F2008E5147 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		02683CD21534C3F1008E5147 /* Get Me There */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02683D0B1534C3F2008E5147 /* Build configuration list for PBXNativeTarget "Get Me There" */;
+			buildPhases = (
+				02683CCF1534C3F1008E5147 /* Sources */,
+				02683CD01534C3F1008E5147 /* Frameworks */,
+				02683CD11534C3F1008E5147 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Get Me There";
+			productName = "Get Me There";
+			productReference = 02683CD31534C3F1008E5147 /* Get Me There.app */;
+			productType = "com.apple.product-type.application";
+		};
+		02683CF51534C3F2008E5147 /* Get Me ThereTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02683D0E1534C3F2008E5147 /* Build configuration list for PBXNativeTarget "Get Me ThereTests" */;
+			buildPhases = (
+				02683CF11534C3F2008E5147 /* Sources */,
+				02683CF21534C3F2008E5147 /* Frameworks */,
+				02683CF31534C3F2008E5147 /* Resources */,
+				02683CF41534C3F2008E5147 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02683CFE1534C3F2008E5147 /* PBXTargetDependency */,
+			);
+			name = "Get Me ThereTests";
+			productName = "Get Me ThereTests";
+			productReference = 02683CF61534C3F2008E5147 /* Get Me ThereTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		02683CCA1534C3F1008E5147 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 02683CCD1534C3F1008E5147 /* Build configuration list for PBXProject "Get Me There" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 02683CC81534C3F1008E5147;
+			productRefGroup = 02683CD41534C3F1008E5147 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				02683CD21534C3F1008E5147 /* Get Me There */,
+				02683CF51534C3F2008E5147 /* Get Me ThereTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		02683CD11534C3F1008E5147 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02683CE41534C3F1008E5147 /* InfoPlist.strings in Resources */,
+				02683CED1534C3F2008E5147 /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		02683CF31534C3F2008E5147 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02683D041534C3F2008E5147 /* InfoPlist.strings in Resources */,
+				02683D061534C3F2008E5147 /* Get_Me_ThereTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02683CF41534C3F2008E5147 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		02683CCF1534C3F1008E5147 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02683CE61534C3F1008E5147 /* main.m in Sources */,
+				02683CEA1534C3F2008E5147 /* Get_Me_ThereAppDelegate.m in Sources */,
+				02683CF01534C3F2008E5147 /* Get_Me_There.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		02683CF11534C3F2008E5147 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02683D081534C3F2008E5147 /* Get_Me_ThereTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02683CFE1534C3F2008E5147 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 02683CD21534C3F1008E5147 /* Get Me There */;
+			targetProxy = 02683CFD1534C3F2008E5147 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		02683CE21534C3F1008E5147 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02683CE31534C3F1008E5147 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		02683CEB1534C3F2008E5147 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02683CEC1534C3F2008E5147 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		02683D021534C3F2008E5147 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02683D031534C3F2008E5147 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		02683D091534C3F2008E5147 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		02683D0A1534C3F2008E5147 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		02683D0C1534C3F2008E5147 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				INFOPLIST_FILE = "Get Me There/Get Me There-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		02683D0D1534C3F2008E5147 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				INFOPLIST_FILE = "Get Me There/Get Me There-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		02683D0F1534C3F2008E5147 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Get Me There.app/Get Me There";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				INFOPLIST_FILE = "Get Me ThereTests/Get Me ThereTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		02683D101534C3F2008E5147 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Get Me There.app/Get Me There";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				INFOPLIST_FILE = "Get Me ThereTests/Get Me ThereTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		02683CCD1534C3F1008E5147 /* Build configuration list for PBXProject "Get Me There" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02683D091534C3F2008E5147 /* Debug */,
+				02683D0A1534C3F2008E5147 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		02683D0B1534C3F2008E5147 /* Build configuration list for PBXNativeTarget "Get Me There" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02683D0C1534C3F2008E5147 /* Debug */,
+				02683D0D1534C3F2008E5147 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		02683D0E1534C3F2008E5147 /* Build configuration list for PBXNativeTarget "Get Me ThereTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02683D0F1534C3F2008E5147 /* Debug */,
+				02683D101534C3F2008E5147 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		02683CEE1534C3F2008E5147 /* Get_Me_There.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				02683CEF1534C3F2008E5147 /* Get_Me_There.xcdatamodel */,
+			);
+			currentVersion = 02683CEF1534C3F2008E5147 /* Get_Me_There.xcdatamodel */;
+			path = Get_Me_There.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 02683CCA1534C3F1008E5147 /* Project object */;
+}
