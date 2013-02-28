@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		025A52C01545C86F0095F51A /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 025A52BE1545C86F0095F51A /* TableViewCell.m */; };
+		025A52C11545C86F0095F51A /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025A52BF1545C86F0095F51A /* TableViewCell.xib */; };
+		025FC49115374C85003B21C8 /* RouteCreatorScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 025FC48F15374C85003B21C8 /* RouteCreatorScreen.m */; };
+		025FC49215374C85003B21C8 /* RouteCreatorScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025FC49015374C85003B21C8 /* RouteCreatorScreen.xib */; };
+		025FC4961537558C003B21C8 /* RouteList.m in Sources */ = {isa = PBXBuildFile; fileRef = 025FC4941537558C003B21C8 /* RouteList.m */; };
+		025FC4971537558C003B21C8 /* RouteList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025FC4951537558C003B21C8 /* RouteList.xib */; };
 		02683CD81534C3F1008E5147 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD71534C3F1008E5147 /* UIKit.framework */; };
 		02683CDA1534C3F1008E5147 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD91534C3F1008E5147 /* Foundation.framework */; };
 		02683CDC1534C3F1008E5147 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CDB1534C3F1008E5147 /* CoreGraphics.framework */; };
@@ -24,6 +30,32 @@
 		02683D041534C3F2008E5147 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02683D021534C3F2008E5147 /* InfoPlist.strings */; };
 		02683D061534C3F2008E5147 /* Get_Me_ThereTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 02683D051534C3F2008E5147 /* Get_Me_ThereTests.h */; };
 		02683D081534C3F2008E5147 /* Get_Me_ThereTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683D071534C3F2008E5147 /* Get_Me_ThereTests.m */; };
+		02CCBE71154C7CB7008EBB24 /* beginningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CCBE70154C7CB7008EBB24 /* beginningCell.m */; };
+		02CCBE73154C7D7C008EBB24 /* beginningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CCBE72154C7D7C008EBB24 /* beginningCell.xib */; };
+		02CCBE79154C8F05008EBB24 /* greenArrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02CCBE78154C8F05008EBB24 /* greenArrow.jpg */; };
+		02D6BF8215374B88000CACD4 /* back button.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8015374B88000CACD4 /* back button.png */; };
+		02D6BF8315374B88000CACD4 /* button_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8115374B88000CACD4 /* button_add.png */; };
+		02D6BF8D15374BAB000CACD4 /* plus sign.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8515374BAB000CACD4 /* plus sign.png */; };
+		02D6BF8E15374BAB000CACD4 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8615374BAB000CACD4 /* Icon.png */; };
+		02D6BF8F15374BAB000CACD4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8715374BAB000CACD4 /* Default.png */; };
+		02D6BF9015374BAB000CACD4 /* slight left.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8815374BAB000CACD4 /* slight left.png */; };
+		02D6BF9115374BAB000CACD4 /* slight right.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8915374BAB000CACD4 /* slight right.png */; };
+		02D6BF9215374BAB000CACD4 /* right turn.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8A15374BAB000CACD4 /* right turn.png */; };
+		02D6BF9315374BAB000CACD4 /* left turn.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8B15374BAB000CACD4 /* left turn.png */; };
+		02D6BF9415374BAB000CACD4 /* straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8C15374BAB000CACD4 /* straight.png */; };
+		02E23AF21541FFF5004CC9CF /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E23AF11541FFF5004CC9CF /* Event.m */; };
+		02E23AF615420001004CC9CF /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E23AF515420001004CC9CF /* Route.m */; };
+		02F00B7C153534F900B89881 /* Where_Am_IViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B7A153534F900B89881 /* Where_Am_IViewController.m */; };
+		02F00B7D153534F900B89881 /* Where_Am_IViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B7B153534F900B89881 /* Where_Am_IViewController.xib */; };
+		02F00B821535366D00B89881 /* UserManual.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B801535366D00B89881 /* UserManual.m */; };
+		02F00B831535366D00B89881 /* UserManual.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B811535366D00B89881 /* UserManual.xib */; };
+		02F00B91153537B600B89881 /* Guardian_Home_Screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B8F153537B600B89881 /* Guardian_Home_Screen.m */; };
+		02F00B92153537B600B89881 /* Guardian_Home_Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B90153537B600B89881 /* Guardian_Home_Screen.xib */; };
+		02F00B9F1535430B00B89881 /* edit_modal_screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B9D1535430A00B89881 /* edit_modal_screen.m */; };
+		02F00BA01535430B00B89881 /* edit_modal_screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B9E1535430A00B89881 /* edit_modal_screen.xib */; };
+		02F00BA4153547D300B89881 /* Route_edit_screenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */; };
+		02F00BA5153547D300B89881 /* Route_edit_screenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */; };
+		400C3DA516B872CA004770E4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 400C3DA416B872CA004770E4 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,25 +69,68 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		025A52BD1545C86F0095F51A /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		025A52BE1545C86F0095F51A /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		025A52BF1545C86F0095F51A /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		025FC48E15374C85003B21C8 /* RouteCreatorScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteCreatorScreen.h; sourceTree = "<group>"; };
+		025FC48F15374C85003B21C8 /* RouteCreatorScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteCreatorScreen.m; sourceTree = "<group>"; };
+		025FC49015374C85003B21C8 /* RouteCreatorScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteCreatorScreen.xib; sourceTree = "<group>"; };
+		025FC4931537558C003B21C8 /* RouteList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteList.h; sourceTree = "<group>"; };
+		025FC4941537558C003B21C8 /* RouteList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteList.m; sourceTree = "<group>"; };
+		025FC4951537558C003B21C8 /* RouteList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteList.xib; sourceTree = "<group>"; };
 		02683CD31534C3F1008E5147 /* Get Me There.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Get Me There.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02683CD71534C3F1008E5147 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		02683CD91534C3F1008E5147 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		02683CDB1534C3F1008E5147 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		02683CDD1534C3F1008E5147 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		02683CE11534C3F1008E5147 /* Get Me There-Info.plist */ = {isa = PBXFileReference; path = "Get Me There-Info.plist"; sourceTree = "<group>"; };
+		02683CE11534C3F1008E5147 /* Get Me There-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Get Me There-Info.plist"; sourceTree = "<group>"; };
 		02683CE31534C3F1008E5147 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		02683CE51534C3F1008E5147 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		02683CE71534C3F2008E5147 /* Get Me There-Prefix.pch */ = {isa = PBXFileReference; path = "Get Me There-Prefix.pch"; sourceTree = "<group>"; };
-		02683CE81534C3F2008E5147 /* Get_Me_ThereAppDelegate.h */ = {isa = PBXFileReference; path = Get_Me_ThereAppDelegate.h; sourceTree = "<group>"; };
+		02683CE71534C3F2008E5147 /* Get Me There-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Get Me There-Prefix.pch"; sourceTree = "<group>"; };
+		02683CE81534C3F2008E5147 /* Get_Me_ThereAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Get_Me_ThereAppDelegate.h; sourceTree = "<group>"; };
 		02683CE91534C3F2008E5147 /* Get_Me_ThereAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Get_Me_ThereAppDelegate.m; sourceTree = "<group>"; };
 		02683CEC1534C3F2008E5147 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		02683CEF1534C3F2008E5147 /* Get_Me_There.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Get_Me_There.xcdatamodel; sourceTree = "<group>"; };
 		02683CF61534C3F2008E5147 /* Get Me ThereTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Get Me ThereTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02683CF71534C3F2008E5147 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		02683D011534C3F2008E5147 /* Get Me ThereTests-Info.plist */ = {isa = PBXFileReference; path = "Get Me ThereTests-Info.plist"; sourceTree = "<group>"; };
+		02683D011534C3F2008E5147 /* Get Me ThereTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Get Me ThereTests-Info.plist"; sourceTree = "<group>"; };
 		02683D031534C3F2008E5147 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		02683D051534C3F2008E5147 /* Get_Me_ThereTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Get_Me_ThereTests.h; sourceTree = "<group>"; };
 		02683D071534C3F2008E5147 /* Get_Me_ThereTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Get_Me_ThereTests.m; sourceTree = "<group>"; };
+		02CCBE6F154C7CB7008EBB24 /* beginningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beginningCell.h; sourceTree = "<group>"; };
+		02CCBE70154C7CB7008EBB24 /* beginningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beginningCell.m; sourceTree = "<group>"; };
+		02CCBE72154C7D7C008EBB24 /* beginningCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = beginningCell.xib; sourceTree = "<group>"; };
+		02CCBE78154C8F05008EBB24 /* greenArrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = greenArrow.jpg; sourceTree = "<group>"; };
+		02D6BF8015374B88000CACD4 /* back button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back button.png"; path = "../back button.png"; sourceTree = "<group>"; };
+		02D6BF8115374B88000CACD4 /* button_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_add.png; path = ../button_add.png; sourceTree = "<group>"; };
+		02D6BF8515374BAB000CACD4 /* plus sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus sign.png"; path = "../plus sign.png"; sourceTree = "<group>"; };
+		02D6BF8615374BAB000CACD4 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		02D6BF8715374BAB000CACD4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		02D6BF8815374BAB000CACD4 /* slight left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "slight left.png"; path = "../slight left.png"; sourceTree = "<group>"; };
+		02D6BF8915374BAB000CACD4 /* slight right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "slight right.png"; path = "../slight right.png"; sourceTree = "<group>"; };
+		02D6BF8A15374BAB000CACD4 /* right turn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "right turn.png"; path = "../right turn.png"; sourceTree = "<group>"; };
+		02D6BF8B15374BAB000CACD4 /* left turn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "left turn.png"; path = "../left turn.png"; sourceTree = "<group>"; };
+		02D6BF8C15374BAB000CACD4 /* straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = straight.png; path = ../straight.png; sourceTree = "<group>"; };
+		02E23AF01541FFF5004CC9CF /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		02E23AF11541FFF5004CC9CF /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		02E23AF415420001004CC9CF /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
+		02E23AF515420001004CC9CF /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
+		02F00B79153534F900B89881 /* Where_Am_IViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Where_Am_IViewController.h; sourceTree = "<group>"; };
+		02F00B7A153534F900B89881 /* Where_Am_IViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Where_Am_IViewController.m; sourceTree = "<group>"; };
+		02F00B7B153534F900B89881 /* Where_Am_IViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Where_Am_IViewController.xib; sourceTree = "<group>"; };
+		02F00B7F1535366D00B89881 /* UserManual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManual.h; sourceTree = "<group>"; };
+		02F00B801535366D00B89881 /* UserManual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManual.m; sourceTree = "<group>"; };
+		02F00B811535366D00B89881 /* UserManual.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserManual.xib; sourceTree = "<group>"; };
+		02F00B8E153537B600B89881 /* Guardian_Home_Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guardian_Home_Screen.h; sourceTree = "<group>"; };
+		02F00B8F153537B600B89881 /* Guardian_Home_Screen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guardian_Home_Screen.m; sourceTree = "<group>"; };
+		02F00B90153537B600B89881 /* Guardian_Home_Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Guardian_Home_Screen.xib; sourceTree = "<group>"; };
+		02F00B9C1535430A00B89881 /* edit_modal_screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edit_modal_screen.h; sourceTree = "<group>"; };
+		02F00B9D1535430A00B89881 /* edit_modal_screen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = edit_modal_screen.m; sourceTree = "<group>"; };
+		02F00B9E1535430A00B89881 /* edit_modal_screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = edit_modal_screen.xib; sourceTree = "<group>"; };
+		02F00BA1153547D200B89881 /* Route_edit_screenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route_edit_screenViewController.h; sourceTree = "<group>"; };
+		02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route_edit_screenViewController.m; sourceTree = "<group>"; };
+		02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Route_edit_screenViewController.xib; sourceTree = "<group>"; };
+		400C3DA416B872CA004770E4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +163,7 @@
 		02683CC81534C3F1008E5147 = {
 			isa = PBXGroup;
 			children = (
+				400C3DA416B872CA004770E4 /* Default-568h@2x.png */,
 				02683CDF1534C3F1008E5147 /* Get Me There */,
 				02683CFF1534C3F2008E5147 /* Get Me ThereTests */,
 				02683CD61534C3F1008E5147 /* Frameworks */,
@@ -121,9 +197,40 @@
 			children = (
 				02683CE81534C3F2008E5147 /* Get_Me_ThereAppDelegate.h */,
 				02683CE91534C3F2008E5147 /* Get_Me_ThereAppDelegate.m */,
+				02F00B79153534F900B89881 /* Where_Am_IViewController.h */,
+				02F00B7A153534F900B89881 /* Where_Am_IViewController.m */,
+				02F00B7B153534F900B89881 /* Where_Am_IViewController.xib */,
+				02CCBE6F154C7CB7008EBB24 /* beginningCell.h */,
+				02CCBE70154C7CB7008EBB24 /* beginningCell.m */,
+				02CCBE72154C7D7C008EBB24 /* beginningCell.xib */,
+				02F00B8E153537B600B89881 /* Guardian_Home_Screen.h */,
+				02F00B8F153537B600B89881 /* Guardian_Home_Screen.m */,
+				02F00B90153537B600B89881 /* Guardian_Home_Screen.xib */,
 				02683CEB1534C3F2008E5147 /* MainWindow.xib */,
+				02F00B7F1535366D00B89881 /* UserManual.h */,
+				02F00B801535366D00B89881 /* UserManual.m */,
+				02F00B811535366D00B89881 /* UserManual.xib */,
 				02683CEE1534C3F2008E5147 /* Get_Me_There.xcdatamodeld */,
+				02E23AF415420001004CC9CF /* Route.h */,
+				02E23AF515420001004CC9CF /* Route.m */,
+				02E23AF01541FFF5004CC9CF /* Event.h */,
+				02E23AF11541FFF5004CC9CF /* Event.m */,
+				02F00B9C1535430A00B89881 /* edit_modal_screen.h */,
+				02F00B9D1535430A00B89881 /* edit_modal_screen.m */,
+				02F00B9E1535430A00B89881 /* edit_modal_screen.xib */,
+				02F00BA1153547D200B89881 /* Route_edit_screenViewController.h */,
+				02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */,
+				02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */,
+				025FC4931537558C003B21C8 /* RouteList.h */,
+				025FC4941537558C003B21C8 /* RouteList.m */,
+				025FC4951537558C003B21C8 /* RouteList.xib */,
+				025FC48E15374C85003B21C8 /* RouteCreatorScreen.h */,
+				025FC48F15374C85003B21C8 /* RouteCreatorScreen.m */,
+				025FC49015374C85003B21C8 /* RouteCreatorScreen.xib */,
 				02683CE01534C3F1008E5147 /* Supporting Files */,
+				025A52BD1545C86F0095F51A /* TableViewCell.h */,
+				025A52BE1545C86F0095F51A /* TableViewCell.m */,
+				025A52BF1545C86F0095F51A /* TableViewCell.xib */,
 			);
 			path = "Get Me There";
 			sourceTree = "<group>";
@@ -131,6 +238,17 @@
 		02683CE01534C3F1008E5147 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				02CCBE78154C8F05008EBB24 /* greenArrow.jpg */,
+				02D6BF8515374BAB000CACD4 /* plus sign.png */,
+				02D6BF8615374BAB000CACD4 /* Icon.png */,
+				02D6BF8715374BAB000CACD4 /* Default.png */,
+				02D6BF8815374BAB000CACD4 /* slight left.png */,
+				02D6BF8915374BAB000CACD4 /* slight right.png */,
+				02D6BF8A15374BAB000CACD4 /* right turn.png */,
+				02D6BF8B15374BAB000CACD4 /* left turn.png */,
+				02D6BF8C15374BAB000CACD4 /* straight.png */,
+				02D6BF8015374B88000CACD4 /* back button.png */,
+				02D6BF8115374B88000CACD4 /* button_add.png */,
 				02683CE11534C3F1008E5147 /* Get Me There-Info.plist */,
 				02683CE21534C3F1008E5147 /* InfoPlist.strings */,
 				02683CE51534C3F1008E5147 /* main.m */,
@@ -202,6 +320,9 @@
 /* Begin PBXProject section */
 		02683CCA1534C3F1008E5147 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+			};
 			buildConfigurationList = 02683CCD1534C3F1008E5147 /* Build configuration list for PBXProject "Get Me There" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -227,6 +348,27 @@
 			files = (
 				02683CE41534C3F1008E5147 /* InfoPlist.strings in Resources */,
 				02683CED1534C3F2008E5147 /* MainWindow.xib in Resources */,
+				02F00B7D153534F900B89881 /* Where_Am_IViewController.xib in Resources */,
+				02F00B831535366D00B89881 /* UserManual.xib in Resources */,
+				02F00B92153537B600B89881 /* Guardian_Home_Screen.xib in Resources */,
+				02F00BA01535430B00B89881 /* edit_modal_screen.xib in Resources */,
+				02F00BA5153547D300B89881 /* Route_edit_screenViewController.xib in Resources */,
+				02D6BF8215374B88000CACD4 /* back button.png in Resources */,
+				02D6BF8315374B88000CACD4 /* button_add.png in Resources */,
+				02D6BF8D15374BAB000CACD4 /* plus sign.png in Resources */,
+				02D6BF8E15374BAB000CACD4 /* Icon.png in Resources */,
+				02D6BF8F15374BAB000CACD4 /* Default.png in Resources */,
+				02D6BF9015374BAB000CACD4 /* slight left.png in Resources */,
+				02D6BF9115374BAB000CACD4 /* slight right.png in Resources */,
+				02D6BF9215374BAB000CACD4 /* right turn.png in Resources */,
+				02D6BF9315374BAB000CACD4 /* left turn.png in Resources */,
+				02D6BF9415374BAB000CACD4 /* straight.png in Resources */,
+				025FC49215374C85003B21C8 /* RouteCreatorScreen.xib in Resources */,
+				025FC4971537558C003B21C8 /* RouteList.xib in Resources */,
+				025A52C11545C86F0095F51A /* TableViewCell.xib in Resources */,
+				02CCBE73154C7D7C008EBB24 /* beginningCell.xib in Resources */,
+				02CCBE79154C8F05008EBB24 /* greenArrow.jpg in Resources */,
+				400C3DA516B872CA004770E4 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +407,17 @@
 				02683CE61534C3F1008E5147 /* main.m in Sources */,
 				02683CEA1534C3F2008E5147 /* Get_Me_ThereAppDelegate.m in Sources */,
 				02683CF01534C3F2008E5147 /* Get_Me_There.xcdatamodeld in Sources */,
+				02F00B7C153534F900B89881 /* Where_Am_IViewController.m in Sources */,
+				02F00B821535366D00B89881 /* UserManual.m in Sources */,
+				02F00B91153537B600B89881 /* Guardian_Home_Screen.m in Sources */,
+				02F00B9F1535430B00B89881 /* edit_modal_screen.m in Sources */,
+				02F00BA4153547D300B89881 /* Route_edit_screenViewController.m in Sources */,
+				025FC49115374C85003B21C8 /* RouteCreatorScreen.m in Sources */,
+				025FC4961537558C003B21C8 /* RouteList.m in Sources */,
+				02E23AF21541FFF5004CC9CF /* Event.m in Sources */,
+				02E23AF615420001004CC9CF /* Route.m in Sources */,
+				025A52C01545C86F0095F51A /* TableViewCell.m in Sources */,
+				02CCBE71154C7CB7008EBB24 /* beginningCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +472,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -334,6 +488,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PROVISIONING_PROFILE = "CBC0A142-C8B8-4C23-9C42-4623301A7866";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CBC0A142-C8B8-4C23-9C42-4623301A7866";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -343,7 +499,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -352,6 +509,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "CBC0A142-C8B8-4C23-9C42-4623301A7866";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CBC0A142-C8B8-4C23-9C42-4623301A7866";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -362,7 +521,9 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Get Me There/Get Me There-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -373,7 +534,9 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Get Me There/Get Me There-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -389,6 +552,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Get Me ThereTests/Get Me ThereTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -406,6 +570,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Get Me ThereTests/Get Me ThereTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -432,6 +597,7 @@
 				02683D0D1534C3F2008E5147 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		02683D0E1534C3F2008E5147 /* Build configuration list for PBXNativeTarget "Get Me ThereTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +606,7 @@
 				02683D101534C3F2008E5147 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

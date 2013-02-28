@@ -1,32 +1,62 @@
 //
-//  Get_Me_ThereAppDelegate.m
-//  Get Me There
+//  Revised_Route_Edit_ScreenAppDelegate.m
+//  Revised Route Edit Screen
 //
-//  Created by joseph schneider on 4/10/12.
+//  Created by Student on 1/5/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Get_Me_ThereAppDelegate.h"
-#import "Where_Am_IViewController.h"
+#import "Revised_Route_Edit_ScreenAppDelegate.h"
+#import "Route_edit_screenViewController.h"
+#import "Event.h"
 
-@implementation Get_Me_ThereAppDelegate
+@implementation Revised_Route_Edit_ScreenAppDelegate
 
-@synthesize window = _window;
-@synthesize managedObjectContext = __managedObjectContext;
-@synthesize managedObjectModel = __managedObjectModel;
-@synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize navigationController;
+@synthesize editRoute;
+
+@synthesize window=_window;
 @synthesize viewController=_viewController;
-@synthesize whereIWillGetMyData;
-@synthesize manual;
-@synthesize guardianHome;
+
+@synthesize managedObjectContext=__managedObjectContext;
+
+@synthesize managedObjectModel=__managedObjectModel;
+
+@synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    self.window.rootViewController = navigationController;
 
+    eventDataPortion=[[Events_list alloc]init];
+    self.viewController.eventData= eventDataPortion;
+    
+    [self.window addSubview:editRoute.view]; 
+    self.window.rootViewController = self.viewController;
+    
     [self.window makeKeyAndVisible];
+    
+/*    
+   
+    
+    // Define how we will sort the records  
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"row" ascending:NO];  
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];  
+    [request setSortDescriptors:sortDescriptors];  
+    [sortDescriptor release];   
+    
+    // Fetch the records and handle an error  
+    NSError *error;  
+    NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];   
+    
+    if (!mutableFetchResults) {  
+        // Handle the error.  
+        // This is a serious error and should advise the user to restart the application  
+    }   
+    
+    // Save our fetched data to an array  
+    [self setEventArray: mutableFetchResults];  
+    [mutableFetchResults release];  
+    [request release];  
+*/
     return YES;
 }
 
@@ -72,7 +102,6 @@
     [__managedObjectContext release];
     [__managedObjectModel release];
     [__persistentStoreCoordinator release];
-        [_viewController release];
     [super dealloc];
 }
 
@@ -90,7 +119,7 @@
     NSManagedObjectContext *myManagedObjectContext = self.managedObjectContext;
     if (myManagedObjectContext != nil)
     {
-        if ([myManagedObjectContext hasChanges] && ![managedObjectContext save:&error])
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error])
         {
             /*
              Replace this implementation with code to handle the error appropriately.
@@ -125,6 +154,8 @@
     return __managedObjectContext;
 }
 
+
+
 /**
  Returns the managed object model for the application.
  If the model doesn't already exist, it is created from the application's model.
@@ -135,7 +166,7 @@
     {
         return __managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Get_Me_There" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Revised_Route_Edit_Screen" withExtension:@"momd"];
     __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
     return __managedObjectModel;
 }
@@ -151,7 +182,7 @@
         return __persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Get_Me_There.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Revised_Route_Edit_Screen.sqlite"];
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
@@ -197,9 +228,10 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-+ (Get_Me_ThereAppDelegate *)sharedAppDelegate
++ (Revised_Route_Edit_ScreenAppDelegate *)sharedAppDelegate
 {
-    return (Get_Me_ThereAppDelegate *) [UIApplication sharedApplication].delegate;
+    return (Revised_Route_Edit_ScreenAppDelegate *) [UIApplication sharedApplication].delegate;
 }
+
 
 @end

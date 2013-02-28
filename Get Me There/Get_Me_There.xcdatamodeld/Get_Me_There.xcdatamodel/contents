@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Event" representedClassName="Event">
+        <attribute name="Arrow" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="Name" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="Picture" optional="YES" attributeType="Binary">
+            <userInfo/>
+        </attribute>
+        <attribute name="Row" optional="YES" attributeType="Integer 16" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="Transit" optional="YES" attributeType="Boolean">
+            <userInfo/>
+        </attribute>
+        <relationship name="route" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="Event" inverseEntity="Route">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
+    </entity>
+    <entity name="Route" representedClassName="Route">
+        <attribute name="DestinationPicture" optional="YES" attributeType="Binary">
+            <userInfo/>
+        </attribute>
+        <attribute name="Name" optional="YES" attributeType="String">
+            <userInfo/>
+        </attribute>
+        <attribute name="Row" optional="YES" attributeType="Integer 16" defaultValueString="0">
+            <userInfo/>
+        </attribute>
+        <attribute name="StartPicture" optional="YES" attributeType="Binary">
+            <userInfo/>
+        </attribute>
+        <relationship name="Event" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="route" inverseEntity="Event">
+            <userInfo/>
+        </relationship>
+        <userInfo/>
+    </entity>
+    <elements>
+        <element name="Event" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Route" positionX="160" positionY="192" width="128" height="120"/>
+    </elements>
 </model>
