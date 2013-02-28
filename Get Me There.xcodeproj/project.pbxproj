@@ -54,8 +54,8 @@
 		02F00B9F1535430B00B89881 /* edit_modal_screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B9D1535430A00B89881 /* edit_modal_screen.m */; };
 		02F00BA01535430B00B89881 /* edit_modal_screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B9E1535430A00B89881 /* edit_modal_screen.xib */; };
 		02F00BA4153547D300B89881 /* Route_edit_screenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */; };
-		02F00BA5153547D300B89881 /* Route_edit_screenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */; };
 		400C3DA516B872CA004770E4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 400C3DA416B872CA004770E4 /* Default-568h@2x.png */; };
+		4022FB3316DFEA36006D1C09 /* Route_edit_screenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4022FB3216DFEA36006D1C09 /* Route_edit_screenViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,8 +129,8 @@
 		02F00B9E1535430A00B89881 /* edit_modal_screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = edit_modal_screen.xib; sourceTree = "<group>"; };
 		02F00BA1153547D200B89881 /* Route_edit_screenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route_edit_screenViewController.h; sourceTree = "<group>"; };
 		02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route_edit_screenViewController.m; sourceTree = "<group>"; };
-		02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Route_edit_screenViewController.xib; sourceTree = "<group>"; };
 		400C3DA416B872CA004770E4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4022FB3216DFEA36006D1C09 /* Route_edit_screenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Route_edit_screenViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +220,7 @@
 				02F00B9E1535430A00B89881 /* edit_modal_screen.xib */,
 				02F00BA1153547D200B89881 /* Route_edit_screenViewController.h */,
 				02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */,
-				02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */,
+				4022FB3216DFEA36006D1C09 /* Route_edit_screenViewController.xib */,
 				025FC4931537558C003B21C8 /* RouteList.h */,
 				025FC4941537558C003B21C8 /* RouteList.m */,
 				025FC4951537558C003B21C8 /* RouteList.xib */,
@@ -352,7 +352,6 @@
 				02F00B831535366D00B89881 /* UserManual.xib in Resources */,
 				02F00B92153537B600B89881 /* Guardian_Home_Screen.xib in Resources */,
 				02F00BA01535430B00B89881 /* edit_modal_screen.xib in Resources */,
-				02F00BA5153547D300B89881 /* Route_edit_screenViewController.xib in Resources */,
 				02D6BF8215374B88000CACD4 /* back button.png in Resources */,
 				02D6BF8315374B88000CACD4 /* button_add.png in Resources */,
 				02D6BF8D15374BAB000CACD4 /* plus sign.png in Resources */,
@@ -369,6 +368,7 @@
 				02CCBE73154C7D7C008EBB24 /* beginningCell.xib in Resources */,
 				02CCBE79154C8F05008EBB24 /* greenArrow.jpg in Resources */,
 				400C3DA516B872CA004770E4 /* Default-568h@2x.png in Resources */,
+				4022FB3316DFEA36006D1C09 /* Route_edit_screenViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

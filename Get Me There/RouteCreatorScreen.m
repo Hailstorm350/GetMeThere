@@ -139,7 +139,7 @@
         
         [request setEntity:entity];
 
-*/        newInfo.Name=nameOfRoute.text;
+*/      newInfo.Name=nameOfRoute.text;
         NSError *error;
 
         if (![thisContext save:&error]) {
