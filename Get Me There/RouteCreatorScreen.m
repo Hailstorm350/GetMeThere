@@ -147,28 +147,8 @@
         }
 
         
-        
-        
         //To get information to pass on to the next screen//
       
-        
-        
-        
-        
-        
-        
-        
-              
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
