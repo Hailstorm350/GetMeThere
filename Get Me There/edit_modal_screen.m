@@ -72,7 +72,7 @@
     [descriptionOfEvent resignFirstResponder];
 }
 -(IBAction) doneButtonPressed: (id) sender{
-    if([textField.text length]<=0)
+    if([textField.text length] == 0)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
                                                         message:@"You must enter a an event description"
