@@ -57,7 +57,7 @@
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
                                                    cacheName:@"Row"];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = theFetchedResultsController.delegate;
+    _fetchedResultsController.delegate = self;
     
     [sort release];
     [fetchRequest release];
@@ -72,7 +72,7 @@
     [descriptionOfEvent resignFirstResponder];
 }
 -(IBAction) doneButtonPressed: (id) sender{
-    if([textField.text length] == 0)
+    if([textField.text length]<=0)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
                                                         message:@"You must enter a an event description"
@@ -99,7 +99,7 @@
         }
         else if(rightOrLeft.selectedSegmentIndex==1){
             if(sharpOrNormal.selectedSegmentIndex==1){
-                newInfo.Arrow=@"Left";
+                newInfo.Arrow=@"left turn";
             }
             else{
                 newInfo.Arrow=@"slight left";
@@ -107,7 +107,7 @@
         }
         else if(rightOrLeft.selectedSegmentIndex==0){
             if(sharpOrNormal.selectedSegmentIndex==1){
-                newInfo.Arrow=@"Right";
+                newInfo.Arrow=@"right turn";
             }
             else{
                 newInfo.Arrow=@"slight right";
@@ -131,7 +131,7 @@
         }
         //        NSLog(@"newInfo.transit=%i, newInfo.arrow=%@, newInfo.name=%@", newInfo.Transit, newInfo.Arrow, newInfo.Name);
               
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];        
         
     }
     else
@@ -192,7 +192,7 @@
         if (![thisContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];    
         
     }
     
@@ -201,7 +201,7 @@
 
 
 -(IBAction) cancelButtonPressed: (id) sender{
-//    [self.parentViewController dismissModalViewControllerAnimated:YES];
+//    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
 }
 /*
@@ -241,7 +241,7 @@
     //		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //	}
     
-	[self presentViewController:picker animated:YES completion: nil];
+	[self presentModalViewController:picker animated:YES];
     
 }
 
@@ -255,7 +255,7 @@
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //	}
     
-	[self presentViewController:picker animated:YES completion:nil];
+	[self presentModalViewController:picker animated:YES];
     
 }
 
@@ -271,7 +271,7 @@
 }
 /*
  - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
- [picker dismissModalViewControllerAnimated:YES];
+ [picker dismissViewControllerAnimated:YES completion:nil];
  }
  */
 -(IBAction) rightOrLeftControl{
@@ -386,7 +386,8 @@
     //    self.imageView = nil;
     //	self.takePictureButton = nil;
     //	self.selectFromCameraRollButton = nil;
-    [super viewDidUnload];
+    //[super viewDidUnload];
+    self.fetchedResultsController = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

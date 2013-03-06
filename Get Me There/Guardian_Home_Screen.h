@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Guardian_Home_Screen : UITableViewController <UIAlertViewDelegate>
+@interface Guardian_Home_Screen : UIViewController <UIAlertViewDelegate>
 
 @end

@@ -11,6 +11,7 @@
 #import "Route_edit_screenViewController.h"
 #import "RouteCreatorScreen.h"
 #import "RouteList.h"
+#import "PanicButtonViewController.h"
 @implementation Guardian_Home_Screen
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -45,7 +46,7 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    //[super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -112,6 +113,9 @@
     else if(indexPath.row==4)
         cell.textLabel.text=@"Back";
 
+
+        
+    
     return cell;
 }
 
@@ -170,16 +174,23 @@
     if(indexPath.row==4)
     {
         [self.navigationController popViewControllerAnimated:YES];
-    }
+         }
     else if(indexPath.row==1)
     {
         RouteCreatorScreen *information=[[RouteCreatorScreen alloc]init];
-
+   
         [self.navigationController pushViewController:information animated:YES];
     }
+    else if(indexPath.row==2)
+    {
+        PanicButtonViewController *information=[[PanicButtonViewController alloc]init];
+        
+        [self.navigationController pushViewController:information animated:YES];
+    }
+
     else if(indexPath.row==0){
         RouteList *listOfRoutes=[[RouteList alloc]init];
-        [self.navigationController pushViewController:listOfRoutes animated:YES];
+    [self.navigationController pushViewController:listOfRoutes animated:YES];
     }
 }
 

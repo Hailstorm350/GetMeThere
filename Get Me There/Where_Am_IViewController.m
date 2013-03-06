@@ -11,14 +11,14 @@
 #import "beginningCell.h"
 #import "Route.h"
 #import "Get_Me_ThereAppDelegate.h"
-
+#import "ShowPrimaryDirection.h"
 @implementation Where_Am_IViewController
 @synthesize context=_context, fetchedResultsController=_fetchedResultsController;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (_fetchedResultsController != nil) {
-        //NSLog(@"HERE WE GO!");
+        NSLog(@"HERE WE GO!");
         return _fetchedResultsController;
     }
     NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
@@ -29,7 +29,7 @@
                                    entityForName:@"Route" inManagedObjectContext:thisContext];    [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                              initWithKey:@"Row" ascending:NO];
+                              initWithKey:@"Row" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     [fetchRequest setFetchBatchSize:20];
@@ -37,9 +37,9 @@
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
-                                                   cacheName:@"Root"];
+                                                   cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self.fetchedResultsController.delegate;
+    _fetchedResultsController.delegate = self;
     
     [sort release];
     [fetchRequest release];
@@ -50,6 +50,15 @@
 }
 
 
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+/*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -58,10 +67,12 @@
     }
     return self;
 }
-
+*/
 - (void)dealloc
 {
     [super dealloc];
+    self.fetchedResultsController.delegate = nil;
+    self.fetchedResultsController = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,22 +88,82 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSLog(@"checking how many times it loads...");
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Information" style:UIBarButtonItemStyleBordered target:self action:@selector(informationButtonPressed)];
+    self.navigationItem.rightBarButtonItem = editButton;
+    
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Guardian" style:UIBarButtonItemStyleBordered target:self action:@selector(GuardianButtonPressed)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+   // [self.tableView reloadData];
+
+    self.title = @"Route";   
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"here i want to reload!!!");
+    self.fetchedResultsController=nil;
+    NSError *error;
+
+    if (![[self fetchedResultsController] performFetch:&error]) {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Information" style:UIBarButtonItemStyleBordered target:self action:@selector(informationButtonPressed)];
+    self.navigationItem.rightBarButtonItem = editButton;
+    
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Guardian" style:UIBarButtonItemStyleBordered target:self action:@selector(GuardianButtonPressed)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+    // [self.tableView reloadData];
     
     self.title = @"Route";   
+
+    [self.tableView reloadData];
+    //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+    [super viewWillAppear:animated]; 
+    
+//    NSError *error;
+//	if (![[self fetchedResultsController] performFetch:&error]) {
+//		// Update to handle the error appropriately.
+//		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//		exit(-1);  // Fail
+//	}
+
+
+	
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    //[super viewDidUnload];
+    self.fetchedResultsController = nil;
+    self.fetchedResultsController=nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -103,14 +174,14 @@
 
 -(IBAction) informationButtonPressed
 {
-    NSLog(@"Information Button Pressed");
+    NSLog(@"It is pressed2");
     
     UserManual *information=[[UserManual alloc]init];
-    [self presentViewController:information animated:YES completion:nil];
+    [self presentModalViewController:information animated:YES];
     [information release];
 }
 -(IBAction) GuardianButtonPressed{
-    NSLog(@"Guardian Button Pressed");
+    NSLog(@"It is pressed");
     Guardian_Home_Screen *information=[[Guardian_Home_Screen alloc]initWithNibName:@"Guardian_Home_Screen" bundle:nil];
     
     [self.navigationController pushViewController:information animated:YES];
@@ -129,14 +200,27 @@
 
 -(NSInteger)tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
-    NSLog(@"The number of routes is %d", [sectionInfo numberOfObjects]);
+    id <NSFetchedResultsSectionInfo> sectionInfo = 
+    [[_fetchedResultsController sections] objectAtIndex:section];
+    NSLog(@"The number of objects is %d", [sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
+
+- (void)configureCell:(beginningCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    cell.test.text=info.Name;
+    UIImage *temp = [UIImage imageWithData: info.StartPicture];
+    cell.startPicture.image = temp;
+    UIImage *temp2 = [UIImage imageWithData: info.DestinationPicture];
+    cell.endPicture.image = temp2;
+    NSLog(@"the cell should say %@", cell.test.text);
+}
+
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSLog(@"the current row is %d", indexPath.row);
     static NSString *cellIdentifier=@"beginningCell";
     beginningCell *cell = (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell==nil)
@@ -150,9 +234,8 @@
             }
         }
     }
-    Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.test.text=info.Name; //This is called twice for some reason
-    //NSLog(@"cell.test is: %@", cell.test);
+    [self configureCell:cell atIndexPath:indexPath];
+
     /* for(int i=0; i<=[eventData numberOfEvents]; i++)
      {
      if(indexPath.row==[eventData numberOfEvents])
@@ -179,30 +262,72 @@
      }    
      */  return cell;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //IF last row is selected, we assume it's a back button?
-    if(indexPath.row==[[_fetchedResultsController fetchedObjects] count])
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    }
-    else
-    {
-        Route *selectedRoute =[_fetchedResultsController objectAtIndexPath:indexPath];
-        //Route_edit_screenViewController *indexName = artist.artistName;
-        //self.enterAlbumInfoViewController.artist = artist;
-        //self.enterAlbumInfoViewController.managedObjectContext = self.managedObjectContext;
-        //artist.inheritedIndexRow=indexPath.row;
-        Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
-        //information.inheritedIndexRow=indexPath.row;
-        information.inheritedName=selectedRoute.Name;
-        information.inheritedRoute=selectedRoute;
-        information.inheritedIndexRow=indexPath.row;
-        NSLog(@"Accessing Route: %@", information.inheritedRoute.Name);
-        [self.navigationController pushViewController:information animated:YES];
-    }
+    Route *primaryDirection=[_fetchedResultsController objectAtIndexPath:indexPath];
+    ShowPrimaryDirection *information=[[ShowPrimaryDirection alloc]init];
+    information.currentEvent=0;
+    information.routeName=primaryDirection.Name; 
+    [self.navigationController pushViewController:information animated:YES];
     
 }
+
+
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    NSLog(@"begin updates?");
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:(beginningCell *) [tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    NSLog(@"it's over!");
+    [self.tableView endUpdates];
+}
+
 @end

@@ -44,15 +44,15 @@
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
-                                                   cacheName:@"Root"];
+                                                   cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
-    //_fetchedResultsController.delegate = self;
+    _fetchedResultsController.delegate = self;
     
     [sort release];
     [fetchRequest release];
     [theFetchedResultsController release];
     
-    return _fetchedResultsController;
+    return _fetchedResultsController;    
     
 }
 
@@ -75,8 +75,9 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
-    
-    self.title = @"Failed Banks";
+    homeImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
+
+    self.title = @"Route Creation";
     
 }
 
@@ -99,7 +100,7 @@
     //		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //	}
     
-	[self presentViewController:picker animated:YES completion:nil];
+	[self presentModalViewController:picker animated:YES];
     
 }
 
@@ -113,7 +114,7 @@
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //	}
     
-	[self presentViewController:picker animated:YES completion:nil];
+	[self presentModalViewController:picker animated:YES];
     
 }
 
@@ -130,7 +131,21 @@
 
 -(IBAction)doneButtonPressed
 {
-    if(nameOfRoute.text.length>0){
+    if(homeImage.image==[UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"]){
+        NSString *msg = nil;
+        
+        msg = [[NSString alloc] initWithFormat: @"You must select a beginning image to continue."];
+        UIAlertView *saveAlert = [[UIAlertView alloc]
+                                  initWithTitle:@"Incomplete Information"
+                                  message:msg
+                                  delegate:self cancelButtonTitle:@"OK" 
+                                  otherButtonTitles:nil];
+        [saveAlert show];
+        [saveAlert release];
+        [msg release];     
+        
+    }
+    else if(nameOfRoute.text.length>0){
         NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
         Route *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:thisContext];
     /*    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
@@ -139,18 +154,20 @@
         
         [request setEntity:entity];
 
-*/      newInfo.Name=nameOfRoute.text;
+     */      
+        NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(homeImage.image)];
+        newInfo.StartPicture=coreDataImage;
+  
+        newInfo.Name=nameOfRoute.text;
         NSError *error;
 
         if (![thisContext save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
-
+        _fetchedResultsController = nil;
         
         //To get information to pass on to the next screen//
-      
-        
-        
+  
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
         [fetchRequest setEntity:retrievedEntity];
@@ -176,6 +193,7 @@
         Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
         information.inheritedRoute=info;
         [self.navigationController pushViewController:information animated:YES];
+        
     }
     else
     {
@@ -187,8 +205,6 @@
         [alert show];
         [alert release];
     }
-
-    
 }
 
 -(IBAction)cancelButtonPressed{

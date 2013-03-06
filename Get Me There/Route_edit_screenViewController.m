@@ -10,6 +10,7 @@
 #import "edit_modal_screen.h"
 #import "Events_list.h"
 #import "Event_class.h"
+#import "destination_Picture.h"
 #import "Event.h"
 #import "Route.h"
 #import "Get_Me_ThereAppDelegate.h"
@@ -26,7 +27,8 @@ BOOL didCreateNew;
     NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     //WAS "EVENT"////////////////////////////////////////////////////////////////////////////////////////
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription 
+                                   entityForName:@"Event" inManagedObjectContext:thisContext];
     [fetchRequest setEntity:entity];
     NSLog(@"in fetchedresultscontroller predicate: name is %@", inheritedRoute.Name);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"route.Name=%@", inheritedRoute.Name];
@@ -41,9 +43,9 @@ BOOL didCreateNew;
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
-                                                   cacheName:@"Root"];
+                                                   cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = theFetchedResultsController.delegate;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     NSArray *sections = theFetchedResultsController.sections;
     int someSection = 0;
     id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:someSection];
@@ -98,9 +100,40 @@ BOOL didCreateNew;
         NSLog(@"Not here!");
     NSLog(@"Route name is %@", info.Name);
     */
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPressed)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+
     self.title = @"Events";
 }
 
+- (IBAction)backButtonPressed
+{
+    NSLog(@"button pressed!");
+    id <NSFetchedResultsSectionInfo> sectionInfo = 
+    [[_fetchedResultsController sections] objectAtIndex:0];
+      NSLog(@"number of rows in section is %d", [sectionInfo numberOfObjects]);
+    if([sectionInfo numberOfObjects]==0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
+                                                        message:@"You cannot create an empty route"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+
+    }
+    else if(!inheritedRoute.DestinationPicture){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
+                                                        message:@"Please provide a destination picture"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+    else  
+       [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 
 -(id)initWithStyle:(UITableViewStyle)style
@@ -130,7 +163,8 @@ BOOL didCreateNew;
 {
     self.fetchedResultsController = nil;
 	
-    [super viewDidUnload];
+    //[super viewDidUnload];
+    self.fetchedResultsController = nil;
     
 }
 
@@ -203,31 +237,33 @@ BOOL didCreateNew;
     */
   //  NSSet *allOfMyEventsInTheList=inheritedRoute.Event;
    // NSArray *objects=[allOfMyEventsInTheList allObjects];
-    NSArray *allEvents = 
-    [[[_fetchedResultsController sections] objectAtIndex:0] objects];
+    NSArray *allEvents = [[[_fetchedResultsController sections] objectAtIndex:0] objects];
 
     Event *info = [allEvents objectAtIndex:indexPath.row];
-    NSLog(@"the number of objects in the array is %d and the index path is %d, and the events row number is %d", [allEvents count], indexPath.row, [info.Row integerValue]);
+    //NSLog(@"the number of objects in the array is %d and the index path is %d, and the events row number is %d", [allEvents count], indexPath.row, [info.Row integerValue]);
     cell.textLabel.text=info.Name;
-    NSLog(@"info.Arrow=%@", info.Arrow);
-    if([info.Arrow isEqualToString:@"straight"]){
-        cell.imageView.image=[UIImage imageNamed:@"straight.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight right"]){
-        cell.imageView.image=[UIImage imageNamed:@"slight right.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Right"]){
-        cell.imageView.image=[UIImage imageNamed:@"right turn.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight left"]){
-        cell.imageView.image=[UIImage imageNamed:@"slight left.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Left"]){
-        NSLog(@"here i am");
-        cell.imageView.image=[UIImage imageNamed:@"left turn.png"];
-        
-    }
-     
+    //NSLog(@"info.Arrow=%@", info.Arrow);
+    
+    cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", info.Arrow]];
+    
+//    if([info.Arrow isEqualToString:@"straight"]){
+//        cell.imageView.image=[UIImage imageNamed:@"straight.png"];
+//    }
+//    else if([info.Arrow isEqualToString:@"slight right"]){
+//        cell.imageView.image=[UIImage imageNamed:@"slight right.png"];
+//    }
+//    else if([info.Arrow isEqualToString:@"Right"]){
+//        cell.imageView.image=[UIImage imageNamed:@"right turn.png"];
+//    }
+//    else if([info.Arrow isEqualToString:@"slight left"]){
+//        cell.imageView.image=[UIImage imageNamed:@"slight left.png"];
+//    }
+//    else if([info.Arrow isEqualToString:@"Left"]){
+//        NSLog(@"here i am");
+//        cell.imageView.image=[UIImage imageNamed:@"left turn.png"];
+//        
+//    }
+    
 }
 
 -(NSInteger)tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger)section
@@ -238,12 +274,12 @@ BOOL didCreateNew;
  //   NSArray *objects=[allOfMyEventsInTheList allObjects];
  //   NSLog(@"number of rows in section is %d", [objects count]);
  //   return [objects count]+2;
-    NSLog(@"number of rows in section is %d", [sectionInfo numberOfObjects]);
+    //NSLog(@"number of rows in section is %d", [sectionInfo numberOfObjects]);
     return ([sectionInfo numberOfObjects]+2);
 }
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//The program never reaches this function!
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier=@"MediaCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -259,8 +295,7 @@ BOOL didCreateNew;
     }
     else if(indexPath.row==[[_fetchedResultsController fetchedObjects]count]+1)
     {
-        cell.textLabel.text=@"Back";
-        cell.imageView.image=[UIImage imageNamed:@"back button.png"];
+        cell.textLabel.text=@"Add a destination picture";
 
     }
     else{
@@ -287,7 +322,9 @@ BOOL didCreateNew;
     edit_modal_screen *editer=[[edit_modal_screen alloc]init];
     if(indexPath.row==[[_fetchedResultsController fetchedObjects] count]+1)
     {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        destination_Picture *information = [[destination_Picture alloc]init];
+        information.inheritedRoute = inheritedRoute;
+        [self.navigationController pushViewController:information animated:YES];
         return;
     }
     else if(indexPath.row==[[_fetchedResultsController fetchedObjects] count]+2)
@@ -304,7 +341,7 @@ BOOL didCreateNew;
         didCreateNew=FALSE;
         editer.newEvent=FALSE;
         Event *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-        NSLog(@"I'm passing to the modal screen the event %@, which has the properties %@", info.Name, info.Transit);
+        //NSLog(@"I'm passing to the modal screen the event %@, which has the properties %@", info.Name, info.Transit);
         editer.inheritedEvent=info;
         editer.givenName=info.Name;
     }
@@ -314,8 +351,8 @@ BOOL didCreateNew;
     NSArray *allEvents = 
     [[[_fetchedResultsController sections] objectAtIndex:0] objects];
     editer.indexRow=[allEvents count];
-    NSLog(@"the count of the array passed in is %d", [allEvents count]);
-    [self presentViewController:editer animated:YES completion: nil];
+    //NSLog(@"the count of the array passed in is %d", [allEvents count]);
+    [self presentModalViewController:editer animated:YES];
     [editer release];
 }
 

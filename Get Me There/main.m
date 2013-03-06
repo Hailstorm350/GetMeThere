@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Get_Me_ThereAppDelegate.h"
-
 int main(int argc, char *argv[])
 {
     @autoreleasepool {

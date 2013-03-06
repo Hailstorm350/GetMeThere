@@ -42,9 +42,9 @@
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
-                                                   cacheName:@"Root"];
+                                                   cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = theFetchedResultsController.delegate;
+    _fetchedResultsController.delegate = self;
     
     [sort release];
     [fetchRequest release];
@@ -83,7 +83,8 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    //[super viewDidUnload];
+    self.fetchedResultsController = nil;
     self.fetchedResultsController = nil;
 
     // Release any retained subviews of the main view.
@@ -131,7 +132,7 @@
     id <NSFetchedResultsSectionInfo> sectionInfo = 
     [[_fetchedResultsController sections] objectAtIndex:section];
     NSLog(@"The number of objects is %d", [sectionInfo numberOfObjects]);
-    return [sectionInfo numberOfObjects]+1;
+    return [sectionInfo numberOfObjects];
 }
 
 
@@ -169,13 +170,7 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    if(indexPath.row==[[_fetchedResultsController fetchedObjects]count]){
-        cell.textLabel.text=@"Back"; 
-        cell.imageView.image=[UIImage imageNamed:@"back button.png"];
 
-    }
-
-    else
          [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -226,7 +221,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //IF last row is selected, we assume it's a back button?
+
     if(indexPath.row==[[_fetchedResultsController fetchedObjects] count])
     {
         [self.navigationController popViewControllerAnimated:YES];
@@ -234,17 +229,17 @@
     }
     else
     {
-        Route *selectedRoute =[_fetchedResultsController objectAtIndexPath:indexPath];
+        Route *artist =[_fetchedResultsController objectAtIndexPath:indexPath];
         //Route_edit_screenViewController *indexName = artist.artistName;
         //self.enterAlbumInfoViewController.artist = artist;
         //self.enterAlbumInfoViewController.managedObjectContext = self.managedObjectContext;
         //artist.inheritedIndexRow=indexPath.row;
         Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
         //information.inheritedIndexRow=indexPath.row;
-        information.inheritedName=selectedRoute.Name;
-        information.inheritedRoute=selectedRoute;
+        information.inheritedName=artist.Name;
+        information.inheritedRoute=artist;
         information.inheritedIndexRow=indexPath.row;
-        NSLog(@"Accessing Route: %@", information.inheritedRoute.Name);
+        NSLog(@"the name of the route that i'm passing is %@", information.inheritedRoute.Name);
         [self.navigationController pushViewController:information animated:YES];
     }
 
