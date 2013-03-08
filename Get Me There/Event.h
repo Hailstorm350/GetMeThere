@@ -19,6 +19,14 @@
 @property (nonatomic, retain) NSData * Picture;
 @property (nonatomic, retain) NSNumber * Row;
 @property (nonatomic, retain) NSNumber * Transit;
-@property (nonatomic, retain) Route *route;
+@property (nonatomic, retain) NSSet *route;
 
+@end
+
+@interface Event (CoreDataGeneratedAccessors)
+
+- (void)addRouteObject:(Route *)value;
+- (void)removeRouteObject:(Route *)value;
+- (void)addRoutes:(NSSet *)values;
+- (void)removeRoutes:(NSSet *)values;
 @end

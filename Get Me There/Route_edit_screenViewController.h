@@ -9,12 +9,8 @@
 #import <UIKit/UIKit.h>
 @class Route;
 @interface Route_edit_screenViewController : UITableViewController{
-NSFetchedResultsController *_fetchedResultsController;
-NSManagedObjectContext *_context;
-
-
-
-
+    NSFetchedResultsController *_fetchedResultsController;
+    NSManagedObjectContext *_context;
 }
 
 

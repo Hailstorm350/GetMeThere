@@ -16,7 +16,7 @@
         <attribute name="Transit" optional="YES" attributeType="Boolean">
             <userInfo/>
         </attribute>
-        <relationship name="route" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="Event" inverseEntity="Route">
+        <relationship name="route" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Route" inverseName="Event" inverseEntity="Route">
             <userInfo/>
         </relationship>
         <userInfo/>
@@ -50,9 +50,9 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="Event" positionX="160" positionY="192" width="128" height="135"/>
-        <element name="PanicButtonDetails" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="PanicButtonInfo" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Route" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Event" positionX="-398" positionY="135" width="128" height="133"/>
+        <element name="PanicButtonDetails" positionX="-180" positionY="324" width="128" height="105"/>
+        <element name="PanicButtonInfo" positionX="169" positionY="-45" width="128" height="75"/>
+        <element name="Route" positionX="-110" positionY="42" width="128" height="120"/>
     </elements>
 </model>

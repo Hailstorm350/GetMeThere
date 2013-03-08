@@ -46,12 +46,12 @@
 - (IBAction)toggleEdit {
     [self.tableView setEditing:!self.tableView.editing animated:YES];
     if(self.tableView.editing) {
-        NSLog(@"if of toggleEdit");
+//        NSLog(@"if of toggleEdit");
         [self.navigationItem.rightBarButtonItem setTitle:@"Done"];
         [self.navigationItem.leftBarButtonItem setTitle:@"+New"];
         [self.navigationItem.leftBarButtonItem setAction:@selector(toggleAdd)];
     }else {
-        NSLog(@"else of toggleEdit");
+//        NSLog(@"else of toggleEdit");
         [self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
         [self.navigationItem.leftBarButtonItem setTitle:@"Back"];
         [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPressed)];

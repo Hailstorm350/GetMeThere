@@ -36,9 +36,9 @@
     NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:thisContext sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-    NSArray *sections = theFetchedResultsController.sections;
-    int someSection = 0;
-    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:someSection];
+//    NSArray *sections = theFetchedResultsController.sections;
+//    int someSection = 0;
+//    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:someSection];
     //int numberOfObjects = [sectionInfo numberOfObjects];
     //NSLog(@"numberOfObjects = %d", numberOfObjects);
     [sort release];

@@ -24,13 +24,11 @@ BOOL didCreateNew;
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    NSManagedObjectContext *thisContext = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    //WAS "EVENT"////////////////////////////////////////////////////////////////////////////////////////
-    NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Event" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
     [fetchRequest setEntity:entity];
-    NSLog(@"in fetchedresultscontroller predicate: name is %@", inheritedRoute.Name);
+    //NSLog(@"in fetchedresultscontroller predicate: name is %@", inheritedRoute.Name);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"route.Name=%@", inheritedRoute.Name];
     
     [fetchRequest setPredicate:predicate];   
@@ -46,11 +44,11 @@ BOOL didCreateNew;
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-    NSArray *sections = theFetchedResultsController.sections;
-    int someSection = 0;
-    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:someSection];
-    int numberOfObjects = [sectionInfo numberOfObjects];
-    NSLog(@"nuberOfObjects=%d", numberOfObjects);
+    //NSArray *sections = theFetchedResultsController.sections;
+    //int someSection = 0;
+    //id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:someSection];
+    //int numberOfObjects = [sectionInfo numberOfObjects];
+    //NSLog(@"nuberOfObjects=%d", numberOfObjects);
     [sort release];
     [fetchRequest release];
     [theFetchedResultsController release];
@@ -64,42 +62,15 @@ BOOL didCreateNew;
     [super viewDidLoad];
 	
 	NSError *error;
-    NSLog(@"Here");
-    NSLog(@"index row is %d", inheritedIndexRow);
+    //NSLog(@"Here");
+    //NSLog(@"index row is %d", inheritedIndexRow);
     //NSLog(@"Route is %@", inheritedName);
     if (![[self fetchedResultsController] performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1); 
     }
     
-    //    if (![UIImagePickerController isSourceTypeAvailable:
-    //		  UIImagePickerControllerSourceTypeCamera]) {
-    //		takePictureButton.hidden = YES;
-    //		selectFromCameraRollButton.hidden = YES;
-    //	}
-    /*
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-    
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
-    
-    [request setEntity:entity];
-     
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", inheritedName];
-        
-        [request setPredicate:predicate];
-    
-    NSArray *array = [thisContext executeFetchRequest:request error:&error];
-    Route *info;
-    if([array count]==1){
-        info=[array objectAtIndex:0];
-        [_fetchedResultsController.fetchRequest setPredicate:predicate];
-    }
-    else
-        NSLog(@"Not here!");
-    NSLog(@"Route name is %@", info.Name);
-    */
+
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPressed)];
     self.navigationItem.leftBarButtonItem = leftButton;
 
@@ -108,19 +79,23 @@ BOOL didCreateNew;
 
 - (IBAction)backButtonPressed
 {
-    NSLog(@"button pressed!");
-    id <NSFetchedResultsSectionInfo> sectionInfo = 
-    [[_fetchedResultsController sections] objectAtIndex:0];
-      NSLog(@"number of rows in section is %d", [sectionInfo numberOfObjects]);
+    //NSLog(@"button pressed!");
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:0];
+      //NSLog(@"number of rows in section is %d", [sectionInfo numberOfObjects]);
     if([sectionInfo numberOfObjects]==0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
-                                                        message:@"You cannot create an empty route"
+                                                        message:@"You cannot create an empty route.\nThis route will be discarded."
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
         [alert release];
-
+        
+        NSManagedObjectContext *thisContext = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext]; //TODO grab this from class object _context
+        [thisContext deleteObject:inheritedRoute];
+        [thisContext save:nil];
+        //[_context reset]; //attempt to discard this route from the managedObjectContext
+        [self.navigationController popToRootViewControllerAnimated:YES]; //Pop back to Root
     }
     else if(!inheritedRoute.DestinationPicture){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
@@ -164,7 +139,7 @@ BOOL didCreateNew;
     self.fetchedResultsController = nil;
 	
     //[super viewDidUnload];
-    self.fetchedResultsController = nil;
+    //self.fetchedResultsController = nil;
     
 }
 
@@ -206,37 +181,7 @@ BOOL didCreateNew;
     return @"List of Events";
 }
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    /*NSError *error;
 
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-    
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
-    
-    [request setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", inheritedName];
-    
-    [request setPredicate:predicate];
-    
-    NSArray *array = [thisContext executeFetchRequest:request error:&error];
-    Route *info;
-    if([array count]==1){
-        info=[array objectAtIndex:0];
-        [_fetchedResultsController.fetchRequest setPredicate:predicate];
-    }
-    else
-        NSLog(@"Not here!");
-    NSLog(@"Route name is STILL %@", info.Name);
-    NSSet *eventSet = info.Event;
-    NSArray *objectsArray = [eventSet allObjects];
-    NSLog(@"the number of events so far is %d", [objectsArray count]);
-    //Event.info *hello= [_fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"The text label should say %@", info.Name);
-    */
-  //  NSSet *allOfMyEventsInTheList=inheritedRoute.Event;
-   // NSArray *objects=[allOfMyEventsInTheList allObjects];
     NSArray *allEvents = [[[_fetchedResultsController sections] objectAtIndex:0] objects];
 
     Event *info = [allEvents objectAtIndex:indexPath.row];
@@ -245,24 +190,7 @@ BOOL didCreateNew;
     //NSLog(@"info.Arrow=%@", info.Arrow);
     
     cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", info.Arrow]];
-    
-//    if([info.Arrow isEqualToString:@"straight"]){
-//        cell.imageView.image=[UIImage imageNamed:@"straight.png"];
-//    }
-//    else if([info.Arrow isEqualToString:@"slight right"]){
-//        cell.imageView.image=[UIImage imageNamed:@"slight right.png"];
-//    }
-//    else if([info.Arrow isEqualToString:@"Right"]){
-//        cell.imageView.image=[UIImage imageNamed:@"right turn.png"];
-//    }
-//    else if([info.Arrow isEqualToString:@"slight left"]){
-//        cell.imageView.image=[UIImage imageNamed:@"slight left.png"];
-//    }
-//    else if([info.Arrow isEqualToString:@"Left"]){
-//        NSLog(@"here i am");
-//        cell.imageView.image=[UIImage imageNamed:@"left turn.png"];
-//        
-//    }
+
     
 }
 
@@ -281,6 +209,7 @@ BOOL didCreateNew;
 //The program never reaches this function!
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //NSLog(@"cellForRowAtIndexPath %d", indexPath.item);
     static NSString *CellIdentifier=@"MediaCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell==nil)

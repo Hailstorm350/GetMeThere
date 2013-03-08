@@ -46,7 +46,7 @@
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
     [sort release];
     [fetchRequest release];

@@ -18,20 +18,18 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (_fetchedResultsController != nil) {
-        NSLog(@"HERE WE GO!");
         return _fetchedResultsController;
     }
     NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Route" inManagedObjectContext:thisContext];    [fetchRequest setEntity:entity];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
+    [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
                               initWithKey:@"Row" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
     [fetchRequest setFetchBatchSize:20];
     
     NSFetchedResultsController *theFetchedResultsController = 
@@ -39,7 +37,7 @@
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
     [sort release];
     [fetchRequest release];
@@ -88,7 +86,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"checking how many times it loads...");
+    //NSLog(@"checking how many times it loads...");
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
@@ -102,51 +100,22 @@
     self.navigationItem.leftBarButtonItem = leftButton;
    // [self.tableView reloadData];
 
-    self.title = @"Route";   
+    self.title = @"Routes";   
 }
 
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"here i want to reload!!!");
-    self.fetchedResultsController=nil;
-    NSError *error;
-
-    if (![[self fetchedResultsController] performFetch:&error]) {
-		// Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-	}
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Information" style:UIBarButtonItemStyleBordered target:self action:@selector(informationButtonPressed)];
-    self.navigationItem.rightBarButtonItem = editButton;
-    
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Guardian" style:UIBarButtonItemStyleBordered target:self action:@selector(GuardianButtonPressed)];
-    self.navigationItem.leftBarButtonItem = leftButton;
-    // [self.tableView reloadData];
-    
-    self.title = @"Route";   
-
     [self.tableView reloadData];
-    //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-    [super viewWillAppear:animated]; 
-    
-//    NSError *error;
-//	if (![[self fetchedResultsController] performFetch:&error]) {
-//		// Update to handle the error appropriately.
-//		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//		exit(-1);  // Fail
-//	}
-
-
-	
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidUnload
 {
     //[super viewDidUnload];
     self.fetchedResultsController = nil;
-    self.fetchedResultsController=nil;
+    //self.fetchedResultsController=nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -174,14 +143,13 @@
 
 -(IBAction) informationButtonPressed
 {
-    NSLog(@"It is pressed2");
     
     UserManual *information=[[UserManual alloc]init];
     [self presentModalViewController:information animated:YES];
     [information release];
 }
 -(IBAction) GuardianButtonPressed{
-    NSLog(@"It is pressed");
+    
     Guardian_Home_Screen *information=[[Guardian_Home_Screen alloc]initWithNibName:@"Guardian_Home_Screen" bundle:nil];
     
     [self.navigationController pushViewController:information animated:YES];
@@ -201,8 +169,8 @@
 -(NSInteger)tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = 
-    [[_fetchedResultsController sections] objectAtIndex:section];
-    NSLog(@"The number of objects is %d", [sectionInfo numberOfObjects]);
+    [[_fetchedResultsController sections] objectAtIndex:0];
+    NSLog(@"The number of Routes is %d", [sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
@@ -214,13 +182,13 @@
     cell.startPicture.image = temp;
     UIImage *temp2 = [UIImage imageWithData: info.DestinationPicture];
     cell.endPicture.image = temp2;
-    NSLog(@"the cell should say %@", cell.test.text);
+    //NSLog(@"the cell should say %@", cell.test.text);
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"the current row is %d", indexPath.row);
+    //NSLog(@"the current row is %d", indexPath.row);
     static NSString *cellIdentifier=@"beginningCell";
     beginningCell *cell = (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell==nil)
@@ -276,7 +244,7 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    NSLog(@"begin updates?");
+    //NSLog(@"begin updates?");
     [self.tableView beginUpdates];
 }
 
@@ -326,7 +294,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-    NSLog(@"it's over!");
+    //NSLog(@"it's over!");
     [self.tableView endUpdates];
 }
 

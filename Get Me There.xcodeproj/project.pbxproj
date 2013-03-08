@@ -601,16 +601,16 @@
 		02683D0C1534C3F2008E5147 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: eva jensen (3NV6DMZKY8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: eva jensen (3NV6DMZKY8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Get Me There/Get Me There-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88D6DB46-A8FC-43AC-B18A-88FEFAF77F9A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88D6DB46-A8FC-43AC-B18A-88FEFAF77F9A";
+				PROVISIONING_PROFILE = "1A4E663E-873F-4202-880A-833F3B61DC34";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1A4E663E-873F-4202-880A-833F3B61DC34";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -618,16 +618,16 @@
 		02683D0D1534C3F2008E5147 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: eva jensen (3NV6DMZKY8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: eva jensen (3NV6DMZKY8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ken Wigginton (MPQC3Z35KM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Get Me There/Get Me There-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Get Me There/Get Me There-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88D6DB46-A8FC-43AC-B18A-88FEFAF77F9A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "88D6DB46-A8FC-43AC-B18A-88FEFAF77F9A";
+				PROVISIONING_PROFILE = "1A4E663E-873F-4202-880A-833F3B61DC34";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1A4E663E-873F-4202-880A-833F3B61DC34";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

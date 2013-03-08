@@ -44,7 +44,7 @@
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
     [sort release];
     [fetchRequest release];
@@ -78,7 +78,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
@@ -129,18 +129,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = 
-    [[_fetchedResultsController sections] objectAtIndex:section];
-    NSLog(@"The number of objects is %d", [sectionInfo numberOfObjects]);
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    //NSLog(@"The number of objects is %d", [sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"indexPath.row=%d", indexPath.row);
+    //NSLog(@"indexPath.row=%d", indexPath.row);
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=info.Name;
-    NSLog(@"the text label is %@", cell.textLabel.text);
+    //NSLog(@"the text label is %@", cell.textLabel.text);
     /*NSLog(@"info.Arrow=%@", info.Arrow);
     if([info.Arrow isEqualToString:@"straight"]){
         cell.imageView.image=[UIImage imageNamed:@"straight.png"];
@@ -187,19 +186,23 @@
 }
 */
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        NSManagedObjectContext *context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+        [context deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
+        NSError *error;
+        if (![context save: &error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);
+        }
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
-*/
 
 /*
 // Override to support rearranging the table view.

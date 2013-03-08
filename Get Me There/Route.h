@@ -25,6 +25,6 @@
 
 - (void)addEventObject:(Event *)value;
 - (void)removeEventObject:(Event *)value;
-- (void)addEvent:(NSSet *)values;
-- (void)removeEvent:(NSSet *)values;
+- (void)addEvents:(NSSet *)values;
+- (void)removeEvents:(NSSet *)values;
 @end

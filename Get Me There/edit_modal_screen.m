@@ -57,7 +57,7 @@
                                         managedObjectContext:thisContext sectionNameKeyPath:nil 
                                                    cacheName:@"Row"];
     self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
     [sort release];
     [fetchRequest release];
@@ -86,11 +86,11 @@
     {
         NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
         Event *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:thisContext];
-        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        //NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
         
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
+        //NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
         
-        [request setEntity:entity];
+        //[request setEntity:entity];
         
         newInfo.Name=textField.text;
         //   newInfo.Picture=(NSValueTransformer *)imageView;
@@ -118,18 +118,18 @@
         else{
             newInfo.Transit=[NSNumber numberWithBool:true];
         }
-        NSLog(@"the inherited row is %d", indexRow);
+        //NSLog(@"the inherited row is %d", indexRow);
         NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
         newInfo.Row= newRow;
-        newInfo.route=finalInheritedRoute;
-        NSLog(@"the new event's route is %@, but the inherited route is %@", newInfo.route.Name, finalInheritedRoute.Name);
+        newInfo.Route = finalInheritedRoute;
+        [finalInheritedRoute addEventObject:newInfo];
+        NSLog(@"the new event's route is %@, but the inherited route is %@", newInfo.route, finalInheritedRoute);
         NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
         newInfo.Picture=coreDataImage;
         NSError *error;
         if (![thisContext save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
-        //        NSLog(@"newInfo.transit=%i, newInfo.arrow=%@, newInfo.name=%@", newInfo.Transit, newInfo.Arrow, newInfo.Name);
               
         [self dismissViewControllerAnimated:YES completion:nil];        
         
