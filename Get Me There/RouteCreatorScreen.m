@@ -13,7 +13,7 @@
 
 @implementation RouteCreatorScreen
 @synthesize takePictureButton, selectFromLibrary, homeImage, nameOfRoute;
-@synthesize context=_context, fetchedResultsController=_fetchedResultsController;
+@synthesize context, fetchedResultsController=_fetchedResultsController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,12 +27,10 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-    
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Route" inManagedObjectContext:thisContext];    
+                                   entityForName:@"Route" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
@@ -43,7 +41,7 @@
     
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:thisContext sectionNameKeyPath:nil 
+                                        managedObjectContext:context sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
@@ -68,6 +66,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
@@ -146,22 +147,15 @@
         
     }
     else if(nameOfRoute.text.length>0){
-        NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-        Route *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:thisContext];
-    /*    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-        
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
-        
-        [request setEntity:entity];
-
-     */      
+        Route *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
+         
         NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(homeImage.image)];
         newInfo.StartPicture=coreDataImage;
   
         newInfo.Name=nameOfRoute.text;
         NSError *error;
 
-        if (![thisContext save:&error]) {
+        if (![context save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         _fetchedResultsController = nil;
@@ -169,12 +163,12 @@
         //To get information to pass on to the next screen//
   
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
+        NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
         [fetchRequest setEntity:retrievedEntity];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", nameOfRoute.text];
         
         [fetchRequest setPredicate:predicate];   
-        NSArray *array = [thisContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *array = [context executeFetchRequest:fetchRequest error:&error];
         NSLog(@"upon saving a new route, the count of the array is %d", [array count]);
 
         Route *info=[array objectAtIndex:0];

@@ -13,18 +13,16 @@
 #import "Get_Me_ThereAppDelegate.h"
 #import "ShowPrimaryDirection.h"
 @implementation Where_Am_IViewController
-@synthesize context=_context, fetchedResultsController=_fetchedResultsController;
+@synthesize context, fetchedResultsController=_fetchedResultsController;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-    
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
@@ -34,7 +32,7 @@
     
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:thisContext sectionNameKeyPath:nil 
+                                        managedObjectContext:context sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
@@ -86,7 +84,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //NSLog(@"checking how many times it loads...");
+    
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.

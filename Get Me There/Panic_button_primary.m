@@ -13,18 +13,18 @@
 #import "Get_Me_ThereAppDelegate.h"
 
 @implementation Panic_button_primary
-@synthesize context = _context, fetchedResultsController = _fetchedResultsController;
+@synthesize context, fetchedResultsController = _fetchedResultsController;
 
 - (NSFetchedResultsController *)fetchedResultsController {
-    NSLog(@"IS THIS THE ISSUE?!");
+   
     
     if (_fetchedResultsController != nil) {
-        NSLog(@"HELLO THERE!");
+        
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate]managedObjectContext];
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"details.phone" ascending:NO];
@@ -32,7 +32,7 @@
     
     [fetchRequest setFetchBatchSize:20];
     
-    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:thisContext sectionNameKeyPath:nil cacheName:nil];
+    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
@@ -68,13 +68,15 @@
 {
     [super viewDidLoad];
     
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
-    NSLog(@"DID YOU LOAD?!");
     self.title = @"Contact List";   
 }
 

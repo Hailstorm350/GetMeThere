@@ -14,7 +14,6 @@
     UITextField *phoneField;
     UIImageView *imageField;
     UIButton *photoButton;
-    NSManagedObjectContext *_context;
     NSFetchedResultsController *_fetchedResultsController;
     NSString *givenName;
 }
@@ -23,7 +22,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *phoneField;
 @property (nonatomic, retain) IBOutlet UIImageView *imageField;
 @property (nonatomic, retain) IBOutlet UIButton *photoButton;
-@property (nonatomic, retain) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSString *givenName;
 

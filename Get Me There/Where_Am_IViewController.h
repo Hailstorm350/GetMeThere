@@ -11,9 +11,9 @@
 
 @interface Where_Am_IViewController : UITableViewController<UITabBarDelegate, UITableViewDataSource> {
     NSFetchedResultsController *_fetchedResultsController;
-    NSManagedObjectContext *_context;
 }
--(IBAction) informationButtonPressed;
--(IBAction) GuardianButtonPressed;
-@property (nonatomic, retain) NSManagedObjectContext *context;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;@end
+    -(IBAction) informationButtonPressed;
+    -(IBAction) GuardianButtonPressed;
+    @property (nonatomic, strong) NSManagedObjectContext *context;
+    @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@end

@@ -10,7 +10,6 @@
 @class Route;
 @interface Route_edit_screenViewController : UITableViewController{
     NSFetchedResultsController *_fetchedResultsController;
-    NSManagedObjectContext *_context;
 }
 
 
@@ -20,6 +19,6 @@
 @property (nonatomic, retain) NSString *inheritedName;
 @property (nonatomic, retain) Route *inheritedRoute;
 //@property (nonatomic) NSIndexPath inheritedIndexPath;
-@property (nonatomic, retain) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @end

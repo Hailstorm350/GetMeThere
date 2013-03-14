@@ -11,19 +11,18 @@
 #import "Route.h"
 @implementation destination_Picture
 
-@synthesize endImage, takePictureButton, selectFromLibrary, fetchedResultsController=_fetchedResultsController, context=_context, inheritedRoute;
+@synthesize endImage, takePictureButton, selectFromLibrary, fetchedResultsController=_fetchedResultsController, context, inheritedRoute;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Route" inManagedObjectContext:thisContext];    
+                                   entityForName:@"Route" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", inheritedRoute.Name];
     
@@ -36,7 +35,7 @@
     
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:thisContext sectionNameKeyPath:nil 
+                                        managedObjectContext:context sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
@@ -46,7 +45,6 @@
     [theFetchedResultsController release];
     
     return _fetchedResultsController;    
-    
 }
 
 
@@ -72,12 +70,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+    
     endImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
 
     self.title = @"Destination Picture";
@@ -101,11 +104,8 @@
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
-    //	if((UIButton *) sender == selectFromLibrary) {
     picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    //	} else {
-    //		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //	}
+
     
 	[self presentModalViewController:picker animated:YES];
     
@@ -114,12 +114,8 @@
 -(IBAction) takePicture{
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
-    
-    //	if((UIButton *) sender == selectFromLibrary) {
-    //   picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    //	} else {
+
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //	}
     
 	[self presentModalViewController:picker animated:YES];
     
@@ -150,27 +146,16 @@
                                   otherButtonTitles:nil];
         [saveAlert show];
         [saveAlert release];
-        [msg release];     
+        [msg release];
         
     }
     else {
         
-        NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-        //Route *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:thisContext];
-        /*    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-         
-         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:thisContext];
-         
-         [request setEntity:entity];
-         
-         */  
-        Route *newInfo=inheritedRoute;
         NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(endImage.image)];
-        newInfo.DestinationPicture=coreDataImage;
-        NSLog(@"the inherited route is %@", inheritedRoute.Name);
+        inheritedRoute.DestinationPicture=coreDataImage;
+        
         NSError *error;
-    
-        if (![thisContext save:&error]) {
+        if (![context save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         //_fetchedResultsController =nil;

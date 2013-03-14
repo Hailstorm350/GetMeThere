@@ -14,7 +14,6 @@
     UIButton *takePictureButton;
 	UIButton *selectFromLibrary;
     NSFetchedResultsController *_fetchedResultsController;
-    NSManagedObjectContext *_context;
 }
 -(IBAction) doneButtonPressed;
 -(IBAction) cancelButtonPressed;
@@ -24,7 +23,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *endImage;
 @property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
 @property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
-@property (nonatomic, retain) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @end

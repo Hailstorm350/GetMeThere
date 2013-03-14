@@ -14,7 +14,6 @@
     UIButton *panicCallButton;
     UIButton *nextDirButton;
     UIButton *prevDirButton;
-    NSManagedObjectContext *_context;
     NSFetchedResultsController *_fetchedResultsController;
     NSString *routeName;
     NSInteger currentEvent;
@@ -26,7 +25,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *panicCallButton;
 @property (nonatomic, retain) IBOutlet UIButton *nextDirButton;
 @property (nonatomic, retain) IBOutlet UIButton *prevDirButton;
-@property (nonatomic, retain) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSString *routeName;
 - (IBAction)contactListButtonPressed;

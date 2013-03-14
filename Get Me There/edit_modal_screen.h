@@ -20,7 +20,6 @@
     UISegmentedControl *goStraight;
     UISegmentedControl *sharpOrNormal;
     NSArray *_events;
-    NSManagedObjectContext *_context;
     NSFetchedResultsController *_fetchedResultsController;
     //UIScrollView *scrollView;
     UIImageView *imageView;
@@ -50,7 +49,7 @@
 @property (nonatomic,retain) IBOutlet UISegmentedControl *transitStop;
 @property (nonatomic) BOOL newEvent;
 @property (nonatomic, retain) NSArray *events;
-@property (nonatomic, retain) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) Route *finalInheritedRoute;
 @property (nonatomic, retain) Event *inheritedEvent;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;

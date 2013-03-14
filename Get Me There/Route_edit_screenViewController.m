@@ -15,7 +15,7 @@
 #import "Route.h"
 #import "Get_Me_ThereAppDelegate.h"
 @implementation Route_edit_screenViewController
-@synthesize context=_context;
+@synthesize context;
 @synthesize fetchedResultsController = _fetchedResultsController, inheritedIndexRow, inheritedName, inheritedRoute;
 BOOL didCreateNew;
 
@@ -24,9 +24,8 @@ BOOL didCreateNew;
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     //NSLog(@"in fetchedresultscontroller predicate: name is %@", inheritedRoute.Name);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"route.Name=%@", inheritedRoute.Name];
@@ -40,15 +39,12 @@ BOOL didCreateNew;
     
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:thisContext sectionNameKeyPath:nil 
+                                        managedObjectContext:context sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-    //NSArray *sections = theFetchedResultsController.sections;
-    //int someSection = 0;
-    //id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:someSection];
-    //int numberOfObjects = [sectionInfo numberOfObjects];
-    //NSLog(@"nuberOfObjects=%d", numberOfObjects);
+
+    
     [sort release];
     [fetchRequest release];
     [theFetchedResultsController release];
@@ -59,19 +55,21 @@ BOOL didCreateNew;
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 	
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    
 	NSError *error;
-    //NSLog(@"Here");
-    //NSLog(@"index row is %d", inheritedIndexRow);
-    //NSLog(@"Route is %@", inheritedName);
+
     if (![[self fetchedResultsController] performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1); 
+        exit(-1);
     }
     
 
-        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPressed)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPressed)];
     self.navigationItem.leftBarButtonItem = leftButton;
 
     self.title = @"Events";
@@ -91,10 +89,9 @@ BOOL didCreateNew;
         [alert show];
         [alert release];
         
-        NSManagedObjectContext *thisContext = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext]; //TODO grab this from class object _context
-        [thisContext deleteObject:inheritedRoute];
-        [thisContext save:nil];
-        //[_context reset]; //attempt to discard this route from the managedObjectContext
+        [context deleteObject:inheritedRoute];
+        [context save:nil];
+        
         [self.navigationController popToRootViewControllerAnimated:YES]; //Pop back to Root
     }
     else if(!inheritedRoute.DestinationPicture){

@@ -11,7 +11,7 @@
 #import "Get_Me_ThereAppDelegate.h"
 #import "Route_edit_screenViewController.h"
 @implementation RouteList
-@synthesize context=_context, fetchedResultsController=_fetchedResultsController;
+@synthesize context, fetchedResultsController=_fetchedResultsController;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -23,15 +23,12 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (_fetchedResultsController != nil) {
-        NSLog(@"HERE WE GO!");
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-    
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Route" inManagedObjectContext:thisContext];    [fetchRequest setEntity:entity];
+                                   entityForName:@"Route" inManagedObjectContext:context];    [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
                               initWithKey:@"Row" ascending:NO];
@@ -41,7 +38,7 @@
     
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:thisContext sectionNameKeyPath:nil 
+                                        managedObjectContext:context sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
@@ -67,6 +64,9 @@
 {
     [super viewDidLoad];
     
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
@@ -84,7 +84,6 @@
 - (void)viewDidUnload
 {
     //[super viewDidUnload];
-    self.fetchedResultsController = nil;
     self.fetchedResultsController = nil;
 
     // Release any retained subviews of the main view.
@@ -191,7 +190,6 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        NSManagedObjectContext *context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
         [context deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
         NSError *error;
         if (![context save: &error]) {

@@ -23,7 +23,7 @@
 @synthesize finalInheritedRoute;
 @synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight, newEvent, indexRow, givenName, viewContollerData, modalScreenEventData, inheritedEvent;
 
-@synthesize events=_events, context=_context, fetchedResultsController=_fetchedResultsController, fetchedResultsControllerInherited;
+@synthesize events=_events, context, fetchedResultsController=_fetchedResultsController, fetchedResultsControllerInherited;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,11 +39,10 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Event" inManagedObjectContext:thisContext];
+                                   entityForName:@"Event" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
@@ -54,7 +53,7 @@
     
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:thisContext sectionNameKeyPath:nil 
+                                        managedObjectContext:context sectionNameKeyPath:nil
                                                    cacheName:@"Row"];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
@@ -84,13 +83,8 @@
     }
     else if(newEvent)
     {
-        NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-        Event *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:thisContext];
-        //NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-        
-        //NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
-        
-        //[request setEntity:entity];
+        Event *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
+
         
         newInfo.Name=textField.text;
         //   newInfo.Picture=(NSValueTransformer *)imageView;
@@ -127,7 +121,7 @@
         NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
         newInfo.Picture=coreDataImage;
         NSError *error;
-        if (![thisContext save:&error]) {
+        if (![context save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
               
@@ -137,11 +131,11 @@
     else
     {
         
-        NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+        
         
         NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
         
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
         
         [request setEntity:entity];
         
@@ -152,12 +146,9 @@
         
         NSError *error;
         
-        NSArray *array = [thisContext executeFetchRequest:request error:&error];
+        NSArray *array = [context executeFetchRequest:request error:&error];
         Event *info=[array objectAtIndex:0];
         
-        //        Event *newInfo=[NSEntityDescription atIndexPath:@"Event" inManagedObjectContext:thisContext];
-        
-        //  info.Picture=(NSValueTransformer *)imageView;
         
         info.Name=textField.text;
         if(goStraight.selectedSegmentIndex==1){
@@ -189,7 +180,7 @@
         NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
         info.Picture=coreDataImage;
         
-        if (![thisContext save:&error]) {
+        if (![context save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         [self dismissViewControllerAnimated:YES completion:nil];    
@@ -302,79 +293,46 @@
 -(void)viewDidLoad{
     
     [super viewDidLoad];
-    //    if (![UIImagePickerController isSourceTypeAvailable:
-    //		  UIImagePickerControllerSourceTypeCamera]) {
-    //		takePictureButton.hidden = YES;
-    //		selectFromCameraRollButton.hidden = YES;
-    //	}
-    
-/*    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-    
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:thisContext];
-    
-    [request setEntity:entity];
-*/    if([inheritedEvent.Row integerValue]!=indexRow){
-    NSLog(@"It's not a new route!");
-//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", givenName];
-        
-  //      [request setPredicate:predicate];
-        
-    //    NSError *error = nil;
-        
-    //    NSArray *array = [thisContext executeFetchRequest:request error:&error];
-    //    if([array count]==1){
-            Event *info=inheritedEvent;
-        NSLog(@"I'm passing to the modal screen the event %@, which has the properties %@", info.Name, info.Transit);
 
-  //          [_fetchedResultsController.fetchRequest setPredicate:predicate];
-            textField.text=info.Name;
-            //      imageView.image=(UIImage *)info.Picture;
-            //        NSData* Picture = [NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
-            //       imageView = [UIImage imageWithData:info.Picture];
-            
-            //    NSData *Picture = UIImagePNGRepresentation(yourUIImage);
-            //   [newManagedObject setValue:Picture forKey:@"Picture"];
-            if([info.Arrow isEqualToString:@"straight"])
-                goStraight.selectedSegmentIndex=1;
-            else if([info.Arrow isEqualToString:@"slight right"]){
-                rightOrLeft.selectedSegmentIndex=0;
-                sharpOrNormal.selectedSegmentIndex=0;
-                goStraight.selectedSegmentIndex=0;
-            }
-            else if([info.Arrow isEqualToString:@"Right"]){
-                rightOrLeft.selectedSegmentIndex=0;
-                sharpOrNormal.selectedSegmentIndex=1;
-                goStraight.selectedSegmentIndex=0;
-            }
-            else if([info.Arrow isEqualToString:@"slight left"]){
-                rightOrLeft.selectedSegmentIndex=1;
-                sharpOrNormal.selectedSegmentIndex=0;
-                goStraight.selectedSegmentIndex=0;
-            }
-            else if([info.Arrow isEqualToString:@"Left"]){
-                rightOrLeft.selectedSegmentIndex=1;
-                sharpOrNormal.selectedSegmentIndex=1;
-                goStraight.selectedSegmentIndex=0;
-            }
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    
+    if([inheritedEvent.Row integerValue]!=indexRow){ //Not a new route
+
+        Event *info=inheritedEvent;
+        textField.text=info.Name;
+       
+        //TODO replace all this crappy logic with something useful: redesign UI for picker
+        if([info.Arrow isEqualToString:@"straight"])
+            goStraight.selectedSegmentIndex=1;
+        else if([info.Arrow isEqualToString:@"slight right"]){
+            rightOrLeft.selectedSegmentIndex=0;
+            sharpOrNormal.selectedSegmentIndex=0;
+            goStraight.selectedSegmentIndex=0;
+        }
+        else if([info.Arrow isEqualToString:@"Right"]){
+            rightOrLeft.selectedSegmentIndex=0;
+            sharpOrNormal.selectedSegmentIndex=1;
+            goStraight.selectedSegmentIndex=0;
+        }
+        else if([info.Arrow isEqualToString:@"slight left"]){
+            rightOrLeft.selectedSegmentIndex=1;
+            sharpOrNormal.selectedSegmentIndex=0;
+            goStraight.selectedSegmentIndex=0;
+        }
+        else if([info.Arrow isEqualToString:@"Left"]){
+            rightOrLeft.selectedSegmentIndex=1;
+            sharpOrNormal.selectedSegmentIndex=1;
+            goStraight.selectedSegmentIndex=0;
+        }
     UIImage* image=[UIImage imageWithData:info.Picture];
     imageView.image=image;
-//          if(info.Transit==[NSNumber numberWithBool:false])
-        if([info.Transit compare:[NSNumber numberWithBool:NO]]==NSOrderedSame){
-                NSLog(@"It's false");
-                transitStop.selectedSegmentIndex=0;
-            }
-            else
-                transitStop.selectedSegmentIndex=1;
-            //    NSError *error;
-            /*	if (![[self fetchedResultsController] performFetch:&error]) {
-             // Update to handle the error appropriately.
-             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-             exit(-1);  // Fail
-             }
-                }
- */   }    
+    if([info.Transit compare:[NSNumber numberWithBool:NO]]==NSOrderedSame){
+        transitStop.selectedSegmentIndex=0;
+    }
+    else
+        transitStop.selectedSegmentIndex=1;
+    }
     self.title = @"Event";
     
 }

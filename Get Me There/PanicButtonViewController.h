@@ -15,11 +15,10 @@
 {
     UITableView *myTableView;
     NSFetchedResultsController *_fetchedResultsController;
-    NSManagedObjectContext *_context;
 }
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, retain) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) IBOutlet UITableView *myTableView;
 - (IBAction)toggleEdit;
 - (IBAction)toggleAdd;

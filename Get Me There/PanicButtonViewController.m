@@ -14,7 +14,7 @@
 
 @implementation PanicButtonViewController
 @synthesize fetchedResultsController = _fetchedResultsController;
-@synthesize context = _context, myTableView;
+@synthesize context, myTableView;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
@@ -22,9 +22,8 @@
         //NSLog(@"HELLO THERE!");
         return _fetchedResultsController;
     }
-    NSManagedObjectContext *thisContext=[[Get_Me_ThereAppDelegate sharedAppDelegate]managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"details.phone" ascending:NO];
@@ -32,7 +31,7 @@
     
     [fetchRequest setFetchBatchSize:20];
     
-    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:thisContext sectionNameKeyPath:nil cacheName:nil];
+    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
@@ -59,8 +58,6 @@
 }
 
 - (IBAction)toggleAdd {
-    //NSManagedObjectContext *context = _context;
-    NSManagedObjectContext *context=[[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     PanicButtonInfo *panicButtonInfo = [NSEntityDescription 
                                         insertNewObjectForEntityForName:@"PanicButtonInfo" 
                                         inManagedObjectContext:context];
@@ -71,16 +68,6 @@
     panicButtonDetails.phone = @"1234";   
     panicButtonDetails.info = panicButtonInfo;
     panicButtonInfo.details = panicButtonDetails;
-    
-    /*NSMutableArray *list = [[_fetchedResultsController fetchedObjects] mutableCopy];
-    int i = 0;
-    for(PanicButtonInfo *person in list){
-        PanicButtonDetails *details = person.details;
-        [details setValue:[NSNumber numberWithInt:i++] forKey:@"details.displayOrder"];
-    }
-    [list release], list = nil;
-    [_context save:nil];
-    */
     
     EditContactViewController *detailViewController = [[EditContactViewController alloc] initWithNibName:@"EditContactViewController" bundle:nil];
     detailViewController.givenName = panicButtonInfo.name;
@@ -125,13 +112,10 @@
 
 - (void)viewDidLoad
 {
-    /*Old Method
-     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName: @"PanicButtonInfo" 
-                                   inManagedObjectContext:_context];
-    [fetchRequest setEntity:entity];
-     */
+    [super viewDidLoad];
+    
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -148,9 +132,9 @@
     
     [editButton release];
     [leftButton release];
-    [super viewDidLoad];
+
     
-    //Old Method cont. [fetchRequest release];
+
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -260,7 +244,6 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        NSManagedObjectContext *context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];       
         [context deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
         NSError *error;
         if (![context save: &error]) {

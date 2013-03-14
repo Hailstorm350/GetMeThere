@@ -15,7 +15,7 @@
 @implementation EditContactViewController
 @synthesize nameField, phoneField, imageField, photoButton, givenName;
 @synthesize fetchedResultsController = _fetchedResultsController;
-@synthesize context = _context;
+@synthesize context;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +33,7 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:_context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"details.phone" ascending:NO];
@@ -41,7 +41,7 @@
     
     [fetchRequest setFetchBatchSize:20];
     
-    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:_context sectionNameKeyPath:nil cacheName:nil];
+    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
@@ -131,12 +131,10 @@
 }
 
 - (IBAction)saveContact
-{
-    NSManagedObjectContext *thisContext = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
-    
+{    
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
     [request setEntity:entity];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", givenName];
@@ -144,7 +142,7 @@
     
     NSError *error = nil;
     
-    NSArray *array = [thisContext executeFetchRequest:request error:&error];
+    NSArray *array = [context executeFetchRequest:request error:&error];
     
     PanicButtonInfo *contactInfo = [array objectAtIndex:0];
     PanicButtonDetails *details = contactInfo.details;
@@ -157,7 +155,7 @@
     [new release];
     details.imageToData = imageField.image;
     
-    if (![thisContext save:&error]) {
+    if (![context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
     
@@ -197,11 +195,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    NSManagedObjectContext *thisContext = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
+    if(self.context == nil)
+        self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:thisContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
        
     [request setEntity:entity];
     
@@ -209,21 +208,18 @@
     [request setPredicate:predicate];
     
     NSError *error = nil;
-    NSArray *array = [thisContext executeFetchRequest:request error:&error];
-    //if([array count] == 1) {
-        PanicButtonInfo *contactInfo = [array objectAtIndex:0];
-        PanicButtonDetails *details = contactInfo.details;
-        [_fetchedResultsController.fetchRequest setPredicate:predicate];
-        nameField.text = contactInfo.name;
-        phoneField.text = [NSString stringWithFormat: @"%@", details.phone];
-    if(!details.imageToData){
-        NSLog(@"SHOW ME THE PICTURE!");
-            imageField.image = [UIImage imageNamed:@"Facebook-Silhouette_normal.gif.png"];
-    }
-        else 
-            imageField.image = details.imageToData; 
-        
-// }
+    NSArray *array = [context executeFetchRequest:request error:&error];
+    PanicButtonInfo *contactInfo = [array objectAtIndex:0];
+    PanicButtonDetails *details = contactInfo.details;
+    [_fetchedResultsController.fetchRequest setPredicate:predicate];
+    nameField.text = contactInfo.name;
+    phoneField.text = [NSString stringWithFormat: @"%@", details.phone];
+    
+    if(!details.imageToData)
+        imageField.image = [UIImage imageNamed:@"Facebook-Silhouette_normal.gif.png"];
+    else
+        imageField.image = details.imageToData;
+    
     self.title = @"Edit Contact";
     
     
@@ -234,7 +230,7 @@
     //[super viewDidUnload];
     self.fetchedResultsController = nil;
     self.imageField = nil;
-    self.photoButton = nil;    
+    self.photoButton = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
