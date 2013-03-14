@@ -27,7 +27,7 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    @autoreleasepool {
+    //@autoreleasepool {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription 
                                        entityForName:@"Route" inManagedObjectContext:context];
@@ -51,7 +51,7 @@
         [theFetchedResultsController release];
         
         return _fetchedResultsController;    
-    }
+    //}
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,7 +76,8 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
-    homeImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
+    if(homeImage.image == nil)
+        homeImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
 
     self.title = @"Route Creation";
     
@@ -143,16 +144,15 @@
                                   otherButtonTitles:nil];
         [saveAlert show];
         [saveAlert release];
-        [msg release];     
+        [msg release];
         
     }
     else if(nameOfRoute.text.length>0){
         @autoreleasepool {
 
             Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-             
-            NSData* coreDataImage = [NSData dataWithData:UIImagePNGRepresentation(homeImage.image)];
-            newRoute.StartPicture = coreDataImage;
+
+            newRoute.StartPicture = [NSData dataWithData:UIImagePNGRepresentation(homeImage.image)];
       
             newRoute.Name = nameOfRoute.text;
             NSError *error;
@@ -160,27 +160,28 @@
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
-            _fetchedResultsController = nil;
+            //_fetchedResultsController = nil;
             
             //To get information to pass on to the next screen//
       
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-            NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
-            [fetchRequest setEntity:retrievedEntity];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", nameOfRoute.text];
+            //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            //NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
+            //[fetchRequest setEntity:retrievedEntity];
+            //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", nameOfRoute.text];
             
-            [fetchRequest setPredicate:predicate];   
-            NSArray *array = [context executeFetchRequest:fetchRequest error:&error];
+            //[fetchRequest setPredicate:predicate];
+            //NSArray *array = [context executeFetchRequest:fetchRequest error:&error];
 
-            Route *info=[array objectAtIndex:0];
+            //Route *info=[array objectAtIndex:0];
             
             
             
             
             Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
-            information.inheritedRoute=info;
+            information.inheritedRoute=newRoute;
             
             [self.navigationController pushViewController:information animated:YES];
+    
         }
     }
     else
