@@ -20,31 +20,29 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate=[NSPredicate predicateWithFormat:@"route.Name=%@", routeName];
-    [fetchRequest setPredicate:predicate];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"Row" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-//    NSArray *sections = theFetchedResultsController.sections;
-//    int someSection = 0;
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:someSection];
-    //int numberOfObjects = [sectionInfo numberOfObjects];
-    //NSLog(@"numberOfObjects = %d", numberOfObjects);
-    [sort release];
-    [fetchRequest release];
-    [theFetchedResultsController release];
-    
-    return _fetchedResultsController;
+    @autoreleasepool {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSPredicate *predicate=[NSPredicate predicateWithFormat:@"route.Name=%@", routeName];
+        [fetchRequest setPredicate:predicate];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"Row" ascending:YES];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        
+        [fetchRequest setFetchBatchSize:20];
+        
+        NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController = theFetchedResultsController;
+        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
+        
+        return _fetchedResultsController;
+    }
 }
 
 - (IBAction)contactListButtonPressed {

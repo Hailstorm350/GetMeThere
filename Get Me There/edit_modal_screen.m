@@ -39,31 +39,31 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Event" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                              initWithKey:@"details.closeDate" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController = 
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:context sectionNameKeyPath:nil
-                                                   cacheName:@"Row"];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-    
-    [sort release];
-    [fetchRequest release];
-    [theFetchedResultsController release];
-    
-    return _fetchedResultsController;    
-    
+    @autoreleasepool {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription 
+                                       entityForName:@"Event" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                                  initWithKey:@"details.closeDate" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        
+        [fetchRequest setFetchBatchSize:20];
+        
+        NSFetchedResultsController *theFetchedResultsController = 
+        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                            managedObjectContext:context sectionNameKeyPath:nil
+                                                       cacheName:@"Row"];
+        self.fetchedResultsController = theFetchedResultsController;
+        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+        
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
+        
+        return _fetchedResultsController;    
+    }
 }
 
 
@@ -83,107 +83,111 @@
     }
     else if(newEvent)
     {
-        Event *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
+        @autoreleasepool {
 
+            Event *newRoute=[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
+
+            
+            newRoute.Name=textField.text;
+            //   newRoute.Picture=(NSValueTransformer *)imageView;
+            if(goStraight.selectedSegmentIndex==1){
+                newRoute.Arrow=@"straight";
+            }
+            else if(rightOrLeft.selectedSegmentIndex==1){
+                if(sharpOrNormal.selectedSegmentIndex==1){
+                    newRoute.Arrow=@"left turn";
+                }
+                else{
+                    newRoute.Arrow=@"slight left";
+                }
+            }
+            else if(rightOrLeft.selectedSegmentIndex==0){
+                if(sharpOrNormal.selectedSegmentIndex==1){
+                    newRoute.Arrow=@"right turn";
+                }
+                else{
+                    newRoute.Arrow=@"slight right";
+                }
+            }
+            if(transitStop.selectedSegmentIndex==0)           
+                newRoute.Transit=[NSNumber numberWithBool:false];
+            else{
+                newRoute.Transit=[NSNumber numberWithBool:true];
+            }
+            //NSLog(@"the inherited row is %d", indexRow);
+            NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
+            newRoute.Row= newRow;
+            newRoute.Route = finalInheritedRoute;
+            [finalInheritedRoute addEventObject:newRoute];
+            NSLog(@"the new event's route is %@, but the inherited route is %@", newRoute.route, finalInheritedRoute);
+            NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
+            newRoute.Picture=coreDataImage;
         
-        newInfo.Name=textField.text;
-        //   newInfo.Picture=(NSValueTransformer *)imageView;
-        if(goStraight.selectedSegmentIndex==1){
-            newInfo.Arrow=@"straight";
-        }
-        else if(rightOrLeft.selectedSegmentIndex==1){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                newInfo.Arrow=@"left turn";
-            }
-            else{
-                newInfo.Arrow=@"slight left";
+            NSError *error;
+            if (![context save:&error]) {
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             }
         }
-        else if(rightOrLeft.selectedSegmentIndex==0){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                newInfo.Arrow=@"right turn";
-            }
-            else{
-                newInfo.Arrow=@"slight right";
-            }
-        }
-        if(transitStop.selectedSegmentIndex==0)           
-            newInfo.Transit=[NSNumber numberWithBool:false];
-        else{
-            newInfo.Transit=[NSNumber numberWithBool:true];
-        }
-        //NSLog(@"the inherited row is %d", indexRow);
-        NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
-        newInfo.Row= newRow;
-        newInfo.Route = finalInheritedRoute;
-        [finalInheritedRoute addEventObject:newInfo];
-        NSLog(@"the new event's route is %@, but the inherited route is %@", newInfo.route, finalInheritedRoute);
-        NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
-        newInfo.Picture=coreDataImage;
-        NSError *error;
-        if (![context save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
-              
         [self dismissViewControllerAnimated:YES completion:nil];        
         
     }
     else
     {
         
-        
-        
-        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-        
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
-        
-        [request setEntity:entity];
-        
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", givenName];
-        
-        [request setPredicate:predicate];
-        
-        NSError *error;
-        
-        NSArray *array = [context executeFetchRequest:request error:&error];
-        Event *info=[array objectAtIndex:0];
-        
-        
-        info.Name=textField.text;
-        if(goStraight.selectedSegmentIndex==1){
-            info.Arrow=@"straight";
-        }
-        else if(rightOrLeft.selectedSegmentIndex==1){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                info.Arrow=@"Left";
+        @autoreleasepool {
+
+            NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+            
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
+            
+            [request setEntity:entity];
+            
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", givenName];
+            
+            [request setPredicate:predicate];
+            
+            NSError *error;
+            
+            NSArray *array = [context executeFetchRequest:request error:&error];
+            Event *info=[array objectAtIndex:0];
+            
+            
+            info.Name=textField.text;
+            if(goStraight.selectedSegmentIndex==1){
+                info.Arrow=@"straight";
+            }
+            else if(rightOrLeft.selectedSegmentIndex==1){
+                if(sharpOrNormal.selectedSegmentIndex==1){
+                    info.Arrow=@"Left";
+                }
+                else{
+                    info.Arrow=@"slight left";
+                }
+            }
+            else if(rightOrLeft.selectedSegmentIndex==0){
+                if(sharpOrNormal.selectedSegmentIndex==1){
+                    info.Arrow=@"Right";
+                }
+                else{
+                    info.Arrow=@"slight right";
+                }
+            }
+            
+            if(transitStop.selectedSegmentIndex==0) {
+                info.Transit=[NSNumber numberWithBool:false];
             }
             else{
-                info.Arrow=@"slight left";
+                info.Transit=[NSNumber numberWithBool:true];
+            }    
+            NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
+            info.Picture=coreDataImage;
+            
+            if (![context save:&error]) {
+                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
         }
-        else if(rightOrLeft.selectedSegmentIndex==0){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                info.Arrow=@"Right";
-            }
-            else{
-                info.Arrow=@"slight right";
-            }
-        }
-        
-        if(transitStop.selectedSegmentIndex==0) {
-            info.Transit=[NSNumber numberWithBool:false];
-        }
-        else{
-            info.Transit=[NSNumber numberWithBool:true];
-        }    
-        NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
-        info.Picture=coreDataImage;
-        
-        if (![context save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-        [self dismissViewControllerAnimated:YES completion:nil];    
+        [self dismissViewControllerAnimated:YES completion:nil];
         
     }
     

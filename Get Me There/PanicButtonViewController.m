@@ -22,24 +22,26 @@
         //NSLog(@"HELLO THERE!");
         return _fetchedResultsController;
     }
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"details.phone" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-    
-    [sort release];
-    [fetchRequest release];
-    [theFetchedResultsController release];
-    
-    return _fetchedResultsController;
+    @autoreleasepool {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"details.phone" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        
+        [fetchRequest setFetchBatchSize:20];
+        
+        NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController = theFetchedResultsController;
+        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+        
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
+        
+        return _fetchedResultsController;
+    }
 }
 
 - (IBAction)toggleEdit {
@@ -58,22 +60,25 @@
 }
 
 - (IBAction)toggleAdd {
-    PanicButtonInfo *panicButtonInfo = [NSEntityDescription 
-                                        insertNewObjectForEntityForName:@"PanicButtonInfo" 
-                                        inManagedObjectContext:context];
-    panicButtonInfo.name = @"New Contact";
-    PanicButtonDetails *panicButtonDetails = [NSEntityDescription 
-                                              insertNewObjectForEntityForName:@"PanicButtonDetails" 
-                                              inManagedObjectContext:context];
-    panicButtonDetails.phone = @"1234";   
-    panicButtonDetails.info = panicButtonInfo;
-    panicButtonInfo.details = panicButtonDetails;
-    
-    EditContactViewController *detailViewController = [[EditContactViewController alloc] initWithNibName:@"EditContactViewController" bundle:nil];
-    detailViewController.givenName = panicButtonInfo.name;
+    @autoreleasepool {
+
+        PanicButtonInfo *panicButtonInfo = [NSEntityDescription 
+                                            insertNewObjectForEntityForName:@"PanicButtonInfo" 
+                                            inManagedObjectContext:context];
+        panicButtonInfo.name = @"New Contact";
+        PanicButtonDetails *panicButtonDetails = [NSEntityDescription 
+                                                  insertNewObjectForEntityForName:@"PanicButtonDetails" 
+                                                  inManagedObjectContext:context];
+        panicButtonDetails.phone = @"1234";   
+        panicButtonDetails.info = panicButtonInfo;
+        panicButtonInfo.details = panicButtonDetails;
         
-    [self presentModalViewController:detailViewController animated:YES];
-    [detailViewController release];
+        EditContactViewController *detailViewController = [[EditContactViewController alloc] initWithNibName:@"EditContactViewController" bundle:nil];
+        detailViewController.givenName = panicButtonInfo.name;
+        
+        [self presentModalViewController:detailViewController animated:YES];
+        [detailViewController release];
+    }
 
 }
 

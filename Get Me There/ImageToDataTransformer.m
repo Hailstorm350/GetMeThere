@@ -19,8 +19,13 @@
 }
 
 - (id)transformedValue:(id)value {
-    NSData *data = UIImagePNGRepresentation(value);
-    return data;
+    if(value == nil)
+        return nil;
+
+//    if([value isKindOfClass:[NSData class]])
+//        return value;
+    
+    return UIImagePNGRepresentation((UIImage *) value);
 }
 
 - (id)reverseTransformedValue:(id)value {

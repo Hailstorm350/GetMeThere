@@ -25,29 +25,30 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Route" inManagedObjectContext:context];    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                              initWithKey:@"Row" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController = 
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:context sectionNameKeyPath:nil
-                                                   cacheName:nil];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-    
-    [sort release];
-    [fetchRequest release];
-    [theFetchedResultsController release];
-    
-    return _fetchedResultsController;    
+    @autoreleasepool {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription 
+                                       entityForName:@"Route" inManagedObjectContext:context];    [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                                  initWithKey:@"Row" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        
+        [fetchRequest setFetchBatchSize:20];
+        
+        NSFetchedResultsController *theFetchedResultsController = 
+        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                            managedObjectContext:context sectionNameKeyPath:nil
+                                                       cacheName:nil];
+        self.fetchedResultsController = theFetchedResultsController;
+        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+        
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
+        
+        return _fetchedResultsController;
+    }
     
 }
 - (void)didReceiveMemoryWarning

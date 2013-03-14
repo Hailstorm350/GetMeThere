@@ -24,33 +24,34 @@ BOOL didCreateNew;
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    //NSLog(@"in fetchedresultscontroller predicate: name is %@", inheritedRoute.Name);
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"route.Name=%@", inheritedRoute.Name];
-    
-    [fetchRequest setPredicate:predicate];   
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                              initWithKey:@"Row" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController = 
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:context sectionNameKeyPath:nil
-                                                   cacheName:nil];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+    @autoreleasepool {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"route.Name=%@", inheritedRoute.Name];
+        
+        [fetchRequest setPredicate:predicate];   
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                                  initWithKey:@"Row" ascending:YES];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        
+        [fetchRequest setFetchBatchSize:20];
+        
+        NSFetchedResultsController *theFetchedResultsController = 
+        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                            managedObjectContext:context sectionNameKeyPath:nil
+                                                       cacheName:nil];
+        self.fetchedResultsController = theFetchedResultsController;
+        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
 
-    
-    [sort release];
-    [fetchRequest release];
-    [theFetchedResultsController release];
-    
-    return _fetchedResultsController;    
-    
+        
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
+        
+        return _fetchedResultsController;
+    }
 }
 
 
@@ -77,9 +78,8 @@ BOOL didCreateNew;
 
 - (IBAction)backButtonPressed
 {
-    //NSLog(@"button pressed!");
     id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:0];
-      //NSLog(@"number of rows in section is %d", [sectionInfo numberOfObjects]);
+    
     if([sectionInfo numberOfObjects]==0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
                                                         message:@"You cannot create an empty route.\nThis route will be discarded."

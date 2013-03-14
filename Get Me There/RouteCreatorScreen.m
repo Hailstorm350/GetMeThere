@@ -27,31 +27,31 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Route" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                              initWithKey:@"Row" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController = 
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:context sectionNameKeyPath:nil
-                                                   cacheName:nil];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-    
-    [sort release];
-    [fetchRequest release];
-    [theFetchedResultsController release];
-    
-    return _fetchedResultsController;    
-    
+    @autoreleasepool {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription 
+                                       entityForName:@"Route" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                                  initWithKey:@"Row" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        
+        [fetchRequest setFetchBatchSize:20];
+        
+        NSFetchedResultsController *theFetchedResultsController = 
+        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                            managedObjectContext:context sectionNameKeyPath:nil
+                                                       cacheName:nil];
+        self.fetchedResultsController = theFetchedResultsController;
+        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+        
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
+        
+        return _fetchedResultsController;    
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -147,47 +147,41 @@
         
     }
     else if(nameOfRoute.text.length>0){
-        Route *newInfo=[NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-         
-        NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(homeImage.image)];
-        newInfo.StartPicture=coreDataImage;
-  
-        newInfo.Name=nameOfRoute.text;
-        NSError *error;
+        @autoreleasepool {
 
-        if (![context save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
+             
+            NSData* coreDataImage = [NSData dataWithData:UIImagePNGRepresentation(homeImage.image)];
+            newRoute.StartPicture = coreDataImage;
+      
+            newRoute.Name = nameOfRoute.text;
+            NSError *error;
+
+            if (![context save:&error]) {
+                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            }
+            _fetchedResultsController = nil;
+            
+            //To get information to pass on to the next screen//
+      
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
+            [fetchRequest setEntity:retrievedEntity];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", nameOfRoute.text];
+            
+            [fetchRequest setPredicate:predicate];   
+            NSArray *array = [context executeFetchRequest:fetchRequest error:&error];
+
+            Route *info=[array objectAtIndex:0];
+            
+            
+            
+            
+            Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
+            information.inheritedRoute=info;
+            
+            [self.navigationController pushViewController:information animated:YES];
         }
-        _fetchedResultsController = nil;
-        
-        //To get information to pass on to the next screen//
-  
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
-        [fetchRequest setEntity:retrievedEntity];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", nameOfRoute.text];
-        
-        [fetchRequest setPredicate:predicate];   
-        NSArray *array = [context executeFetchRequest:fetchRequest error:&error];
-        NSLog(@"upon saving a new route, the count of the array is %d", [array count]);
-
-        Route *info=[array objectAtIndex:0];
-
-  /*      
-        if([array count]==1){
-            info=[array objectAtIndex:0];
-            [_fetchedResultsController.fetchRequest setPredicate:predicate];
-        }
-*/
-        NSLog(@"the saved object is %@", info.Name);
-        
-        
-        
-        
-        Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
-        information.inheritedRoute=info;
-        [self.navigationController pushViewController:information animated:YES];
-        
     }
     else
     {
