@@ -12,8 +12,8 @@
 
 @implementation Route
 @dynamic DestinationPicture;
-@dynamic Name;
 @dynamic StartPicture;
+@dynamic Name;
 @dynamic Event;
 @dynamic Row;
 @end

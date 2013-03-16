@@ -11,7 +11,7 @@
 #import "Route.h"
 @implementation destination_Picture
 
-@synthesize endImage, takePictureButton, selectFromLibrary, fetchedResultsController=_fetchedResultsController, context, inheritedRoute;
+@synthesize endImage, imageURL, takePictureButton, selectFromLibrary, fetchedResultsController=_fetchedResultsController, context, inheritedRoute;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
@@ -118,13 +118,15 @@
     
 	[self presentModalViewController:picker animated:YES];
     
+    [picker release];
 }
 
 #pragma mark -
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
-	endImage.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	endImage.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.ImageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
@@ -149,17 +151,18 @@
         
     }
     else {
-        
-        NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(endImage.image)];
-        inheritedRoute.DestinationPicture=coreDataImage;
+
+        inheritedRoute.DestinationPicture=imageURL;
         
         NSError *error;
         if (![context save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         //_fetchedResultsController =nil;
-        [self.navigationController popViewControllerAnimated:YES];        
+        [self.navigationController popViewControllerAnimated:YES];
         
+        [imageURL release];
+        [self.view release];
         //To get information to pass on to the next screen//
     }
     

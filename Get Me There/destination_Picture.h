@@ -18,6 +18,7 @@
 -(IBAction) doneButtonPressed;
 -(IBAction) cancelButtonPressed;
 -(IBAction) getPhoto;
+
 @property (nonatomic, retain) Route *inheritedRoute;
 
 @property (nonatomic, retain) IBOutlet UIImageView *endImage;
@@ -25,5 +26,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSString *imageURL;
 
 @end

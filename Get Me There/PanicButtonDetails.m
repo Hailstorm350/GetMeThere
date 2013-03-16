@@ -12,7 +12,7 @@
 
 @implementation PanicButtonDetails
 @dynamic phone;
-@dynamic imageToData;
+@dynamic imageURL;
 @dynamic displayOrder;
 @dynamic info;
 

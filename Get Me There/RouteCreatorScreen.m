@@ -14,6 +14,7 @@
 @implementation RouteCreatorScreen
 @synthesize takePictureButton, selectFromLibrary, homeImage, nameOfRoute;
 @synthesize context, fetchedResultsController=_fetchedResultsController;
+@synthesize imageURL;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,10 +47,10 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
-        
+//        [sort release];
+//        [fetchRequest release];
+//        [theFetchedResultsController release];
+    
         return _fetchedResultsController;    
     //}
 }
@@ -95,13 +96,8 @@
 -(IBAction) getPhoto{
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
-    
-    //	if((UIButton *) sender == selectFromLibrary) {
     picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    //	} else {
-    //		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //	}
-    
+
 	[self presentModalViewController:picker animated:YES];
     
 }
@@ -110,11 +106,9 @@
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
-    //	if((UIButton *) sender == selectFromLibrary) {
-    //   picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    //	} else {
+
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //	}
+
     
 	[self presentModalViewController:picker animated:YES];
     
@@ -124,8 +118,10 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
-	homeImage.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	homeImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
+    self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString] ;
 }
+
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -148,12 +144,12 @@
         
     }
     else if(nameOfRoute.text.length>0){
-        @autoreleasepool {
+        //@autoreleasepool {
 
             Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-
-            newRoute.StartPicture = [NSData dataWithData:UIImagePNGRepresentation(homeImage.image)];
-      
+            
+            newRoute.StartPicture = imageURL;
+            
             newRoute.Name = nameOfRoute.text;
             NSError *error;
 
@@ -182,7 +178,7 @@
             
             [self.navigationController pushViewController:information animated:YES];
     
-        }
+        //}
     }
     else
     {

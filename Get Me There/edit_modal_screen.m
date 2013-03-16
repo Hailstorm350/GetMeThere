@@ -21,7 +21,7 @@
 @synthesize takePictureButton;
 @synthesize selectFromLibrary;
 @synthesize finalInheritedRoute;
-@synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight, newEvent, indexRow, givenName, viewContollerData, modalScreenEventData, inheritedEvent;
+@synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight, newEvent, indexRow, givenName, viewContollerData, modalScreenEventData, inheritedEvent, imageURL;
 
 @synthesize events=_events, context, fetchedResultsController=_fetchedResultsController, fetchedResultsControllerInherited;
 
@@ -85,43 +85,43 @@
     {
         @autoreleasepool {
 
-            Event *newRoute=[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
+            Event *newEventObject =[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
 
             
-            newRoute.Name=textField.text;
+            newEventObject.Name=textField.text;
             //   newRoute.Picture=(NSValueTransformer *)imageView;
             if(goStraight.selectedSegmentIndex==1){
-                newRoute.Arrow=@"straight";
+                newEventObject.Arrow=@"straight";
             }
             else if(rightOrLeft.selectedSegmentIndex==1){
                 if(sharpOrNormal.selectedSegmentIndex==1){
-                    newRoute.Arrow=@"left turn";
+                    newEventObject.Arrow=@"left turn";
                 }
                 else{
-                    newRoute.Arrow=@"slight left";
+                    newEventObject.Arrow=@"slight left";
                 }
             }
             else if(rightOrLeft.selectedSegmentIndex==0){
                 if(sharpOrNormal.selectedSegmentIndex==1){
-                    newRoute.Arrow=@"right turn";
+                    newEventObject.Arrow=@"right turn";
                 }
                 else{
-                    newRoute.Arrow=@"slight right";
+                    newEventObject.Arrow=@"slight right";
                 }
             }
             if(transitStop.selectedSegmentIndex==0)           
-                newRoute.Transit=[NSNumber numberWithBool:false];
+                newEventObject.Transit=[NSNumber numberWithBool:false];
             else{
-                newRoute.Transit=[NSNumber numberWithBool:true];
+                newEventObject.Transit=[NSNumber numberWithBool:true];
             }
             //NSLog(@"the inherited row is %d", indexRow);
             NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
-            newRoute.Row= newRow;
-            newRoute.Route = finalInheritedRoute;
-            [finalInheritedRoute addEventObject:newRoute];
-            NSLog(@"the new event's route is %@, but the inherited route is %@", newRoute.route, finalInheritedRoute);
-            NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
-            newRoute.Picture=coreDataImage;
+            newEventObject.Row= newRow;
+            //[newEventObject addRouteObject: finalInheritedRoute]; //TODO this needs to work for inverse in CoreData to function correctly
+            [finalInheritedRoute addEventObject:newEventObject];
+            NSLog(@"the new event's route is %@, but the inherited route is %@", newEventObject.route, finalInheritedRoute);
+            newEventObject.Picture = imageURL;
+            //newEventObject.Picture=coreDataImage;
         
             NSError *error;
             if (![context save:&error]) {
@@ -180,8 +180,8 @@
             else{
                 info.Transit=[NSNumber numberWithBool:true];
             }    
-            NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
-            info.Picture=coreDataImage;
+            
+            info.Picture=imageURL;
             
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -199,45 +199,22 @@
 //    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 /*
- -(IBAction) takePicture{
- //http://www.iphonedevsdk.com/forum/iphone-sdk-development/42457-save-image-core-data.html
- UIImagePickerController *picker =
- [[UIImagePickerController alloc] init];
- picker.delegate = self;
- picker.allowsImageEditing = YES;
- picker.sourceType = (sender == takePictureButton) ?
- UIImagePickerControllerSourceTypeCamera :
- UIImagePickerControllerSourceTypeSavedPhotosAlbum;
- [self presentModalViewController:picker animated:YES];
- [picker release];
- 
- }
- 
- - (IBAction)selectExistingPicture {
- if([UIImagePickerController isSourceTypeAvailable:
- UIImagePickerControllerSourceTypePhotoLibrary])
- {
- UIImagePickerController *picker= [[UIImagePickerController alloc]init];
- picker.delegate = self;
- picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
- [self presentModalViewController:picker animated:YES];
- [picker release];
- }
- }
- */
+
+ http://www.iphonedevsdk.com/forum/iphone-sdk-development/42457-save-image-core-data.html
+*/
+
+
 -(IBAction) getPhoto{
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
-    //	if((UIButton *) sender == selectFromLibrary) {
     picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    //	} else {
-    //		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //	}
     
 	[self presentModalViewController:picker animated:YES];
     
+    [picker release];
 }
 
 -(IBAction) takePicture{
@@ -258,7 +235,8 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
-	imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
@@ -329,8 +307,9 @@
             sharpOrNormal.selectedSegmentIndex=1;
             goStraight.selectedSegmentIndex=0;
         }
-    UIImage* image=[UIImage imageWithData:info.Picture];
-    imageView.image=image;
+        
+    
+    imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: imageURL]]];
     if([info.Transit compare:[NSNumber numberWithBool:NO]]==NSOrderedSame){
         transitStop.selectedSegmentIndex=0;
     }

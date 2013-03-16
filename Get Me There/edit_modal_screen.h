@@ -55,6 +55,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
 @property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
+@property (nonatomic, strong) NSString *imageURL;
 //- (IBAction)selectExistingPicture;
 -(IBAction) getPhoto;
 @end

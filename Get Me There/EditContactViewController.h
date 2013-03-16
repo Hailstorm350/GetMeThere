@@ -21,6 +21,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *nameField;
 @property (nonatomic, retain) IBOutlet UITextField *phoneField;
 @property (nonatomic, retain) IBOutlet UIImageView *imageField;
+@property (nonatomic, strong) NSString *imageURL;
 @property (nonatomic, retain) IBOutlet UIButton *photoButton;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;

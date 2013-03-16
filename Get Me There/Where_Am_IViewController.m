@@ -178,12 +178,29 @@
 
 - (void)configureCell:(beginningCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    
     cell.test.text=info.Name;
-    UIImage *temp = [UIImage imageWithData: info.StartPicture];
-    cell.startPicture.image = temp;
-    UIImage *temp2 = [UIImage imageWithData: info.DestinationPicture];
-    cell.endPicture.image = temp2;
-    //NSLog(@"the cell should say %@", cell.test.text);
+    NSLog(@"in ConfigureCell, the StartPicture URL is: %@",info.StartPicture);
+    //Let's try something
+    
+    NSURL *imgURL = [NSURL fileURLWithPath:info.StartPicture];
+    if(imgURL)
+    {
+        NSData *myData = [NSData dataWithContentsOfURL:imgURL];
+        if(myData){
+            UIImage *img = [[UIImage alloc]initWithData:myData];
+            [cell.startPicture setImage: img];
+        }
+    }
+    
+    
+    
+    //End try
+    
+     //[UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL fileURLWithPath: info.StartPicture]]]];
+  
+    cell.endPicture.image = [UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString: info.DestinationPicture]]];
+
 }
 
 

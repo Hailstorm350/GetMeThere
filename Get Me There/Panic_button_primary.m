@@ -158,12 +158,10 @@
     PanicButtonInfo *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     PanicButtonDetails *details = info.details;
     cell.contactName.text = info.name;
-    cell.contactPicture.image = details.imageToData;
-    
-    
-    
-    
-    return cell;}
+    cell.contactPicture.image = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:[details imageURL]]]];
+        
+    return cell;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -172,9 +170,7 @@
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {

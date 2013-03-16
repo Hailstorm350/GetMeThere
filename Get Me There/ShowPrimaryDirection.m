@@ -75,7 +75,7 @@
     }
     
     //Show Directional Image
-    UIImage *temp = [UIImage imageWithData: info.Picture];
+    UIImage *temp = [UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString: info.Picture]]];
     directionImage.image = temp;
     
     int rows = [allEvents count] - 1;
@@ -112,7 +112,7 @@
     }
     
     //Show Directional Image
-    UIImage *temp = [UIImage imageWithData: info.Picture];
+    UIImage *temp = [UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString: info.Picture]]];
     directionImage.image = temp;
     
     int rows = [allEvents count] - 1;
@@ -159,8 +159,7 @@
     }
     NSArray *allEvents=[[[_fetchedResultsController sections] objectAtIndex:0] objects];
     Event *info=[allEvents objectAtIndex:currentEvent];
-    NSLog(@"the route inherited name is %@", routeName);
-    NSLog(@"Time for the directions! The arrow should be %@, %@", info.Name, info.Arrow);
+
     
     //Show Arrow Image
     if([info.Arrow isEqualToString:@"straight"]){
@@ -181,7 +180,7 @@
     }
     
     //Show Directional Image
-    UIImage *temp = [UIImage imageWithData: info.Picture];
+    UIImage *temp = [UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString: info.Picture]]];
     directionImage.image = temp;
     
     int rows = [allEvents count] - 1;

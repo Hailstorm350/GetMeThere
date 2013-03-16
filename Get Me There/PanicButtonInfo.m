@@ -12,5 +12,6 @@
 @implementation PanicButtonInfo
 @dynamic name;
 @dynamic details;
+@dynamic ImageURL;
 
 @end

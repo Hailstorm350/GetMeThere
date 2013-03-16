@@ -14,9 +14,9 @@
 @interface Route : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSData * DestinationPicture;
+@property (nonatomic, strong) NSString * DestinationPicture;
 @property (nonatomic, retain) NSString * Name;
-@property (nonatomic, retain) NSData * StartPicture;
+@property (nonatomic, strong) NSString * StartPicture;
 @property (nonatomic, retain) NSSet *Event;
 @property (nonatomic, retain) NSNumber *Row;
 @end
