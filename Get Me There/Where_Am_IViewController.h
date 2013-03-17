@@ -8,12 +8,17 @@
 #import <CoreData/CoreData.h>
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface Where_Am_IViewController : UITableViewController<UITabBarDelegate, UITableViewDataSource> {
     NSFetchedResultsController *_fetchedResultsController;
 }
     -(IBAction) informationButtonPressed;
     -(IBAction) GuardianButtonPressed;
+    //-(UIImage *)findLargeImage:(NSString *) imgurl;
     @property (nonatomic, strong) NSManagedObjectContext *context;
     @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @end
+
+typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);
+typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);

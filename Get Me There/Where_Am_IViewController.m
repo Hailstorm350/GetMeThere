@@ -183,26 +183,93 @@
     NSLog(@"in ConfigureCell, the StartPicture URL is: %@",info.StartPicture);
     //Let's try something
     
-    NSURL *imgURL = [NSURL fileURLWithPath:info.StartPicture];
-    if(imgURL)
+    
+    if(info.StartPicture)
     {
-        NSData *myData = [NSData dataWithContentsOfURL:imgURL];
-        if(myData){
-            UIImage *img = [[UIImage alloc]initWithData:myData];
-            [cell.startPicture setImage: img];
+        UIImage *myImg = [self assetForURL:[NSURL URLWithString:info.StartPicture]];
+        if(myImg){
+            [cell.startPicture setImage: myImg];
         }
     }
     
     
     
     //End try
-    
-     //[UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL fileURLWithPath: info.StartPicture]]]];
-  
-    cell.endPicture.image = [UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString: info.DestinationPicture]]];
+      
+    cell.endPicture.image = [self assetForURL: [NSURL URLWithString:info.DestinationPicture]];
 
 }
 
+
+////ALAssets find image
+//-(UIImage *)findLargeImage:(NSString *) imgurl
+//{
+//    __block UIImage * retImage = nil;
+//    
+//    //
+//    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+//    {
+//        ALAssetRepresentation *rep = [myasset defaultRepresentation];
+//        CGImageRef iref = [rep fullResolutionImage];
+//        if (iref) {
+//            retImage = [UIImage imageWithCGImage:iref];
+//            [retImage retain];
+//        }
+//    };
+//    
+//    //
+//    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
+//    {
+//        NSLog(@"booya, cant get image - %@",[myerror localizedDescription]);
+//    };
+//    
+//    if(imgurl && [imgurl length])
+//    {
+//        //[retImage release];
+//        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
+//        [assetslibrary assetForURL:[NSURL URLWithString:imgurl]
+//                       resultBlock:resultblock
+//                      failureBlock:failureblock];
+//        NSLog(@"I'm trying to set retImage!!! URl is: %@", imgurl);
+//    }
+//    return retImage;
+//}
+
+- (UIImage *)assetForURL:(NSURL *)url {
+    __block ALAsset *result = nil;
+    __block NSError *assetError = nil;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    [[[[ALAssetsLibrary alloc] init] autorelease] assetForURL:url resultBlock:^(ALAsset *asset) {
+        result = [asset retain];
+        dispatch_semaphore_signal(sema);
+    } failureBlock:^(NSError *error) {
+        assetError = [error retain];
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    
+    if ([NSThread isMainThread]) {
+        while (!result && !assetError) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+    }
+    else {
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    }
+    
+    dispatch_release(sema);
+    [assetError release];
+    
+    UIImage * retImage;
+    ALAssetRepresentation *rep = [result defaultRepresentation];
+    CGImageRef iref = [rep fullResolutionImage];
+    if (iref) {
+        retImage = [UIImage imageWithCGImage:iref];
+        [retImage retain];
+    }
+    return retImage;
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

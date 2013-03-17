@@ -8,21 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		02457059155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02457058155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg */; };
-		025A52C01545C86F0095F51A /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 025A52BE1545C86F0095F51A /* TableViewCell.m */; };
 		025A52C11545C86F0095F51A /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025A52BF1545C86F0095F51A /* TableViewCell.xib */; };
-		025FC49115374C85003B21C8 /* RouteCreatorScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 025FC48F15374C85003B21C8 /* RouteCreatorScreen.m */; };
 		025FC49215374C85003B21C8 /* RouteCreatorScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025FC49015374C85003B21C8 /* RouteCreatorScreen.xib */; };
-		025FC4961537558C003B21C8 /* RouteList.m in Sources */ = {isa = PBXBuildFile; fileRef = 025FC4941537558C003B21C8 /* RouteList.m */; };
 		025FC4971537558C003B21C8 /* RouteList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025FC4951537558C003B21C8 /* RouteList.xib */; };
 		02683CD81534C3F1008E5147 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD71534C3F1008E5147 /* UIKit.framework */; };
 		02683CDA1534C3F1008E5147 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD91534C3F1008E5147 /* Foundation.framework */; };
 		02683CDC1534C3F1008E5147 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CDB1534C3F1008E5147 /* CoreGraphics.framework */; };
 		02683CDE1534C3F1008E5147 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CDD1534C3F1008E5147 /* CoreData.framework */; };
 		02683CE41534C3F1008E5147 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02683CE21534C3F1008E5147 /* InfoPlist.strings */; };
-		02683CE61534C3F1008E5147 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683CE51534C3F1008E5147 /* main.m */; };
-		02683CEA1534C3F2008E5147 /* Get_Me_ThereAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683CE91534C3F2008E5147 /* Get_Me_ThereAppDelegate.m */; };
 		02683CED1534C3F2008E5147 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02683CEB1534C3F2008E5147 /* MainWindow.xib */; };
-		02683CF01534C3F2008E5147 /* Get_Me_There.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02683CEE1534C3F2008E5147 /* Get_Me_There.xcdatamodeld */; };
 		02683CF81534C3F2008E5147 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CF71534C3F2008E5147 /* SenTestingKit.framework */; };
 		02683CF91534C3F2008E5147 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD71534C3F1008E5147 /* UIKit.framework */; };
 		02683CFA1534C3F2008E5147 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02683CD91534C3F1008E5147 /* Foundation.framework */; };
@@ -31,39 +25,23 @@
 		02683D041534C3F2008E5147 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02683D021534C3F2008E5147 /* InfoPlist.strings */; };
 		02683D061534C3F2008E5147 /* Get_Me_ThereTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 02683D051534C3F2008E5147 /* Get_Me_ThereTests.h */; };
 		02683D081534C3F2008E5147 /* Get_Me_ThereTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683D071534C3F2008E5147 /* Get_Me_ThereTests.m */; };
-		02CCBE71154C7CB7008EBB24 /* beginningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CCBE70154C7CB7008EBB24 /* beginningCell.m */; };
 		02CCBE73154C7D7C008EBB24 /* beginningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CCBE72154C7D7C008EBB24 /* beginningCell.xib */; };
 		02CCBE79154C8F05008EBB24 /* greenArrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02CCBE78154C8F05008EBB24 /* greenArrow.jpg */; };
 		02D6BF8215374B88000CACD4 /* back button.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8015374B88000CACD4 /* back button.png */; };
 		02D6BF8315374B88000CACD4 /* button_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8115374B88000CACD4 /* button_add.png */; };
 		02D6BF8D15374BAB000CACD4 /* plus sign.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8515374BAB000CACD4 /* plus sign.png */; };
-		02E23AF21541FFF5004CC9CF /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E23AF11541FFF5004CC9CF /* Event.m */; };
-		02E23AF615420001004CC9CF /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E23AF515420001004CC9CF /* Route.m */; };
-		02F00B7C153534F900B89881 /* Where_Am_IViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B7A153534F900B89881 /* Where_Am_IViewController.m */; };
 		02F00B7D153534F900B89881 /* Where_Am_IViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B7B153534F900B89881 /* Where_Am_IViewController.xib */; };
-		02F00B821535366D00B89881 /* UserManual.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B801535366D00B89881 /* UserManual.m */; };
 		02F00B831535366D00B89881 /* UserManual.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B811535366D00B89881 /* UserManual.xib */; };
-		02F00B91153537B600B89881 /* Guardian_Home_Screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B8F153537B600B89881 /* Guardian_Home_Screen.m */; };
 		02F00B92153537B600B89881 /* Guardian_Home_Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B90153537B600B89881 /* Guardian_Home_Screen.xib */; };
-		02F00B9F1535430B00B89881 /* edit_modal_screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B9D1535430A00B89881 /* edit_modal_screen.m */; };
 		02F00BA01535430B00B89881 /* edit_modal_screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B9E1535430A00B89881 /* edit_modal_screen.xib */; };
-		02F00BA4153547D300B89881 /* Route_edit_screenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */; };
 		02F00BA5153547D300B89881 /* Route_edit_screenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */; };
-		5124A5D7155AFA9700E43D1E /* destination_Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5124A5D5155AFA9700E43D1E /* destination_Picture.m */; };
 		5124A5D8155AFA9700E43D1E /* destination_Picture.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5124A5D6155AFA9700E43D1E /* destination_Picture.xib */; };
 		51890D8B1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 51890D8A1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg */; };
-		51F5E08C1559A49000308326 /* Panic_button_primary.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0881559A49000308326 /* Panic_button_primary.m */; };
 		51F5E08D1559A49000308326 /* Panic_button_primary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0891559A49000308326 /* Panic_button_primary.xib */; };
-		51F5E08E1559A49000308326 /* PanicButtonCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E08B1559A49000308326 /* PanicButtonCell2.m */; };
 		51F5E0911559A4C300308326 /* PanicButtonCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0901559A4C300308326 /* PanicButtonCell2.xib */; };
-		51F5E09F1559A52E00308326 /* EditContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0931559A52D00308326 /* EditContactViewController.m */; };
 		51F5E0A01559A52E00308326 /* EditContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0941559A52D00308326 /* EditContactViewController.xib */; };
-		51F5E0A31559A52E00308326 /* PanicButtonDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E09A1559A52E00308326 /* PanicButtonDetails.m */; };
-		51F5E0A41559A52E00308326 /* PanicButtonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E09C1559A52E00308326 /* PanicButtonInfo.m */; };
-		51F5E0A51559A52E00308326 /* PanicButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E09E1559A52E00308326 /* PanicButtonViewController.m */; };
 		51F5E0A71559AA0000308326 /* Facebook-Silhouette_normal.gif.png in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0A61559A9FF00308326 /* Facebook-Silhouette_normal.gif.png */; };
 		51F5E0A91559AB9500308326 /* PanicButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0A81559AB8E00308326 /* PanicButtonViewController.xib */; };
-		51F5E0AD1559BAF800308326 /* ShowPrimaryDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0AB1559BAF400308326 /* ShowPrimaryDirection.m */; };
 		51F5E0AE1559BAF800308326 /* ShowPrimaryDirection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0AC1559BAF600308326 /* ShowPrimaryDirection.xib */; };
 		D1743D65155B9A2000B57B3D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D1743D64155B9A2000B57B3D /* Default.png */; };
 		D1743D67155B9A5800B57B3D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1743D66155B9A5800B57B3D /* Icon.png */; };
@@ -72,6 +50,28 @@
 		EF866DC416EE961C0083046A /* slight left.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DBF16EE961C0083046A /* slight left.png */; };
 		EF866DC516EE961C0083046A /* slight right.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DC016EE961C0083046A /* slight right.png */; };
 		EF866DC616EE961C0083046A /* straight.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DC116EE961C0083046A /* straight.png */; };
+		EFCBB8BB16F6642A0073078F /* EditContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0931559A52D00308326 /* EditContactViewController.m */; };
+		EFCBB8BD16F6642A0073078F /* destination_Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5124A5D5155AFA9700E43D1E /* destination_Picture.m */; };
+		EFCBB8BF16F6642A0073078F /* PanicButtonDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E09A1559A52E00308326 /* PanicButtonDetails.m */; };
+		EFCBB8C116F6642A0073078F /* PanicButtonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E09C1559A52E00308326 /* PanicButtonInfo.m */; };
+		EFCBB8C316F6642A0073078F /* PanicButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E09E1559A52E00308326 /* PanicButtonViewController.m */; };
+		EFCBB8C516F6642A0073078F /* Panic_button_primary.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0881559A49000308326 /* Panic_button_primary.m */; };
+		EFCBB8C716F6642A0073078F /* PanicButtonCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E08B1559A49000308326 /* PanicButtonCell2.m */; };
+		EFCBB8C916F6642A0073078F /* Get_Me_ThereAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683CE91534C3F2008E5147 /* Get_Me_ThereAppDelegate.m */; };
+		EFCBB8CB16F6642A0073078F /* Where_Am_IViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B7A153534F900B89881 /* Where_Am_IViewController.m */; };
+		EFCBB8CD16F6642A0073078F /* beginningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CCBE70154C7CB7008EBB24 /* beginningCell.m */; };
+		EFCBB8CF16F6642A0073078F /* Guardian_Home_Screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B8F153537B600B89881 /* Guardian_Home_Screen.m */; };
+		EFCBB8D116F6642A0073078F /* UserManual.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B801535366D00B89881 /* UserManual.m */; };
+		EFCBB8D316F6642A0073078F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E23AF515420001004CC9CF /* Route.m */; };
+		EFCBB8D516F6642A0073078F /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E23AF11541FFF5004CC9CF /* Event.m */; };
+		EFCBB8D716F6642A0073078F /* edit_modal_screen.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00B9D1535430A00B89881 /* edit_modal_screen.m */; };
+		EFCBB8D916F6642A0073078F /* Route_edit_screenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */; };
+		EFCBB8DB16F6642A0073078F /* RouteList.m in Sources */ = {isa = PBXBuildFile; fileRef = 025FC4941537558C003B21C8 /* RouteList.m */; };
+		EFCBB8DD16F6642A0073078F /* RouteCreatorScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 025FC48F15374C85003B21C8 /* RouteCreatorScreen.m */; };
+		EFCBB8DF16F6642A0073078F /* ShowPrimaryDirection.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0AB1559BAF400308326 /* ShowPrimaryDirection.m */; };
+		EFCBB8E116F6642A0073078F /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 025A52BE1545C86F0095F51A /* TableViewCell.m */; };
+		EFCBB8E516F6649D0073078F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFCBB8E416F6649D0073078F /* AssetsLibrary.framework */; };
+		EFCBB8E616F664F40073078F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683CE51534C3F1008E5147 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +171,7 @@
 		EF866DBF16EE961C0083046A /* slight left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slight left.png"; sourceTree = "<group>"; };
 		EF866DC016EE961C0083046A /* slight right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slight right.png"; sourceTree = "<group>"; };
 		EF866DC116EE961C0083046A /* straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = straight.png; sourceTree = "<group>"; };
+		EFCBB8E416F6649D0073078F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFCBB8E516F6649D0073078F /* AssetsLibrary.framework in Frameworks */,
 				02683CD81534C3F1008E5147 /* UIKit.framework in Frameworks */,
 				02683CDA1534C3F1008E5147 /* Foundation.framework in Frameworks */,
 				02683CDC1534C3F1008E5147 /* CoreGraphics.framework in Frameworks */,
@@ -203,6 +205,7 @@
 		02683CC81534C3F1008E5147 = {
 			isa = PBXGroup;
 			children = (
+				EFCBB8E416F6649D0073078F /* AssetsLibrary.framework */,
 				02683CDF1534C3F1008E5147 /* Get Me There */,
 				02683CFF1534C3F2008E5147 /* Get Me ThereTests */,
 				02683CD61534C3F1008E5147 /* Frameworks */,
@@ -476,28 +479,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02683CE61534C3F1008E5147 /* main.m in Sources */,
-				02683CEA1534C3F2008E5147 /* Get_Me_ThereAppDelegate.m in Sources */,
-				02683CF01534C3F2008E5147 /* Get_Me_There.xcdatamodeld in Sources */,
-				02F00B7C153534F900B89881 /* Where_Am_IViewController.m in Sources */,
-				02F00B821535366D00B89881 /* UserManual.m in Sources */,
-				02F00B91153537B600B89881 /* Guardian_Home_Screen.m in Sources */,
-				02F00B9F1535430B00B89881 /* edit_modal_screen.m in Sources */,
-				02F00BA4153547D300B89881 /* Route_edit_screenViewController.m in Sources */,
-				025FC49115374C85003B21C8 /* RouteCreatorScreen.m in Sources */,
-				025FC4961537558C003B21C8 /* RouteList.m in Sources */,
-				02E23AF21541FFF5004CC9CF /* Event.m in Sources */,
-				02E23AF615420001004CC9CF /* Route.m in Sources */,
-				025A52C01545C86F0095F51A /* TableViewCell.m in Sources */,
-				02CCBE71154C7CB7008EBB24 /* beginningCell.m in Sources */,
-				51F5E08C1559A49000308326 /* Panic_button_primary.m in Sources */,
-				51F5E08E1559A49000308326 /* PanicButtonCell2.m in Sources */,
-				51F5E09F1559A52E00308326 /* EditContactViewController.m in Sources */,
-				51F5E0A31559A52E00308326 /* PanicButtonDetails.m in Sources */,
-				51F5E0A41559A52E00308326 /* PanicButtonInfo.m in Sources */,
-				51F5E0A51559A52E00308326 /* PanicButtonViewController.m in Sources */,
-				51F5E0AD1559BAF800308326 /* ShowPrimaryDirection.m in Sources */,
-				5124A5D7155AFA9700E43D1E /* destination_Picture.m in Sources */,
+				EFCBB8E616F664F40073078F /* main.m in Sources */,
+				EFCBB8BB16F6642A0073078F /* EditContactViewController.m in Sources */,
+				EFCBB8BD16F6642A0073078F /* destination_Picture.m in Sources */,
+				EFCBB8BF16F6642A0073078F /* PanicButtonDetails.m in Sources */,
+				EFCBB8C116F6642A0073078F /* PanicButtonInfo.m in Sources */,
+				EFCBB8C316F6642A0073078F /* PanicButtonViewController.m in Sources */,
+				EFCBB8C516F6642A0073078F /* Panic_button_primary.m in Sources */,
+				EFCBB8C716F6642A0073078F /* PanicButtonCell2.m in Sources */,
+				EFCBB8C916F6642A0073078F /* Get_Me_ThereAppDelegate.m in Sources */,
+				EFCBB8CB16F6642A0073078F /* Where_Am_IViewController.m in Sources */,
+				EFCBB8CD16F6642A0073078F /* beginningCell.m in Sources */,
+				EFCBB8CF16F6642A0073078F /* Guardian_Home_Screen.m in Sources */,
+				EFCBB8D116F6642A0073078F /* UserManual.m in Sources */,
+				EFCBB8D316F6642A0073078F /* Route.m in Sources */,
+				EFCBB8D516F6642A0073078F /* Event.m in Sources */,
+				EFCBB8D716F6642A0073078F /* edit_modal_screen.m in Sources */,
+				EFCBB8D916F6642A0073078F /* Route_edit_screenViewController.m in Sources */,
+				EFCBB8DB16F6642A0073078F /* RouteList.m in Sources */,
+				EFCBB8DD16F6642A0073078F /* RouteCreatorScreen.m in Sources */,
+				EFCBB8DF16F6642A0073078F /* ShowPrimaryDirection.m in Sources */,
+				EFCBB8E116F6642A0073078F /* TableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
