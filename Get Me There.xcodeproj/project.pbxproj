@@ -26,7 +26,6 @@
 		02683D061534C3F2008E5147 /* Get_Me_ThereTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 02683D051534C3F2008E5147 /* Get_Me_ThereTests.h */; };
 		02683D081534C3F2008E5147 /* Get_Me_ThereTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02683D071534C3F2008E5147 /* Get_Me_ThereTests.m */; };
 		02CCBE73154C7D7C008EBB24 /* beginningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02CCBE72154C7D7C008EBB24 /* beginningCell.xib */; };
-		02CCBE79154C8F05008EBB24 /* greenArrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02CCBE78154C8F05008EBB24 /* greenArrow.jpg */; };
 		02D6BF8215374B88000CACD4 /* back button.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8015374B88000CACD4 /* back button.png */; };
 		02D6BF8315374B88000CACD4 /* button_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8115374B88000CACD4 /* button_add.png */; };
 		02D6BF8D15374BAB000CACD4 /* plus sign.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D6BF8515374BAB000CACD4 /* plus sign.png */; };
@@ -35,6 +34,8 @@
 		02F00B92153537B600B89881 /* Guardian_Home_Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B90153537B600B89881 /* Guardian_Home_Screen.xib */; };
 		02F00BA01535430B00B89881 /* edit_modal_screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00B9E1535430A00B89881 /* edit_modal_screen.xib */; };
 		02F00BA5153547D300B89881 /* Route_edit_screenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */; };
+		409E1BF216F7BD3600A728E3 /* routeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 409E1BF116F7BD3600A728E3 /* routeArrow.png */; };
+		409E1BF316F7D85500A728E3 /* Get_Me_There.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02683CEE1534C3F2008E5147 /* Get_Me_There.xcdatamodeld */; };
 		5124A5D8155AFA9700E43D1E /* destination_Picture.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5124A5D6155AFA9700E43D1E /* destination_Picture.xib */; };
 		51890D8B1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 51890D8A1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg */; };
 		51F5E08D1559A49000308326 /* Panic_button_primary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0891559A49000308326 /* Panic_button_primary.xib */; };
@@ -117,7 +118,6 @@
 		02CCBE6F154C7CB7008EBB24 /* beginningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beginningCell.h; sourceTree = "<group>"; };
 		02CCBE70154C7CB7008EBB24 /* beginningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beginningCell.m; sourceTree = "<group>"; };
 		02CCBE72154C7D7C008EBB24 /* beginningCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = beginningCell.xib; sourceTree = "<group>"; };
-		02CCBE78154C8F05008EBB24 /* greenArrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = greenArrow.jpg; sourceTree = "<group>"; };
 		02D6BF8015374B88000CACD4 /* back button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back button.png"; path = "../back button.png"; sourceTree = "<group>"; };
 		02D6BF8115374B88000CACD4 /* button_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_add.png; path = ../button_add.png; sourceTree = "<group>"; };
 		02D6BF8515374BAB000CACD4 /* plus sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus sign.png"; path = "../plus sign.png"; sourceTree = "<group>"; };
@@ -140,6 +140,7 @@
 		02F00BA1153547D200B89881 /* Route_edit_screenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route_edit_screenViewController.h; sourceTree = "<group>"; };
 		02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Route_edit_screenViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Route_edit_screenViewController.xib; sourceTree = "<group>"; };
+		409E1BF116F7BD3600A728E3 /* routeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = routeArrow.png; sourceTree = SOURCE_ROOT; };
 		5124A5D4155AFA9700E43D1E /* destination_Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = destination_Picture.h; sourceTree = "<group>"; };
 		5124A5D5155AFA9700E43D1E /* destination_Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = destination_Picture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5124A5D6155AFA9700E43D1E /* destination_Picture.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = destination_Picture.xib; sourceTree = "<group>"; };
@@ -302,6 +303,7 @@
 		02683CE01534C3F1008E5147 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				409E1BF116F7BD3600A728E3 /* routeArrow.png */,
 				02457058155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg */,
 				EF866DBD16EE961C0083046A /* left turn.png */,
 				EF866DBE16EE961C0083046A /* right turn.png */,
@@ -310,7 +312,6 @@
 				EF866DC116EE961C0083046A /* straight.png */,
 				51890D8A1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg */,
 				51F5E0A61559A9FF00308326 /* Facebook-Silhouette_normal.gif.png */,
-				02CCBE78154C8F05008EBB24 /* greenArrow.jpg */,
 				02D6BF8515374BAB000CACD4 /* plus sign.png */,
 				D1743D64155B9A2000B57B3D /* Default.png */,
 				D1743D66155B9A5800B57B3D /* Icon.png */,
@@ -427,7 +428,6 @@
 				025FC4971537558C003B21C8 /* RouteList.xib in Resources */,
 				025A52C11545C86F0095F51A /* TableViewCell.xib in Resources */,
 				02CCBE73154C7D7C008EBB24 /* beginningCell.xib in Resources */,
-				02CCBE79154C8F05008EBB24 /* greenArrow.jpg in Resources */,
 				51F5E08D1559A49000308326 /* Panic_button_primary.xib in Resources */,
 				51F5E0911559A4C300308326 /* PanicButtonCell2.xib in Resources */,
 				51F5E0A01559A52E00308326 /* EditContactViewController.xib in Resources */,
@@ -444,6 +444,7 @@
 				EF866DC416EE961C0083046A /* slight left.png in Resources */,
 				EF866DC516EE961C0083046A /* slight right.png in Resources */,
 				EF866DC616EE961C0083046A /* straight.png in Resources */,
+				409E1BF216F7BD3600A728E3 /* routeArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +501,7 @@
 				EFCBB8DD16F6642A0073078F /* RouteCreatorScreen.m in Sources */,
 				EFCBB8DF16F6642A0073078F /* ShowPrimaryDirection.m in Sources */,
 				EFCBB8E116F6642A0073078F /* TableViewCell.m in Sources */,
+				409E1BF316F7D85500A728E3 /* Get_Me_There.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

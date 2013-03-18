@@ -33,8 +33,9 @@
     //result block for startImage
     ALAssetsLibraryAssetForURLResultBlock startresultblock = ^(ALAsset *myasset)
     {
-        ALAssetRepresentation *rep = [myasset defaultRepresentation];
-        CGImageRef iref = [rep fullResolutionImage];
+        //ALAssetRepresentation *rep = [myasset defaultRepresentation];    // Change to commented lines when
+        CGImageRef iref = [myasset thumbnail];//[rep fullResolutionImage]; //  Thumbnail is not wanted
+        
         if (iref) {
             startUIImage = [UIImage imageWithCGImage:iref];
             
@@ -45,8 +46,8 @@
     //result block for destImage
     ALAssetsLibraryAssetForURLResultBlock destresultblock = ^(ALAsset *myasset)
     {
-        ALAssetRepresentation *rep = [myasset defaultRepresentation];
-        CGImageRef iref = [rep fullResolutionImage];
+        //ALAssetRepresentation *rep = [myasset defaultRepresentation];// Change to commented lines when
+        CGImageRef iref = [myasset thumbnail];//[rep fullResolutionImage];//  Thumbnail is not wanted
         if (iref) {
             destUIImage = [UIImage imageWithCGImage:iref];
             
@@ -55,25 +56,23 @@
         }
     };
     
-    //
+    //failure block for all cases
     ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
     {
         NSLog(@"Image Retrieval Error - %@",[myerror localizedDescription]);
     };
     
     //Fetch and retain start Image
-    if(startImageURL && [[startImageURL absoluteString] length])// && ![[startImage pathExtension] isEqualToString:AUDIO_EXTENSION])
+    if(startImageURL && [[startImageURL absoluteString] length])
     {
-        //[startUIImage release];
         ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
         [assetslibrary assetForURL:startImageURL
                        resultBlock:startresultblock
                       failureBlock:failureblock];
     }
     //Fetch and retain destination Image
-    if(destImageURL && [[destImageURL absoluteString] length])// && ![[mediaurl pathExtension] isEqualToString:AUDIO_EXTENSION])
+    if(destImageURL && [[destImageURL absoluteString] length])
     {
-        //[destUIImage release];
         ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
         [assetslibrary assetForURL:destImageURL
                        resultBlock:destresultblock

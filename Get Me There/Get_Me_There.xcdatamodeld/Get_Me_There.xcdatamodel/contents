@@ -50,9 +50,9 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PanicButtonDetails" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PanicButtonInfo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Route" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Event" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="PanicButtonDetails" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="PanicButtonInfo" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Route" positionX="0" positionY="0" width="128" height="120"/>
     </elements>
 </model>

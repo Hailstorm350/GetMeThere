@@ -146,14 +146,14 @@
     else if(nameOfRoute.text.length>0){
         
         Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-        
+        NSLog(@"StartPicture: %@\n imageURL: %@\n",newRoute.StartPicture, imageURL);
         newRoute.StartPicture = imageURL;
         
         newRoute.Name = nameOfRoute.text;
         
         NSError *error;
 
-        if (![self.context save:&error]) {
+        if (![context save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
 

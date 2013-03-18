@@ -21,7 +21,6 @@
     UISegmentedControl *sharpOrNormal;
     NSArray *_events;
     NSFetchedResultsController *_fetchedResultsController;
-    //UIScrollView *scrollView;
     UIImageView *imageView;
 	UIButton *takePictureButton;
 	UIButton *selectFromLibrary;
@@ -56,6 +55,5 @@
 @property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
 @property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
 @property (nonatomic, strong) NSString *imageURL;
-//- (IBAction)selectExistingPicture;
 -(IBAction) getPhoto;
 @end

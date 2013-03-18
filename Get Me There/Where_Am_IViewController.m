@@ -171,7 +171,7 @@
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = 
     [[_fetchedResultsController sections] objectAtIndex:0];
-    NSLog(@"The number of Routes is %d", [sectionInfo numberOfObjects]);
+    //NSLog(@"The number of Routes is %d", [sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
@@ -180,7 +180,7 @@
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.test.text=info.Name;
-    NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@",info.StartPicture, info.DestinationPicture);
+    //NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@",info.StartPicture, info.DestinationPicture);
 
     //Tell cell to load route's start and end images
     [cell setUIImages:[NSURL URLWithString:info.StartPicture]:[NSURL URLWithString:info.DestinationPicture]];
@@ -191,10 +191,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"the current row is %d", indexPath.row);
-    static NSString *cellIdentifier=@"beginningCell";
-    beginningCell *cell =
-    (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if(cell==nil)
+    static NSString *cellIdentifier = @"beginningCell";
+    beginningCell *cell = (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil)
     {
         NSArray *TopLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"beginningCell" owner:self options:nil];
         for(id currentObject in TopLevelObjects){
@@ -211,10 +210,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Route *primaryDirection=[_fetchedResultsController objectAtIndexPath:indexPath];
-    ShowPrimaryDirection *information=[[ShowPrimaryDirection alloc]init];
-    information.currentEvent=0;
-    information.routeName=primaryDirection.Name; 
+    Route *primaryDirection = [_fetchedResultsController objectAtIndexPath:indexPath];
+    ShowPrimaryDirection *information = [[ShowPrimaryDirection alloc]init];
+    information.currentEvent = 0;
+    information.routeName = primaryDirection.Name; 
     [self.navigationController pushViewController:information animated:YES];
     
 }
