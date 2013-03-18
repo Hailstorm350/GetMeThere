@@ -180,105 +180,22 @@
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.test.text=info.Name;
-    NSLog(@"in ConfigureCell, the StartPicture URL is: %@",info.StartPicture);
-    //Let's try something
-    
-    
-    if(info.StartPicture)
-    {
-        UIImage *myImg = [self assetForURL:[NSURL URLWithString:info.StartPicture]];
-        if(myImg){
-            [cell.startPicture setImage: myImg];
-        }
-    }
-    
-    
-    
-    //End try
-      
-    cell.endPicture.image = [self assetForURL: [NSURL URLWithString:info.DestinationPicture]];
+    NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@",info.StartPicture, info.DestinationPicture);
 
-}
+    //Tell cell to load route's start and end images
+    [cell setUIImages:[NSURL URLWithString:info.StartPicture]:[NSURL URLWithString:info.DestinationPicture]];
 
 
-////ALAssets find image
-//-(UIImage *)findLargeImage:(NSString *) imgurl
-//{
-//    __block UIImage * retImage = nil;
-//    
-//    //
-//    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
-//    {
-//        ALAssetRepresentation *rep = [myasset defaultRepresentation];
-//        CGImageRef iref = [rep fullResolutionImage];
-//        if (iref) {
-//            retImage = [UIImage imageWithCGImage:iref];
-//            [retImage retain];
-//        }
-//    };
-//    
-//    //
-//    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
-//    {
-//        NSLog(@"booya, cant get image - %@",[myerror localizedDescription]);
-//    };
-//    
-//    if(imgurl && [imgurl length])
-//    {
-//        //[retImage release];
-//        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
-//        [assetslibrary assetForURL:[NSURL URLWithString:imgurl]
-//                       resultBlock:resultblock
-//                      failureBlock:failureblock];
-//        NSLog(@"I'm trying to set retImage!!! URl is: %@", imgurl);
-//    }
-//    return retImage;
-//}
-
-- (UIImage *)assetForURL:(NSURL *)url {
-    __block ALAsset *result = nil;
-    __block NSError *assetError = nil;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    [[[[ALAssetsLibrary alloc] init] autorelease] assetForURL:url resultBlock:^(ALAsset *asset) {
-        result = [asset retain];
-        dispatch_semaphore_signal(sema);
-    } failureBlock:^(NSError *error) {
-        assetError = [error retain];
-        dispatch_semaphore_signal(sema);
-    }];
-    
-    
-    if ([NSThread isMainThread]) {
-        while (!result && !assetError) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-    }
-    else {
-        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    }
-    
-    dispatch_release(sema);
-    [assetError release];
-    
-    UIImage * retImage;
-    ALAssetRepresentation *rep = [result defaultRepresentation];
-    CGImageRef iref = [rep fullResolutionImage];
-    if (iref) {
-        retImage = [UIImage imageWithCGImage:iref];
-        [retImage retain];
-    }
-    return retImage;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"the current row is %d", indexPath.row);
     static NSString *cellIdentifier=@"beginningCell";
-    beginningCell *cell = (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    beginningCell *cell =
+    (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell==nil)
     {
-        //cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         NSArray *TopLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"beginningCell" owner:self options:nil];
         for(id currentObject in TopLevelObjects){
             if([currentObject isKindOfClass:[beginningCell class]]){
@@ -288,33 +205,10 @@
         }
     }
     [self configureCell:cell atIndexPath:indexPath];
-
-    /* for(int i=0; i<=[eventData numberOfEvents]; i++)
-     {
-     if(indexPath.row==[eventData numberOfEvents])
-     cell.textLabel.text=@"Create a new Event...";
-     else
-     {
-     Event_class *specificEvent = [eventData getMemberAtIndex:indexPath.row];
-     NSString *memberName =[specificEvent descriptionOfEvent];
-     if(specificEvent.goStraight==TRUE)
-     cell.imageView.image = [UIImage imageNamed:@"straight.png"];
-     else if(specificEvent.rightTurn==TRUE)
-     if(specificEvent.slightTurn==TRUE)
-     cell.imageView.image = [UIImage imageNamed:@"slight right.png"];
-     else
-     cell.imageView.image = [UIImage imageNamed:@"right turn.png"];
-     else
-     if(specificEvent.slightTurn==TRUE)
-     cell.imageView.image = [UIImage imageNamed:@"slight left.png"];
-     else
-     cell.imageView.image = [UIImage imageNamed:@"left turn.png"];
-     
-     cell.textLabel.text=memberName;
-     }
-     }    
-     */  return cell;
+    
+    return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Route *primaryDirection=[_fetchedResultsController objectAtIndexPath:indexPath];
@@ -325,11 +219,8 @@
     
 }
 
-
-
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    //NSLog(@"begin updates?");
     [self.tableView beginUpdates];
 }
 

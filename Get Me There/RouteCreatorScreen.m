@@ -144,41 +144,24 @@
         
     }
     else if(nameOfRoute.text.length>0){
-        //@autoreleasepool {
+        
+        Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
+        
+        newRoute.StartPicture = imageURL;
+        
+        newRoute.Name = nameOfRoute.text;
+        
+        NSError *error;
 
-            Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-            
-            newRoute.StartPicture = imageURL;
-            
-            newRoute.Name = nameOfRoute.text;
-            NSError *error;
+        if (![self.context save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
 
-            if (![context save:&error]) {
-                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-            }
-            //_fetchedResultsController = nil;
-            
-            //To get information to pass on to the next screen//
-      
-            //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-            //NSEntityDescription *retrievedEntity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
-            //[fetchRequest setEntity:retrievedEntity];
-            //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", nameOfRoute.text];
-            
-            //[fetchRequest setPredicate:predicate];
-            //NSArray *array = [context executeFetchRequest:fetchRequest error:&error];
+        Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
+        information.inheritedRoute=newRoute;
+        
+        [self.navigationController pushViewController:information animated:YES];
 
-            //Route *info=[array objectAtIndex:0];
-            
-            
-            
-            
-            Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
-            information.inheritedRoute=newRoute;
-            
-            [self.navigationController pushViewController:information animated:YES];
-    
-        //}
     }
     else
     {
