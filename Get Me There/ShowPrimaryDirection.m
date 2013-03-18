@@ -46,84 +46,73 @@
 }
 
 - (IBAction)contactListButtonPressed {
-    //NSLog(@"DID YOU PUSH ME?!");
-    //Panic_button_primary *information=[[Panic_button_primary alloc]init];
     
     [self.navigationController pushViewController:[[Panic_button_primary alloc] init] animated:YES];
 }
 - (IBAction)nextButtonPressed {
-    currentEvent = currentEvent + 1;
-    NSArray *allEvents=[[[_fetchedResultsController sections] objectAtIndex:0] objects];
-    Event *info=[allEvents objectAtIndex:currentEvent];
-    //Hide button if at edge
+    currentEvent += 1;
     
-    //Show Arrow Image
-    if([info.Arrow isEqualToString:@"straight"]){
-        arrowImage.image =[UIImage imageNamed:@"straight.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight right"]){
-        arrowImage.image =[UIImage imageNamed:@"slight right.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Right"]){
-        arrowImage.image =[UIImage imageNamed:@"right turn.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight left"]){
-        arrowImage.image =[UIImage imageNamed:@"slight left.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Left"]){
-        arrowImage.image =[UIImage imageNamed:@"left turn.png"];
-    }
-    
-    //Show Directional Image
-    UIImage *temp = [UIImage imageWithData: info.Picture];
-    directionImage.image = temp;
-    
-    int rows = [allEvents count] - 1;
-    if (currentEvent == rows)
-        nextDirButton.hidden = YES;
-    else
-        nextDirButton.hidden = NO;
-    if(currentEvent == 0)
-        prevDirButton.hidden = YES;
-    else if(currentEvent != 0)
-        prevDirButton.hidden = NO;
-    
+    [self viewLogic];
 }
+
 - (IBAction)prevButtonPressed {
-    currentEvent = currentEvent - 1;
-    NSArray *allEvents=[[[_fetchedResultsController sections] objectAtIndex:0] objects];
-    Event *info=[allEvents objectAtIndex:currentEvent];
+    currentEvent -= 1;
     
-    //Show Arrow Image
-    if([info.Arrow isEqualToString:@"straight"]){
-        arrowImage.image =[UIImage imageNamed:@"straight.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight right"]){
-        arrowImage.image =[UIImage imageNamed:@"slight right.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Right"]){
-        arrowImage.image =[UIImage imageNamed:@"right turn.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight left"]){
-        arrowImage.image =[UIImage imageNamed:@"slight left.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Left"]){
-        arrowImage.image =[UIImage imageNamed:@"left turn.png"];
-    }
+    [self viewLogic];
+}
+
+-(void)viewLogic{
     
-    //Show Directional Image
-    UIImage *temp = [UIImage imageWithData: info.Picture];
-    directionImage.image = temp;
+    //Grab the current event for display
+    Event *info=[[[[_fetchedResultsController sections] objectAtIndex:0] objects] objectAtIndex:currentEvent];
     
-    int rows = [allEvents count] - 1;
-    if (currentEvent == rows)
+    //Show Direction Arrow
+    arrowImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", info.Arrow]];
+    
+    //Show Event Picture
+    [self setDestinationUIImage:[NSURL URLWithString:info.Picture]];
+    
+    int isLastEvent = [[[[_fetchedResultsController sections] objectAtIndex:0] objects] count] - 1;
+    if (currentEvent == isLastEvent){ //Is last event?
         nextDirButton.hidden = YES;
-    else
-        nextDirButton.hidden = NO;
-    if(currentEvent == 0)
+        //TODO insert logic for handling completion of Route
+    }
+    if(currentEvent == 0)           //Is first event?
         prevDirButton.hidden = YES;
-    else if(currentEvent != 0)
-        prevDirButton.hidden = NO;
+}
+
+-(void)setDestinationUIImage:(NSURL *)eventImageURL
+{
+    __block UIImage * eventImage;
+    //result block for eventImage
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+    {
+        ALAssetRepresentation *rep = [myasset defaultRepresentation];
+        CGImageRef iref = [rep fullResolutionImage]; //  Thumbnail is not wanted
+        
+        if (iref) {
+            eventImage = [UIImage imageWithCGImage:iref];
+            
+            [[self directionImage] setImage: eventImage];
+            [eventImage retain];
+        }
+    };
+
+    
+    //failure block for all cases
+    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
+    {
+        NSLog(@"Image Retrieval Error - %@",[myerror localizedDescription]);
+    };
+    
+    //Fetch and retain start Image
+    if(eventImageURL && [[eventImageURL absoluteString] length])
+    {
+        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
+        [assetslibrary assetForURL:eventImageURL
+                       resultBlock:resultblock
+                      failureBlock:failureblock];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -157,58 +146,27 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1); 
     }
-    NSArray *allEvents=[[[_fetchedResultsController sections] objectAtIndex:0] objects];
-    Event *info=[allEvents objectAtIndex:currentEvent];
-    NSLog(@"the route inherited name is %@", routeName);
-    NSLog(@"Time for the directions! The arrow should be %@, %@", info.Name, info.Arrow);
-    
-    //Show Arrow Image
-    if([info.Arrow isEqualToString:@"straight"]){
-        arrowImage.image =[UIImage imageNamed:@"straight.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight right"]){
-        arrowImage.image =[UIImage imageNamed:@"slight right.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Right"]){
-        arrowImage.image =[UIImage imageNamed:@"right turn.png"];
-    }
-    else if([info.Arrow isEqualToString:@"slight left"]){
-        arrowImage.image =[UIImage imageNamed:@"slight left.png"];
-    }
-    else if([info.Arrow isEqualToString:@"Left"]){
-        arrowImage.image =[UIImage imageNamed:@"left turn.png"];
-        
-    }
-    
-    //Show Directional Image
-    UIImage *temp = [UIImage imageWithData: info.Picture];
-    directionImage.image = temp;
-    
-    int rows = [allEvents count] - 1;
-    if (currentEvent == rows)
-        nextDirButton.hidden = YES;
-    if(currentEvent == 0)
-        prevDirButton.hidden = YES;
-    
-
+    NSLog(@"currentEvent is: %d", currentEvent);
+    [self viewLogic];
 }
 
 - (void)viewDidUnload
 {
-    //[super viewDidUnload];
+    [super viewDidUnload];
     self.fetchedResultsController = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//We only want to support Landscape Orientations
+-(NSUInteger)supportedInterfaceOrientations
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+    return UIInterfaceOrientationMaskLandscape;
 }
 
+
 - (void) viewWillAppear:(BOOL)animated {
-    [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationLandscapeLeft]; //TODO Why does this still work?
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 

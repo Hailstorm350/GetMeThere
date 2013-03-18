@@ -16,10 +16,11 @@
 }
 @property (nonatomic, retain) NSString * Arrow;
 @property (nonatomic, retain) NSString * Name;
-@property (nonatomic, retain) NSData * Picture;
+@property (nonatomic, strong) NSString * Picture;
 @property (nonatomic, retain) NSNumber * Row;
 @property (nonatomic, retain) NSNumber * Transit;
 @property (nonatomic, retain) NSSet *route;
+
 
 @end
 

@@ -171,30 +171,30 @@
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = 
     [[_fetchedResultsController sections] objectAtIndex:0];
-    NSLog(@"The number of Routes is %d", [sectionInfo numberOfObjects]);
+    //NSLog(@"The number of Routes is %d", [sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
 
 - (void)configureCell:(beginningCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    
     cell.test.text=info.Name;
-    UIImage *temp = [UIImage imageWithData: info.StartPicture];
-    cell.startPicture.image = temp;
-    UIImage *temp2 = [UIImage imageWithData: info.DestinationPicture];
-    cell.endPicture.image = temp2;
-    //NSLog(@"the cell should say %@", cell.test.text);
-}
+    //NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@",info.StartPicture, info.DestinationPicture);
 
+    //Tell cell to load route's start and end images
+    [cell setUIImages:[NSURL URLWithString:info.StartPicture]:[NSURL URLWithString:info.DestinationPicture]];
+
+
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"the current row is %d", indexPath.row);
-    static NSString *cellIdentifier=@"beginningCell";
+    static NSString *cellIdentifier = @"beginningCell";
     beginningCell *cell = (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if(cell==nil)
+    if(cell == nil)
     {
-        //cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         NSArray *TopLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"beginningCell" owner:self options:nil];
         for(id currentObject in TopLevelObjects){
             if([currentObject isKindOfClass:[beginningCell class]]){
@@ -204,48 +204,22 @@
         }
     }
     [self configureCell:cell atIndexPath:indexPath];
-
-    /* for(int i=0; i<=[eventData numberOfEvents]; i++)
-     {
-     if(indexPath.row==[eventData numberOfEvents])
-     cell.textLabel.text=@"Create a new Event...";
-     else
-     {
-     Event_class *specificEvent = [eventData getMemberAtIndex:indexPath.row];
-     NSString *memberName =[specificEvent descriptionOfEvent];
-     if(specificEvent.goStraight==TRUE)
-     cell.imageView.image = [UIImage imageNamed:@"straight.png"];
-     else if(specificEvent.rightTurn==TRUE)
-     if(specificEvent.slightTurn==TRUE)
-     cell.imageView.image = [UIImage imageNamed:@"slight right.png"];
-     else
-     cell.imageView.image = [UIImage imageNamed:@"right turn.png"];
-     else
-     if(specificEvent.slightTurn==TRUE)
-     cell.imageView.image = [UIImage imageNamed:@"slight left.png"];
-     else
-     cell.imageView.image = [UIImage imageNamed:@"left turn.png"];
-     
-     cell.textLabel.text=memberName;
-     }
-     }    
-     */  return cell;
+    
+    return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Route *primaryDirection=[_fetchedResultsController objectAtIndexPath:indexPath];
-    ShowPrimaryDirection *information=[[ShowPrimaryDirection alloc]init];
-    information.currentEvent=0;
-    information.routeName=primaryDirection.Name; 
+    Route *primaryDirection = [_fetchedResultsController objectAtIndexPath:indexPath];
+    ShowPrimaryDirection *information = [[ShowPrimaryDirection alloc]init];
+    information.currentEvent = 0;
+    information.routeName = primaryDirection.Name; 
     [self.navigationController pushViewController:information animated:YES];
     
 }
 
-
-
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    //NSLog(@"begin updates?");
     [self.tableView beginUpdates];
 }
 

@@ -9,11 +9,13 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface Where_Am_IViewController : UITableViewController<UITabBarDelegate, UITableViewDataSource> {
     NSFetchedResultsController *_fetchedResultsController;
 }
     -(IBAction) informationButtonPressed;
     -(IBAction) GuardianButtonPressed;
+    //-(UIImage *)findLargeImage:(NSString *) imgurl;
     @property (nonatomic, strong) NSManagedObjectContext *context;
     @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @end

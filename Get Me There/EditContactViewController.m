@@ -16,6 +16,7 @@
 @synthesize nameField, phoneField, imageField, photoButton, givenName;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize context;
+@synthesize imageURL;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -129,6 +130,7 @@
 - (void)imagePickerController: (UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
     imageField.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
 }
 
 - (IBAction)saveContact
@@ -154,7 +156,7 @@
     [new setNumberStyle:NSNumberFormatterDecimalStyle];
     details.phone = phoneField.text;
     [new release];
-    details.imageToData = imageField.image;
+    details.imageURL = imageURL;
     
     if (![context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -177,7 +179,7 @@
     [self dismissViewControllerAnimated:TRUE completion:nil];
     [saveAlert show];
     [saveAlert release];
-    [msg release];     
+    [msg release];
     [saveButton release];
 }
 
@@ -216,10 +218,10 @@
     nameField.text = contactInfo.name;
     phoneField.text = [NSString stringWithFormat: @"%@", details.phone];
     
-    if(!details.imageToData)
+    if(!details.imageURL)
         imageField.image = [UIImage imageNamed:@"Facebook-Silhouette_normal.gif.png"];
     else
-        imageField.image = details.imageToData;
+        imageField.image = [UIImage imageWithContentsOfFile: [NSData dataWithContentsOfURL: [NSURL URLWithString:details.imageURL]]];
     
     self.title = @"Edit Contact";
     

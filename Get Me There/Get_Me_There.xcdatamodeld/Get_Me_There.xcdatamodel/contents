@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C3103" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Event" representedClassName="Event">
         <attribute name="Arrow" optional="YES" attributeType="String">
             <userInfo/>
@@ -7,7 +7,7 @@
         <attribute name="Name" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
-        <attribute name="Picture" optional="YES" attributeType="Binary">
+        <attribute name="Picture" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
         <attribute name="Row" optional="YES" attributeType="Integer 16" defaultValueString="0">
@@ -23,7 +23,7 @@
     </entity>
     <entity name="PanicButtonDetails" syncable="YES">
         <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="imageToData" optional="YES" attributeType="Transformable" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" valueTransformerName="ImageToDataTransformer" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="info" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="PanicButtonInfo" inverseName="details" inverseEntity="PanicButtonInfo" syncable="YES"/>
     </entity>
@@ -32,7 +32,7 @@
         <relationship name="details" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="PanicButtonDetails" inverseName="info" inverseEntity="PanicButtonDetails" syncable="YES"/>
     </entity>
     <entity name="Route" representedClassName="Route">
-        <attribute name="DestinationPicture" optional="YES" attributeType="Binary">
+        <attribute name="DestinationPicture" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
         <attribute name="Name" optional="YES" attributeType="String">
@@ -41,7 +41,7 @@
         <attribute name="Row" optional="YES" attributeType="Integer 16" defaultValueString="0">
             <userInfo/>
         </attribute>
-        <attribute name="StartPicture" optional="YES" attributeType="Binary">
+        <attribute name="StartPicture" optional="YES" attributeType="String">
             <userInfo/>
         </attribute>
         <relationship name="Event" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="route" inverseEntity="Event">
@@ -50,9 +50,9 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="Event" positionX="-398" positionY="135" width="128" height="133"/>
-        <element name="PanicButtonDetails" positionX="-180" positionY="324" width="128" height="105"/>
-        <element name="PanicButtonInfo" positionX="169" positionY="-45" width="128" height="75"/>
-        <element name="Route" positionX="-110" positionY="42" width="128" height="120"/>
+        <element name="Event" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="PanicButtonDetails" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="PanicButtonInfo" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Route" positionX="0" positionY="0" width="128" height="120"/>
     </elements>
 </model>

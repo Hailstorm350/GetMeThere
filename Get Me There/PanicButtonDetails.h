@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "ImageToDataTransformer.h"
 
 @class PanicButtonInfo;
 
@@ -16,7 +15,7 @@
 @private
 }
 @property (nonatomic, retain) NSString * phone;
-@property (nonatomic, retain) UIImage * imageToData;
+@property (nonatomic, strong) NSString * imageURL;
 @property (nonatomic, retain) NSNumber * displayOrder;
 @property (nonatomic, retain) PanicButtonInfo *info;
 

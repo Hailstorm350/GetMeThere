@@ -25,7 +25,10 @@
 {
     // Override point for customization after application launch.
     self.window.rootViewController = navigationController;
-
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications]; //Necessary in iOS 6
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    navigationController.view.frame = _window.screen.applicationFrame;
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -21,7 +21,7 @@
 @synthesize takePictureButton;
 @synthesize selectFromLibrary;
 @synthesize finalInheritedRoute;
-@synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight, newEvent, indexRow, givenName, viewContollerData, modalScreenEventData, inheritedEvent;
+@synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight, newEvent, indexRow, givenName, viewContollerData, modalScreenEventData, inheritedEvent, imageURL;
 
 @synthesize events=_events, context, fetchedResultsController=_fetchedResultsController, fetchedResultsControllerInherited;
 
@@ -83,173 +83,134 @@
     }
     else if(newEvent)
     {
-        @autoreleasepool {
+        Event *newEventObject =[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
 
-            Event *newRoute=[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
-
-            
-            newRoute.Name=textField.text;
-            //   newRoute.Picture=(NSValueTransformer *)imageView;
-            if(goStraight.selectedSegmentIndex==1){
-                newRoute.Arrow=@"straight";
-            }
-            else if(rightOrLeft.selectedSegmentIndex==1){
-                if(sharpOrNormal.selectedSegmentIndex==1){
-                    newRoute.Arrow=@"left turn";
-                }
-                else{
-                    newRoute.Arrow=@"slight left";
-                }
-            }
-            else if(rightOrLeft.selectedSegmentIndex==0){
-                if(sharpOrNormal.selectedSegmentIndex==1){
-                    newRoute.Arrow=@"right turn";
-                }
-                else{
-                    newRoute.Arrow=@"slight right";
-                }
-            }
-            if(transitStop.selectedSegmentIndex==0)           
-                newRoute.Transit=[NSNumber numberWithBool:false];
-            else{
-                newRoute.Transit=[NSNumber numberWithBool:true];
-            }
-            //NSLog(@"the inherited row is %d", indexRow);
-            NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
-            newRoute.Row= newRow;
-            newRoute.Route = finalInheritedRoute;
-            [finalInheritedRoute addEventObject:newRoute];
-            NSLog(@"the new event's route is %@, but the inherited route is %@", newRoute.route, finalInheritedRoute);
-            NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
-            newRoute.Picture=coreDataImage;
         
-            NSError *error;
-            if (![context save:&error]) {
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        newEventObject.Name=textField.text;
+        //   newRoute.Picture=(NSValueTransformer *)imageView;
+        if(goStraight.selectedSegmentIndex==1){
+            newEventObject.Arrow=@"straight";
+        }
+        else if(rightOrLeft.selectedSegmentIndex==1){
+            if(sharpOrNormal.selectedSegmentIndex==1){
+                newEventObject.Arrow=@"left turn";
+            }
+            else{
+                newEventObject.Arrow=@"slight left";
             }
         }
-        [self dismissViewControllerAnimated:YES completion:nil];        
+        else if(rightOrLeft.selectedSegmentIndex==0){
+            if(sharpOrNormal.selectedSegmentIndex==1){
+                newEventObject.Arrow=@"right turn";
+            }
+            else{
+                newEventObject.Arrow=@"slight right";
+            }
+        }
+        if(transitStop.selectedSegmentIndex==0)           
+            newEventObject.Transit=[NSNumber numberWithBool:false];
+        else{
+            newEventObject.Transit=[NSNumber numberWithBool:true];
+        }
+        //NSLog(@"the inherited row is %d", indexRow);
+        NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
+        newEventObject.Row= newRow;
+        //[newEventObject addRouteObject: finalInheritedRoute]; //TODO this needs to work for inverse in CoreData to function correctly
+        [finalInheritedRoute addEventObject:newEventObject];
+
+        newEventObject.Picture = imageURL;
+        NSLog(@"Event Picture URL is: %@", imageURL);
+        NSError *error;
+        if (![context save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
         
     }
     else
     {
+        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
         
-        @autoreleasepool {
-
-            NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-            
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
-            
-            [request setEntity:entity];
-            
-            
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", givenName];
-            
-            [request setPredicate:predicate];
-            
-            NSError *error;
-            
-            NSArray *array = [context executeFetchRequest:request error:&error];
-            Event *info=[array objectAtIndex:0];
-            
-            
-            info.Name=textField.text;
-            if(goStraight.selectedSegmentIndex==1){
-                info.Arrow=@"straight";
-            }
-            else if(rightOrLeft.selectedSegmentIndex==1){
-                if(sharpOrNormal.selectedSegmentIndex==1){
-                    info.Arrow=@"Left";
-                }
-                else{
-                    info.Arrow=@"slight left";
-                }
-            }
-            else if(rightOrLeft.selectedSegmentIndex==0){
-                if(sharpOrNormal.selectedSegmentIndex==1){
-                    info.Arrow=@"Right";
-                }
-                else{
-                    info.Arrow=@"slight right";
-                }
-            }
-            
-            if(transitStop.selectedSegmentIndex==0) {
-                info.Transit=[NSNumber numberWithBool:false];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
+        
+        [request setEntity:entity];
+        
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", givenName];
+        
+        [request setPredicate:predicate];
+        
+        NSError *error;
+        
+        NSArray *array = [context executeFetchRequest:request error:&error];
+        Event *info=[array objectAtIndex:0];
+        
+        
+        info.Name=textField.text;
+        if(goStraight.selectedSegmentIndex==1){
+            info.Arrow=@"straight";
+        }
+        else if(rightOrLeft.selectedSegmentIndex==1){
+            if(sharpOrNormal.selectedSegmentIndex==1){
+                info.Arrow=@"Left";
             }
             else{
-                info.Transit=[NSNumber numberWithBool:true];
-            }    
-            NSData* coreDataImage=[NSData dataWithData:UIImagePNGRepresentation(imageView.image)];
-            info.Picture=coreDataImage;
-            
-            if (![context save:&error]) {
-                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+                info.Arrow=@"slight left";
             }
         }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        else if(rightOrLeft.selectedSegmentIndex==0){
+            if(sharpOrNormal.selectedSegmentIndex==1){
+                info.Arrow=@"Right";
+            }
+            else{
+                info.Arrow=@"slight right";
+            }
+        }
         
+        if(transitStop.selectedSegmentIndex==0) {
+            info.Transit=[NSNumber numberWithBool:false];
+        }
+        else{
+            info.Transit=[NSNumber numberWithBool:true];
+        }    
+        
+        info.Picture=imageURL;
+        
+        if (![context save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
-    
 }
 
 
 -(IBAction) cancelButtonPressed: (id) sender{
-//    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 /*
- -(IBAction) takePicture{
- //http://www.iphonedevsdk.com/forum/iphone-sdk-development/42457-save-image-core-data.html
- UIImagePickerController *picker =
- [[UIImagePickerController alloc] init];
- picker.delegate = self;
- picker.allowsImageEditing = YES;
- picker.sourceType = (sender == takePictureButton) ?
- UIImagePickerControllerSourceTypeCamera :
- UIImagePickerControllerSourceTypeSavedPhotosAlbum;
- [self presentModalViewController:picker animated:YES];
- [picker release];
- 
- }
- 
- - (IBAction)selectExistingPicture {
- if([UIImagePickerController isSourceTypeAvailable:
- UIImagePickerControllerSourceTypePhotoLibrary])
- {
- UIImagePickerController *picker= [[UIImagePickerController alloc]init];
- picker.delegate = self;
- picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
- [self presentModalViewController:picker animated:YES];
- [picker release];
- }
- }
- */
+
+ http://www.iphonedevsdk.com/forum/iphone-sdk-development/42457-save-image-core-data.html
+*/
+
+
 -(IBAction) getPhoto{
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
-    //	if((UIButton *) sender == selectFromLibrary) {
     picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    //	} else {
-    //		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //	}
     
 	[self presentModalViewController:picker animated:YES];
     
+    [picker release];
 }
 
 -(IBAction) takePicture{
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
-    //	if((UIButton *) sender == selectFromLibrary) {
-    //   picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    //	} else {
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //	}
-    
+
 	[self presentModalViewController:picker animated:YES];
     
 }
@@ -258,7 +219,8 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
-	imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
@@ -329,8 +291,9 @@
             sharpOrNormal.selectedSegmentIndex=1;
             goStraight.selectedSegmentIndex=0;
         }
-    UIImage* image=[UIImage imageWithData:info.Picture];
-    imageView.image=image;
+        
+    
+    imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: imageURL]]];
     if([info.Transit compare:[NSNumber numberWithBool:NO]]==NSOrderedSame){
         transitStop.selectedSegmentIndex=0;
     }

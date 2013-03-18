@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 @class Route;
 @interface ShowPrimaryDirection : UIViewController {
     UIImageView *directionImage;

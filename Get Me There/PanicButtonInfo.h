@@ -15,5 +15,6 @@
 }
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) PanicButtonDetails *details;
+@property (nonatomic, strong) NSString *ImageURL;
 
 @end

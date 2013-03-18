@@ -84,7 +84,6 @@
 
 - (IBAction)backButtonPressed
 {
-    NSLog(@"Let me out!");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -209,7 +208,6 @@
     PanicButtonDetails *details = info.details;
     cell.detailTextLabel.text = [NSString stringWithFormat: @"%@", details.phone];
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-                                 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
