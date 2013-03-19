@@ -83,6 +83,9 @@
     endImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
 
     self.title = @"Destination Picture";
+    
+    if( ![UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceFront ])
+        takePictureButton.hidden = YES;
 }
 
 - (void)viewDidUnload
@@ -126,7 +129,22 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
 	endImage.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[endImage.image CGImage] orientation:(ALAssetOrientation)[endImage.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error");
+            } else {
+                //We have the URL!!!
+                self.imageURL = [assetURL absoluteString];
+                [assetURL release];
+            }
+        }];
+        [library release];
+    } else {
+        self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
+    }
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {

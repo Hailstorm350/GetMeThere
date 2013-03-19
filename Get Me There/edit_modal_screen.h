@@ -6,7 +6,7 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 #import <CoreData/CoreData.h>
-
+#import <AssetsLibrary/AssetsLibrary.h>
 #import <UIKit/UIKit.h>
 @class Events_list;
 @class  Route_edit_screenViewController;

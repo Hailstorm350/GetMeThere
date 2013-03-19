@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "Route.h"
 @interface destination_Picture : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate >
 {

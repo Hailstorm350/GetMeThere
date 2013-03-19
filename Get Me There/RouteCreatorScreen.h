@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface RouteCreatorScreen : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate >{
     UITextField *nameOfRoute;

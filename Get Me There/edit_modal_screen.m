@@ -220,7 +220,22 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
 	imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[imageView.image CGImage] orientation:(ALAssetOrientation)[imageView.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error");
+            } else {
+                //We have the URL!!!
+                self.imageURL = [assetURL absoluteString];
+                [assetURL release];
+            }
+        }];
+        [library release];
+    } else {
+        self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
+    }
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
@@ -301,6 +316,9 @@
         transitStop.selectedSegmentIndex=1;
     }
     self.title = @"Event";
+    
+    if( ![UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceFront ])
+        takePictureButton.hidden = YES;
     
 }
 
