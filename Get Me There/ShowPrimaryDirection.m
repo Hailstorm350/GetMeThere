@@ -37,17 +37,18 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
 
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
+//        [sort release];
+//        [fetchRequest release];
+//        [theFetchedResultsController release];
         
         return _fetchedResultsController;
     }
 }
 
 - (IBAction)contactListButtonPressed {
-    
-    [self.navigationController pushViewController:[[Panic_button_primary alloc] init] animated:YES];
+    Panic_button_primary * toPush = [[Panic_button_primary alloc] init];
+    [self.navigationController pushViewController: toPush animated:YES];
+//    [toPush release];
 }
 - (IBAction)nextButtonPressed {
     if([nextDirButton.titleLabel.text isEqualToString: @"Finish"]){
@@ -57,7 +58,7 @@
                                   delegate:self cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [finishedAlert show];
-        [finishedAlert release];
+//        [finishedAlert release];
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         currentEvent += 1;
@@ -113,7 +114,7 @@
             eventImage = [UIImage imageWithCGImage:iref];
             
             [[self directionImage] setImage: eventImage];
-            [eventImage retain];
+//            [eventImage retain];
         }
     };
 
@@ -127,7 +128,7 @@
     //Fetch and retain start Image
     if(eventImageURL && [[eventImageURL absoluteString] length])
     {
-        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:eventImageURL
                        resultBlock:resultblock
                       failureBlock:failureblock];
@@ -177,16 +178,24 @@
     // e.g. self.myOutlet = nil;
 }
 
-//We only want to support Landscape Orientations
--(NSUInteger)supportedInterfaceOrientations
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    return (UIInterfaceOrientationIsLandscape(interfaceOrientation));
+}
+
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskLandscape;
 }
 
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationLandscapeLeft]; //TODO Why does this still work?
+//    [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationLandscapeLeft]; //TODO Why does this still work?
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface EditContactViewController : UIViewController
     <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
@@ -18,14 +19,14 @@
     NSString *givenName;
 }
 
-@property (nonatomic, retain) IBOutlet UITextField *nameField;
-@property (nonatomic, retain) IBOutlet UITextField *phoneField;
-@property (nonatomic, retain) IBOutlet UIImageView *imageField;
+@property (nonatomic, strong) IBOutlet UITextField *nameField;
+@property (nonatomic, strong) IBOutlet UITextField *phoneField;
+@property (nonatomic, strong) IBOutlet UIImageView *imageField;
 @property (nonatomic, strong) NSString *imageURL;
-@property (nonatomic, retain) IBOutlet UIButton *photoButton;
+@property (nonatomic, strong) IBOutlet UIButton *photoButton;
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, retain) NSString *givenName;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSString *givenName;
 
 - (IBAction)doneWithKeyboardTap:(id)sender;
 - (IBAction)doneWithKeyboard:(id)sender;

@@ -40,7 +40,6 @@
             startUIImage = [UIImage imageWithCGImage:iref];
             
             [((UIImageView *)[self viewWithTag:1]) setImage: startUIImage];
-            [startUIImage retain];
         }
     };
     //result block for destImage
@@ -52,7 +51,6 @@
             destUIImage = [UIImage imageWithCGImage:iref];
             
             [((UIImageView *)[self viewWithTag:2]) setImage:destUIImage];
-            [destImageURL retain];
         }
     };
     
@@ -65,7 +63,7 @@
     //Fetch and retain start Image
     if(startImageURL && [[startImageURL absoluteString] length])
     {
-        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:startImageURL
                        resultBlock:startresultblock
                       failureBlock:failureblock];
@@ -73,7 +71,7 @@
     //Fetch and retain destination Image
     if(destImageURL && [[destImageURL absoluteString] length])
     {
-        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:destImageURL
                        resultBlock:destresultblock
                       failureBlock:failureblock];

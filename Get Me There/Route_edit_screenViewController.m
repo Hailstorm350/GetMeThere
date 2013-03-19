@@ -46,9 +46,9 @@ BOOL didCreateNew;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
 
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
+        //[sort release];
+        //[fetchRequest release];
+        //[theFetchedResultsController release];
         
         return _fetchedResultsController;
     }
@@ -87,7 +87,7 @@ BOOL didCreateNew;
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
+        //[alert release];
         
         [context deleteObject:inheritedRoute];
         [context save:nil];
@@ -101,11 +101,11 @@ BOOL didCreateNew;
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
+        //[alert release];
     }
     else  
        [self.navigationController popToRootViewControllerAnimated:YES];
-    NSLog(@"Route_edit_screen retain count=%d",[self retainCount]);
+    
 }
 
 
@@ -212,7 +212,7 @@ BOOL didCreateNew;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell==nil)
     {
-        cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     if(indexPath.row==[[_fetchedResultsController fetchedObjects]count]){
@@ -252,7 +252,7 @@ BOOL didCreateNew;
         destination_Picture *information = [[destination_Picture alloc]init];
         information.inheritedRoute = inheritedRoute;
         [self.navigationController pushViewController:information animated:YES];
-        [information release];
+        //[information release];
         return;
     }
     else if(indexPath.row==[[_fetchedResultsController fetchedObjects] count]+2)
@@ -280,17 +280,17 @@ BOOL didCreateNew;
     editer.indexRow=[allEvents count];
     //NSLog(@"the count of the array passed in is %d", [allEvents count]);
     [self presentModalViewController:editer animated:YES];
-    [editer release];
+    //[editer release];
 }
 
-- (void)dealloc
-{
-    [inheritedRoute release];
-    [context release];
-    [_fetchedResultsController release], _fetchedResultsController = nil;
-    [super dealloc];
-    
-}
+//- (void)dealloc
+//{
+//    [inheritedRoute release];
+//    [context release];
+//    [_fetchedResultsController release], _fetchedResultsController = nil;
+//    [super dealloc];
+//    
+//}
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.

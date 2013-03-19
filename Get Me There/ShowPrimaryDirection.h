@@ -21,14 +21,14 @@
     
 }
 @property (nonatomic) NSInteger currentEvent;
-@property (nonatomic, retain) IBOutlet UIImageView *directionImage;
-@property (nonatomic, retain) IBOutlet UIImageView *arrowImage;
-@property (nonatomic, retain) IBOutlet UIButton *panicCallButton;
-@property (nonatomic, retain) IBOutlet UIButton *nextDirButton;
-@property (nonatomic, retain) IBOutlet UIButton *prevDirButton;
+@property (nonatomic, strong) IBOutlet UIImageView *directionImage;
+@property (nonatomic, strong) IBOutlet UIImageView *arrowImage;
+@property (nonatomic, strong) IBOutlet UIButton *panicCallButton;
+@property (nonatomic, strong) IBOutlet UIButton *nextDirButton;
+@property (nonatomic, strong) IBOutlet UIButton *prevDirButton;
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, retain) NSString *routeName;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSString *routeName;
 - (IBAction)contactListButtonPressed;
 - (IBAction)nextButtonPressed;
 - (IBAction)prevButtonPressed;

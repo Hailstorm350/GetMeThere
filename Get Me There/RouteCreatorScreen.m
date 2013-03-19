@@ -28,31 +28,25 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    //@autoreleasepool {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription 
-                                       entityForName:@"Route" inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                                  initWithKey:@"Row" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        
-        [fetchRequest setFetchBatchSize:20];
-        
-        NSFetchedResultsController *theFetchedResultsController = 
-        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                            managedObjectContext:context sectionNameKeyPath:nil
-                                                       cacheName:nil];
-        self.fetchedResultsController = theFetchedResultsController;
-        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-        
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription 
+                                   entityForName:@"Route" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
     
-        return _fetchedResultsController;    
-    //}
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                              initWithKey:@"Row" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController = 
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                        managedObjectContext:context sectionNameKeyPath:nil
+                                                   cacheName:nil];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+    
+    return _fetchedResultsController;
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,14 +112,26 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
 	homeImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
-    self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
-    [picker release];
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[homeImage.image CGImage] orientation:(ALAssetOrientation)[homeImage.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error");
+            } else {
+                self.imageURL = [assetURL absoluteString];
+            }
+        }];
+    } else {
+        self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
+    }
+
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    [picker release];
+//    [picker release];
 }
 
 -(IBAction)doneButtonPressed
@@ -140,8 +146,8 @@
                                   delegate:self cancelButtonTitle:@"OK" 
                                   otherButtonTitles:nil];
         [saveAlert show];
-        [saveAlert release];
-        [msg release];
+//        [saveAlert release];
+//        [msg release];
         
     }
     else if(nameOfRoute.text.length>0){
@@ -162,8 +168,8 @@
         information.inheritedRoute=newRoute;
         
         [self.navigationController pushViewController:information animated:YES];
-        [information release];
-        NSLog(@"RouteCreatorScreen retain count=%d",[self retainCount]);
+//        [information release];
+//        NSLog(@"RouteCreatorScreen retain count=%d",[self retainCount]);
     }
     else
     {
@@ -173,7 +179,7 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
+//        [alert release];
     }
 }
 
@@ -185,17 +191,17 @@
     [nameOfRoute resignFirstResponder];
 }
 
--(void)dealloc
-{
-    [nameOfRoute release], nameOfRoute = nil;
-    [homeImage release], homeImage = nil;
-    [takePictureButton release], takePictureButton = nil;
-    [selectFromLibrary release], selectFromLibrary = nil;
-    [context release], context = nil;
-    [_fetchedResultsController release], _fetchedResultsController = nil;
-    [self.fetchedResultsController release], self.fetchedResultsController = nil;
-    [super dealloc];
-
-}
+//-(void)dealloc
+//{
+//    [nameOfRoute release], nameOfRoute = nil;
+//    [homeImage release], homeImage = nil;
+//    [takePictureButton release], takePictureButton = nil;
+//    [selectFromLibrary release], selectFromLibrary = nil;
+//    [context release], context = nil;
+//    [_fetchedResultsController release], _fetchedResultsController = nil;
+//    [self.fetchedResultsController release], self.fetchedResultsController = nil;
+//    [super dealloc];
+//
+//}
 
 @end

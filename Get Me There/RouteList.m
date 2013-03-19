@@ -43,9 +43,6 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
         
         return _fetchedResultsController;
     }
@@ -168,7 +165,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
          [self configureCell:cell atIndexPath:indexPath];
@@ -239,7 +236,6 @@
         information.inheritedIndexRow=indexPath.row;
         NSLog(@"the name of the route that i'm passing is %@", information.inheritedRoute.Name);
         [self.navigationController pushViewController:information animated:YES];
-        [information release];
     }
 
 }
@@ -301,10 +297,8 @@
 
 -(void)dealloc
 {
-    [_fetchedResultsController release], _fetchedResultsController = nil;
+    _fetchedResultsController = nil;
     //[self.fetchedResultsController release], self.fetchedResultsController = nil;
-    [context release];
-    [super dealloc];
 }
 
 @end

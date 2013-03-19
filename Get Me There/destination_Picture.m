@@ -40,9 +40,6 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
     }
     return _fetchedResultsController;
 }
@@ -84,15 +81,11 @@
     endImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
 
     self.title = @"Destination Picture";
+    
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        takePictureButton.hidden = YES;
 }
 
-- (void)viewDidUnload
-{
-    //[super viewDidUnload];
-    self.fetchedResultsController = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -119,7 +112,6 @@
     
 	[self presentModalViewController:picker animated:YES];
     
-    [picker release];
 }
 
 #pragma mark -
@@ -127,8 +119,22 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
 	endImage.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[endImage.image CGImage] orientation:(ALAssetOrientation)[endImage.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error");
+            } else {
+                //We have the URL!!!
+                self.imageURL = [assetURL absoluteString];
+            }
+        }];
+    } else {
+        self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
+    }
 }
+
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -147,8 +153,6 @@
                                   delegate:self cancelButtonTitle:@"OK" 
                                   otherButtonTitles:nil];
         [saveAlert show];
-        [saveAlert release];
-        [msg release];
         
     }
     else {

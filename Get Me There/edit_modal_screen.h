@@ -6,7 +6,7 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 #import <CoreData/CoreData.h>
-
+#import <AssetsLibrary/AssetsLibrary.h>
 #import <UIKit/UIKit.h>
 @class Events_list;
 @class  Route_edit_screenViewController;
@@ -35,22 +35,22 @@
 -(IBAction) goStraightControl;
 -(IBAction) transitStopControl;
 -(IBAction) getPhoto;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 //@property (nonatomic, retain) IBOutlet UITextField *textField;
-@property (nonatomic, retain) Route_edit_screenViewController *viewContollerData;
+@property (nonatomic, strong) Route_edit_screenViewController *viewContollerData;
 
 @property (nonatomic) NSUInteger indexRow;
-@property(nonatomic, retain) NSString *givenName;
+@property(nonatomic, strong) NSString *givenName;
 //this is what will update on "DONE"
 //@property (nonatomic,retain) IBOutlet UISegmentedControl *rightOrLeft;
 //@property (nonatomic,retain) IBOutlet UISegmentedControl *sharpOrNormal;
 //@property (nonatomic,retain) IBOutlet UISegmentedControl *goStraight;
 //@property (nonatomic,retain) IBOutlet UISegmentedControl *transitStop;
 @property (nonatomic) BOOL newEvent;
-@property (nonatomic, retain) NSArray *events;
+@property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, retain) Route *finalInheritedRoute;
-@property (nonatomic, retain) Event *inheritedEvent;
+@property (nonatomic, strong) Route *finalInheritedRoute;
+@property (nonatomic, strong) Event *inheritedEvent;
 //@property (nonatomic, retain) IBOutlet UIImageView *imageView;
 //@property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
 //@property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;

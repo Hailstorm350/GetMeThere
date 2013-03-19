@@ -36,9 +36,6 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
         
         return _fetchedResultsController;
     }
@@ -77,7 +74,6 @@
         detailViewController.givenName = panicButtonInfo.name;
         
         [self presentModalViewController:detailViewController animated:YES];
-        [detailViewController release];
     }
 
 }
@@ -99,9 +95,6 @@
 - (void) dealloc
 {
     self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-    self.context = nil;
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -134,8 +127,6 @@
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPressed)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    [editButton release];
-    [leftButton release];
 
     
 
@@ -216,7 +207,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
@@ -292,7 +283,6 @@
     
      // Pass the selected object to the new view controller.
      [self presentModalViewController:detailViewController animated:YES];
-     [detailViewController release];
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {

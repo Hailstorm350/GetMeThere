@@ -36,9 +36,6 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
         
         return _fetchedResultsController;
     }
@@ -210,7 +207,6 @@
     UIWebView *phoneCallWV = [[UIWebView alloc] init];
     NSURL *callURL = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", strPhoneNo]];
     [phoneCallWV loadRequest:[NSURLRequest requestWithURL:callURL]];
-    
     
 }
 

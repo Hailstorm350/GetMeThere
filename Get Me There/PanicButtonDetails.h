@@ -14,9 +14,9 @@
 @interface PanicButtonDetails : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSString * phone;
+@property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSString * imageURL;
-@property (nonatomic, retain) NSNumber * displayOrder;
-@property (nonatomic, retain) PanicButtonInfo *info;
+@property (nonatomic, strong) NSNumber * displayOrder;
+@property (nonatomic, strong) PanicButtonInfo *info;
 
 @end

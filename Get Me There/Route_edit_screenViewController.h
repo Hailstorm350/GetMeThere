@@ -16,9 +16,9 @@
 //@property to declare the events based on the appDelegate ivar
 //@property (nonatomic, retain) Events_list *eventData; 
 @property (nonatomic) NSInteger inheritedIndexRow;
-@property (nonatomic, retain) NSString *inheritedName;
-@property (nonatomic, retain) Route *inheritedRoute;
+@property (nonatomic, strong) NSString *inheritedName;
+@property (nonatomic, strong) Route *inheritedRoute;
 //@property (nonatomic) NSIndexPath inheritedIndexPath;
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end

@@ -74,7 +74,6 @@
 										<int key="IBUIBaselineAdjustment">1</int>
 										<float key="IBUIMinimumFontSize">10</float>
 										<bool key="IBUIAdjustsLetterSpacingToFitWidth">YES</bool>
-										<int key="IBUINumberOfLines">2</int>
 										<int key="IBUITextAlignment">1</int>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">1</int>
@@ -85,7 +84,6 @@
 											<double key="NSSize">17</double>
 											<int key="NSfFlags">16</int>
 										</object>
-										<double key="preferredMaxLayoutWidth">114</double>
 									</object>
 									<object class="IBUIImageView" id="778108239">
 										<reference key="NSNextResponder" ref="126429709"/>
@@ -121,7 +119,6 @@
 										<string key="NSFrame">{{218, 4}, {95, 91}}</string>
 										<reference key="NSSuperview" ref="126429709"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<int key="IBUIContentMode">1</int>
 										<int key="IBUITag">2</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>

@@ -46,9 +46,6 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
         
         return _fetchedResultsController;
     }
@@ -82,7 +79,6 @@
                                   @"Choose From Gallery", 
                                   nil];
     [photoAction showInView:self.view];
-    [photoAction release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -104,8 +100,6 @@
                                        delegate:self cancelButtonTitle:@"OK" 
                                        otherButtonTitles:nil];
                 [photoAlert show];
-                [photoAlert release];
-                [msg release];
             } else {
                 picker.sourceType = UIImagePickerControllerSourceTypeCamera;
                 [self presentModalViewController:picker animated:YES];            
@@ -121,8 +115,6 @@
                                        delegate:self cancelButtonTitle:@"OK" 
                                        otherButtonTitles:nil];
             [photoAlert show];
-            [photoAlert release];
-            [msg release];
         }
     }
 }
@@ -130,12 +122,25 @@
 - (void)imagePickerController: (UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
     imageField.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[imageField.image CGImage] orientation:(ALAssetOrientation)[imageField.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error");
+            } else {
+                self.imageURL = [assetURL absoluteString];
+            }
+        }];
+
+    } else {
+        self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
+    }
 }
 
 - (IBAction)saveContact
 {
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
     [request setEntity:entity];
@@ -155,7 +160,6 @@
     NSNumberFormatter *new = [[NSNumberFormatter alloc] init];
     [new setNumberStyle:NSNumberFormatterDecimalStyle];
     details.phone = phoneField.text;
-    [new release];
     details.imageURL = imageURL;
     
     if (![context save:&error]) {
@@ -178,9 +182,6 @@
                               otherButtonTitles:nil];
     [self dismissViewControllerAnimated:TRUE completion:nil];
     [saveAlert show];
-    [saveAlert release];
-    [msg release];
-    [saveButton release];
 }
 
 - (void)didReceiveMemoryWarning
@@ -201,7 +202,7 @@
     if(self.context == nil)
         self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"PanicButtonInfo" inManagedObjectContext:context];
        
@@ -225,28 +226,10 @@
     
     self.title = @"Edit Contact";
     
-    
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        photoButton.hidden = YES;
 }
 
-- (void)viewDidUnload
-{
-    //[super viewDidUnload];
-    self.fetchedResultsController = nil;
-    self.imageField = nil;
-    self.photoButton = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void) dealloc 
-{
-    [nameField release];
-    [phoneField release];
-    [imageField release];
-    [photoButton release];
-    [super dealloc];
-    
-}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

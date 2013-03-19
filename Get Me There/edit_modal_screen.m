@@ -58,9 +58,6 @@
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
-    [sort release];
-    [fetchRequest release];
-    [theFetchedResultsController release];
     
     return _fetchedResultsController;
 }
@@ -78,7 +75,6 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
     }
     else if(newEvent)
     {
@@ -128,7 +124,7 @@
     }
     else
     {
-        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
         
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
         
@@ -201,7 +197,6 @@
     
 	[self presentModalViewController:picker animated:YES];
     
-    [picker release];
 }
 
 -(IBAction) takePicture{
@@ -219,7 +214,19 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
 	imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    self.imageURL = [[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString];
+    if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[imageView.image CGImage] orientation:(ALAssetOrientation)[imageView.image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error");
+            } else {
+                self.imageURL = [assetURL absoluteString];
+            }
+        }];
+    } else {
+        self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
+    }
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
@@ -301,6 +308,9 @@
     }
     self.title = @"Event";
     
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        takePictureButton.hidden = YES;
+    
 }
 
 
@@ -317,24 +327,15 @@
 //    [transitStop release];
 //    [goStraight release];
 //    [sharpOrNormal release];
-    [_events release];
-    [_fetchedResultsController release], _fetchedResultsController = nil;
+    _fetchedResultsController = nil;
 //    [imageView release];
 //    [takePictureButton release];
 //    [selectFromLibrary release];
-    [viewContollerData release];
-    [givenName release];
-    [context release];
-    [finalInheritedRoute release];
-    [inheritedEvent release];
-    [imageURL release];
-    [super dealloc];
 }
 
 
 
 - (void)viewDidUnload {
-    [descriptionOfEvent release];
     descriptionOfEvent = nil;
     [super viewDidUnload];
 }
