@@ -50,17 +50,34 @@
     [self.navigationController pushViewController:[[Panic_button_primary alloc] init] animated:YES];
 }
 - (IBAction)nextButtonPressed {
-    currentEvent += 1;
-    
-    [self viewLogic];
+    if([nextDirButton.titleLabel.text isEqualToString: @"Finish"]){
+        UIAlertView *finishedAlert = [[UIAlertView alloc]
+                                  initWithTitle:@"You have arrived!"
+                                  message:@"You have arrived. Please charge your phone!"
+                                  delegate:self cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [finishedAlert show];
+        [finishedAlert release];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        currentEvent += 1;
+        [self viewLogic];
+    }
 }
 
 - (IBAction)prevButtonPressed {
+    if([nextDirButton.titleLabel.text isEqualToString: @"Finish"])
+        [nextDirButton setTitle:@"Next -->" forState:UIControlStateNormal];
     currentEvent -= 1;
-    
     [self viewLogic];
 }
 
+-(BOOL)isLastEvent{
+    return currentEvent == [[[[_fetchedResultsController sections] objectAtIndex:0] objects] count] - 1;
+}
+-(BOOL)isFirstEvent{
+    return currentEvent == 0;
+}
 -(void)viewLogic{
     
     //Grab the current event for display
@@ -72,13 +89,15 @@
     //Show Event Picture
     [self setDestinationUIImage:[NSURL URLWithString:info.Picture]];
     
-    int isLastEvent = [[[[_fetchedResultsController sections] objectAtIndex:0] objects] count] - 1;
-    if (currentEvent == isLastEvent){ //Is last event?
-        nextDirButton.hidden = YES;
+    if (self.isLastEvent){ //Is last event?
+        [nextDirButton setTitle:@"Finish" forState:UIControlStateNormal];
+        
         //TODO insert logic for handling completion of Route
     }
-    if(currentEvent == 0)           //Is first event?
+    if(self.isFirstEvent)           //Is first event?
         prevDirButton.hidden = YES;
+    else
+        prevDirButton.hidden = NO;
 }
 
 -(void)setDestinationUIImage:(NSURL *)eventImageURL
@@ -146,7 +165,7 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1); 
     }
-    NSLog(@"currentEvent is: %d", currentEvent);
+    
     [self viewLogic];
 }
 
@@ -166,12 +185,13 @@
 
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationLandscapeLeft]; //TODO Why does this still work?
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    self.navigationController.navigationBar.hidden = NO;
+    [super viewWillDisappear:animated];
 }
 
 @end

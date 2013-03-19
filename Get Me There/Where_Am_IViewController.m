@@ -109,6 +109,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
 }
 
@@ -124,6 +125,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationPortrait]; //TODO Why does this still work?
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -136,10 +139,9 @@
     [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(NSUInteger)supportedInterfaceOrientations
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 -(IBAction) informationButtonPressed

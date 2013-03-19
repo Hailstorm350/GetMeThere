@@ -11,3 +11,5 @@
 @interface Guardian_Home_Screen : UIViewController <UIAlertViewDelegate>
 
 @end
+
+const static int MAX_ENTRIES = 5;
