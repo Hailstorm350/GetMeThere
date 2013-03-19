@@ -75,7 +75,7 @@
     [__managedObjectContext release];
     [__managedObjectModel release];
     [__persistentStoreCoordinator release];
-        [_viewController release];
+    [_viewController release];
     [super dealloc];
 }
 

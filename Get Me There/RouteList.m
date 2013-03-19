@@ -139,6 +139,7 @@
     //NSLog(@"indexPath.row=%d", indexPath.row);
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=info.Name;
+    
     //NSLog(@"the text label is %@", cell.textLabel.text);
     /*NSLog(@"info.Arrow=%@", info.Arrow);
     if([info.Arrow isEqualToString:@"straight"]){
@@ -231,24 +232,21 @@
     }
     else
     {
-        Route *artist =[_fetchedResultsController objectAtIndexPath:indexPath];
-        //Route_edit_screenViewController *indexName = artist.artistName;
-        //self.enterAlbumInfoViewController.artist = artist;
-        //self.enterAlbumInfoViewController.managedObjectContext = self.managedObjectContext;
-        //artist.inheritedIndexRow=indexPath.row;
+        Route *thisRoute =[_fetchedResultsController objectAtIndexPath:indexPath];
         Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
-        //information.inheritedIndexRow=indexPath.row;
-        information.inheritedName=artist.Name;
-        information.inheritedRoute=artist;
+        information.inheritedName=thisRoute.Name;
+        information.inheritedRoute=thisRoute;
         information.inheritedIndexRow=indexPath.row;
         NSLog(@"the name of the route that i'm passing is %@", information.inheritedRoute.Name);
         [self.navigationController pushViewController:information animated:YES];
+        [information release];
     }
 
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    NSLog(@"self.tableView: %@", self.tableView);
     [self.tableView beginUpdates];
 }
 
@@ -303,9 +301,10 @@
 
 -(void)dealloc
 {
+    [_fetchedResultsController release], _fetchedResultsController = nil;
+    //[self.fetchedResultsController release], self.fetchedResultsController = nil;
+    [context release];
     [super dealloc];
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
 }
 
 @end

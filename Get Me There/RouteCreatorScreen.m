@@ -12,7 +12,7 @@
 #import "Route.h"
 
 @implementation RouteCreatorScreen
-@synthesize takePictureButton, selectFromLibrary, homeImage, nameOfRoute;
+//@synthesize takePictureButton, selectFromLibrary, homeImage, nameOfRoute;
 @synthesize context, fetchedResultsController=_fetchedResultsController;
 @synthesize imageURL;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,9 +47,9 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-//        [sort release];
-//        [fetchRequest release];
-//        [theFetchedResultsController release];
+        [sort release];
+        [fetchRequest release];
+        [theFetchedResultsController release];
     
         return _fetchedResultsController;    
     //}
@@ -82,6 +82,8 @@
 
     self.title = @"Route Creation";
     
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        takePictureButton.hidden = YES;
 }
 
 - (void)viewDidUnload {
@@ -106,12 +108,9 @@
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
-
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 
-    
 	[self presentModalViewController:picker animated:YES];
-    
 }
 
 #pragma mark -
@@ -119,12 +118,14 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
 	homeImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
-    self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString] ;
+    self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
+    [picker release];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker release];
 }
 
 -(IBAction)doneButtonPressed
@@ -146,7 +147,7 @@
     else if(nameOfRoute.text.length>0){
         
         Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-        NSLog(@"StartPicture: %@\n imageURL: %@\n",newRoute.StartPicture, imageURL);
+        //NSLog(@"StartPicture: %@\n imageURL: %@\n",newRoute.StartPicture, imageURL);
         newRoute.StartPicture = imageURL;
         
         newRoute.Name = nameOfRoute.text;
@@ -161,7 +162,8 @@
         information.inheritedRoute=newRoute;
         
         [self.navigationController pushViewController:information animated:YES];
-
+        [information release];
+        NSLog(@"RouteCreatorScreen retain count=%d",[self retainCount]);
     }
     else
     {
@@ -185,9 +187,15 @@
 
 -(void)dealloc
 {
+    [nameOfRoute release], nameOfRoute = nil;
+    [homeImage release], homeImage = nil;
+    [takePictureButton release], takePictureButton = nil;
+    [selectFromLibrary release], selectFromLibrary = nil;
+    [context release], context = nil;
+    [_fetchedResultsController release], _fetchedResultsController = nil;
+    [self.fetchedResultsController release], self.fetchedResultsController = nil;
     [super dealloc];
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
+
 }
 
 @end

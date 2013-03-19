@@ -20,10 +20,10 @@
 -(IBAction) doneWithKeyboard;
 -(IBAction) getPhoto;
 
-@property (nonatomic, retain) IBOutlet UITextField *nameOfRoute;
-@property (nonatomic, retain) IBOutlet UIImageView *homeImage;
-@property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
-@property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
+//@property (nonatomic, retain) IBOutlet UITextField *nameOfRoute;
+//@property (nonatomic, retain) IBOutlet UIImageView *homeImage;
+//@property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
+//@property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
 @property (nonatomic, retain) NSString *imageURL;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;

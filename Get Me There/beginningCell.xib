@@ -61,6 +61,7 @@
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<int key="IBUIContentMode">7</int>
+										<int key="IBUITag">3</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<string key="IBUIText">Label</string>
@@ -73,6 +74,7 @@
 										<int key="IBUIBaselineAdjustment">1</int>
 										<float key="IBUIMinimumFontSize">10</float>
 										<bool key="IBUIAdjustsLetterSpacingToFitWidth">YES</bool>
+										<int key="IBUINumberOfLines">2</int>
 										<int key="IBUITextAlignment">1</int>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">1</int>
@@ -83,6 +85,7 @@
 											<double key="NSSize">17</double>
 											<int key="NSfFlags">16</int>
 										</object>
+										<double key="preferredMaxLayoutWidth">114</double>
 									</object>
 									<object class="IBUIImageView" id="778108239">
 										<reference key="NSNextResponder" ref="126429709"/>
@@ -92,6 +95,7 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="218738363"/>
 										<int key="IBUIContentMode">1</int>
+										<int key="IBUITag">4</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<object class="NSCustomResource" key="IBUIImage">
@@ -107,6 +111,7 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="594064736"/>
 										<int key="IBUIContentMode">1</int>
+										<int key="IBUITag">1</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>
@@ -118,6 +123,7 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView"/>
 										<int key="IBUIContentMode">1</int>
+										<int key="IBUITag">2</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>

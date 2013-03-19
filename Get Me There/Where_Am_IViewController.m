@@ -64,12 +64,6 @@
     return self;
 }
 */
-- (void)dealloc
-{
-    [super dealloc];
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -159,8 +153,8 @@
     UIBarButtonItem *_backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:nil action:nil];
     self.navigationItem.backBarButtonItem = _backButton;
     
-    // [_backButton release], _backButton = nil;
-    // [information release], _myViewController = nil;
+    [_backButton release], _backButton = nil;
+    [information release];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -181,7 +175,7 @@
 - (void)configureCell:(beginningCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.test.text=info.Name;
+    ((UILabel *)[cell viewWithTag:3]).text=info.Name;
     //NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@",info.StartPicture, info.DestinationPicture);
 
     //Tell cell to load route's start and end images
@@ -217,7 +211,7 @@
     information.currentEvent = 0;
     information.routeName = primaryDirection.Name; 
     [self.navigationController pushViewController:information animated:YES];
-    
+    [information release];
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -274,5 +268,13 @@
     //NSLog(@"it's over!");
     [self.tableView endUpdates];
 }
+
+- (void)dealloc
+{
+    [_fetchedResultsController release], _fetchedResultsController = nil;
+    [context release];
+    [super dealloc];
+}
+
 
 @end

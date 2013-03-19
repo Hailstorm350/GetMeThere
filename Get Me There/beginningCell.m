@@ -9,7 +9,7 @@
 #import "beginningCell.h"
 
 @implementation beginningCell
-@synthesize test, startPicture, endPicture;
+//@synthesize test, startPicture, endPicture;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -39,7 +39,7 @@
         if (iref) {
             startUIImage = [UIImage imageWithCGImage:iref];
             
-            [[self startPicture] setImage: startUIImage];
+            [((UIImageView *)[self viewWithTag:1]) setImage: startUIImage];
             [startUIImage retain];
         }
     };
@@ -51,7 +51,7 @@
         if (iref) {
             destUIImage = [UIImage imageWithCGImage:iref];
             
-            [[self endPicture] setImage:destUIImage];
+            [((UIImageView *)[self viewWithTag:2]) setImage:destUIImage];
             [destImageURL retain];
         }
     };

@@ -105,6 +105,7 @@ BOOL didCreateNew;
     }
     else  
        [self.navigationController popToRootViewControllerAnimated:YES];
+    NSLog(@"Route_edit_screen retain count=%d",[self retainCount]);
 }
 
 
@@ -245,12 +246,13 @@ BOOL didCreateNew;
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    edit_modal_screen *editer=[[edit_modal_screen alloc]init];
+    
     if(indexPath.row==[[_fetchedResultsController fetchedObjects] count]+1)
     {
         destination_Picture *information = [[destination_Picture alloc]init];
         information.inheritedRoute = inheritedRoute;
         [self.navigationController pushViewController:information animated:YES];
+        [information release];
         return;
     }
     else if(indexPath.row==[[_fetchedResultsController fetchedObjects] count]+2)
@@ -258,7 +260,7 @@ BOOL didCreateNew;
         [self.navigationController popToRootViewControllerAnimated:YES];
         return;
     }
-
+    edit_modal_screen *editer=[[edit_modal_screen alloc]init];
     if(indexPath.row==[[_fetchedResultsController fetchedObjects] count]){
         didCreateNew=TRUE;
         editer.newEvent=TRUE;
@@ -271,8 +273,7 @@ BOOL didCreateNew;
         editer.inheritedEvent=info;
         editer.givenName=info.Name;
     }
-    editer.fetchedResultsControllerInherited=_fetchedResultsController;
-    //editer.modalScreenEventData=eventData;
+
     editer.finalInheritedRoute=inheritedRoute;
     NSArray *allEvents = 
     [[[_fetchedResultsController sections] objectAtIndex:0] objects];
@@ -282,15 +283,15 @@ BOOL didCreateNew;
     [editer release];
 }
 
-
 - (void)dealloc
 {
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-    
-    //[eventData release];
+    [inheritedRoute release];
+    [context release];
+    [_fetchedResultsController release], _fetchedResultsController = nil;
     [super dealloc];
+    
 }
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.tableView beginUpdates];

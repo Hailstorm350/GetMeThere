@@ -11,7 +11,8 @@
 #import "Route.h"
 @implementation destination_Picture
 
-@synthesize endImage, imageURL, takePictureButton, selectFromLibrary, fetchedResultsController=_fetchedResultsController, context, inheritedRoute;
+//@synthesize endImage, takePictureButton, selectFromLibrary,
+@synthesize fetchedResultsController=_fetchedResultsController, context, inheritedRoute, imageURL;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
@@ -160,9 +161,6 @@
         }
         //_fetchedResultsController =nil;
         [self.navigationController popViewControllerAnimated:YES];
-        
-        [imageURL release];
-        [self.view release];
         //To get information to pass on to the next screen//
     }
     

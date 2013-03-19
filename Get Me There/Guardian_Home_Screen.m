@@ -180,17 +180,20 @@
         RouteCreatorScreen *information=[[RouteCreatorScreen alloc]init];
    
         [self.navigationController pushViewController:information animated:YES];
+        [information release];
     }
     else if(indexPath.row==2)
     {
         PanicButtonViewController *information=[[PanicButtonViewController alloc]init];
         
         [self.navigationController pushViewController:information animated:YES];
+        [information release];
     }
 
     else if(indexPath.row==0){
         RouteList *listOfRoutes=[[RouteList alloc]init];
         [self.navigationController pushViewController:listOfRoutes animated:YES];
+        [listOfRoutes release];
     }
 }
 
