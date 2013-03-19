@@ -12,7 +12,7 @@
 #import "Route.h"
 
 @implementation RouteCreatorScreen
-@synthesize takePictureButton, selectFromLibrary, homeImage, nameOfRoute;
+//@synthesize takePictureButton, selectFromLibrary, homeImage, nameOfRoute;
 @synthesize context, fetchedResultsController=_fetchedResultsController;
 @synthesize imageURL;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,31 +28,25 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    //@autoreleasepool {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription 
-                                       entityForName:@"Route" inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                                  initWithKey:@"Row" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        
-        [fetchRequest setFetchBatchSize:20];
-        
-        NSFetchedResultsController *theFetchedResultsController = 
-        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                            managedObjectContext:context sectionNameKeyPath:nil
-                                                       cacheName:nil];
-        self.fetchedResultsController = theFetchedResultsController;
-        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-        
-//        [sort release];
-//        [fetchRequest release];
-//        [theFetchedResultsController release];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription 
+                                   entityForName:@"Route" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
     
-        return _fetchedResultsController;    
-    //}
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                              initWithKey:@"Row" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController = 
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                        managedObjectContext:context sectionNameKeyPath:nil
+                                                   cacheName:nil];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+    
+    return _fetchedResultsController;
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,9 +76,8 @@
 
     self.title = @"Route Creation";
     
-    if( ![UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceFront ])
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         takePictureButton.hidden = YES;
-
 }
 
 - (void)viewDidUnload {
@@ -109,12 +102,9 @@
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
     
-
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 
-    
 	[self presentModalViewController:picker animated:YES];
-    
 }
 
 #pragma mark -
@@ -129,20 +119,19 @@
             if (error) {
                 NSLog(@"error");
             } else {
-                //We have the URL!!!
                 self.imageURL = [assetURL absoluteString];
-                [assetURL release];
-            }  
-        }];  
-        [library release];
+            }
+        }];
     } else {
         self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
     }
+
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
+//    [picker release];
 }
 
 -(IBAction)doneButtonPressed
@@ -157,14 +146,14 @@
                                   delegate:self cancelButtonTitle:@"OK" 
                                   otherButtonTitles:nil];
         [saveAlert show];
-        [saveAlert release];
-        [msg release];
+//        [saveAlert release];
+//        [msg release];
         
     }
     else if(nameOfRoute.text.length>0){
         
         Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-        NSLog(@"StartPicture: %@\n imageURL: %@\n",newRoute.StartPicture, imageURL);
+        //NSLog(@"StartPicture: %@\n imageURL: %@\n",newRoute.StartPicture, imageURL);
         newRoute.StartPicture = imageURL;
         
         newRoute.Name = nameOfRoute.text;
@@ -179,7 +168,8 @@
         information.inheritedRoute=newRoute;
         
         [self.navigationController pushViewController:information animated:YES];
-
+//        [information release];
+//        NSLog(@"RouteCreatorScreen retain count=%d",[self retainCount]);
     }
     else
     {
@@ -189,7 +179,7 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
+//        [alert release];
     }
 }
 
@@ -201,11 +191,17 @@
     [nameOfRoute resignFirstResponder];
 }
 
--(void)dealloc
-{
-    [super dealloc];
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-}
+//-(void)dealloc
+//{
+//    [nameOfRoute release], nameOfRoute = nil;
+//    [homeImage release], homeImage = nil;
+//    [takePictureButton release], takePictureButton = nil;
+//    [selectFromLibrary release], selectFromLibrary = nil;
+//    [context release], context = nil;
+//    [_fetchedResultsController release], _fetchedResultsController = nil;
+//    [self.fetchedResultsController release], self.fetchedResultsController = nil;
+//    [super dealloc];
+//
+//}
 
 @end

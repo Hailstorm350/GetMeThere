@@ -13,6 +13,6 @@
     IBOutlet UIImageView *contactPicture;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *contactName;
-@property (nonatomic, retain) IBOutlet UIImageView *contactPicture;
+@property (nonatomic, strong) IBOutlet UILabel *contactName;
+@property (nonatomic, strong) IBOutlet UIImageView *contactPicture;
 @end

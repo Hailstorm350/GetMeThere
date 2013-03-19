@@ -11,7 +11,8 @@
 #import "Route.h"
 @implementation destination_Picture
 
-@synthesize endImage, imageURL, takePictureButton, selectFromLibrary, fetchedResultsController=_fetchedResultsController, context, inheritedRoute;
+//@synthesize endImage, takePictureButton, selectFromLibrary,
+@synthesize fetchedResultsController=_fetchedResultsController, context, inheritedRoute, imageURL;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     
@@ -39,9 +40,6 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
     }
     return _fetchedResultsController;
 }
@@ -84,17 +82,10 @@
 
     self.title = @"Destination Picture";
     
-    if( ![UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceFront ])
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         takePictureButton.hidden = YES;
 }
 
-- (void)viewDidUnload
-{
-    //[super viewDidUnload];
-    self.fetchedResultsController = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -121,7 +112,6 @@
     
 	[self presentModalViewController:picker animated:YES];
     
-    [picker release];
 }
 
 #pragma mark -
@@ -138,14 +128,13 @@
             } else {
                 //We have the URL!!!
                 self.imageURL = [assetURL absoluteString];
-                [assetURL release];
             }
         }];
-        [library release];
     } else {
         self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
     }
 }
+
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -164,8 +153,6 @@
                                   delegate:self cancelButtonTitle:@"OK" 
                                   otherButtonTitles:nil];
         [saveAlert show];
-        [saveAlert release];
-        [msg release];
         
     }
     else {
@@ -178,9 +165,6 @@
         }
         //_fetchedResultsController =nil;
         [self.navigationController popViewControllerAnimated:YES];
-        
-        [imageURL release];
-        [self.view release];
         //To get information to pass on to the next screen//
     }
     

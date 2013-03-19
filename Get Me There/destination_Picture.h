@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+
 #import "Route.h"
 @interface destination_Picture : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate >
 {
@@ -20,13 +21,13 @@
 -(IBAction) cancelButtonPressed;
 -(IBAction) getPhoto;
 
-@property (nonatomic, retain) Route *inheritedRoute;
+@property (nonatomic, strong) Route *inheritedRoute;
 
-@property (nonatomic, retain) IBOutlet UIImageView *endImage;
-@property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
-@property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
+//@property (nonatomic, retain) IBOutlet UIImageView *endImage;
+//@property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
+//@property (nonatomic, retain) IBOutlet UIButton *selectFromLibrary;
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSString *imageURL;
 
 @end

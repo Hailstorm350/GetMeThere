@@ -15,10 +15,10 @@
 @private
 }
 @property (nonatomic, strong) NSString * DestinationPicture;
-@property (nonatomic, retain) NSString * Name;
+@property (nonatomic, strong) NSString * Name;
 @property (nonatomic, strong) NSString * StartPicture;
-@property (nonatomic, retain) NSSet *Event;
-@property (nonatomic, retain) NSNumber *Row;
+@property (nonatomic, strong) NSSet *Event;
+@property (nonatomic, strong) NSNumber *Row;
 @end
 
 @interface Route (CoreDataGeneratedAccessors)

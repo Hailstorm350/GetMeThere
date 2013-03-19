@@ -31,25 +31,25 @@
 
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 
-@property (nonatomic, retain) IBOutlet Where_Am_IViewController *viewController;
+@property (nonatomic, strong) IBOutlet Where_Am_IViewController *viewController;
 
-@property (nonatomic, retain) IBOutlet Route_edit_screenViewController *whereIWillGetMyData;
+@property (nonatomic, strong) IBOutlet Route_edit_screenViewController *whereIWillGetMyData;
 
-@property (nonatomic, retain) IBOutlet UserManual *manual;
+@property (nonatomic, strong) IBOutlet UserManual *manual;
 
 //@property (nonatomic, retain) IBOutlet Home_Screen *home;
 
-@property (nonatomic, retain) IBOutlet Guardian_Home_Screen *guardianHome;
+@property (nonatomic, strong) IBOutlet Guardian_Home_Screen *guardianHome;
 
 //ALSO NEW CODE
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
 
 
 

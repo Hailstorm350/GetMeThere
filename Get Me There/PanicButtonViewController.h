@@ -17,9 +17,9 @@
     NSFetchedResultsController *_fetchedResultsController;
 }
 
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, retain) IBOutlet UITableView *myTableView;
+@property (nonatomic, strong) IBOutlet UITableView *myTableView;
 - (IBAction)toggleEdit;
 - (IBAction)toggleAdd;
 - (IBAction)backButtonPressed;

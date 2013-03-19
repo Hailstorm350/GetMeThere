@@ -9,7 +9,7 @@
 #import "beginningCell.h"
 
 @implementation beginningCell
-@synthesize test, startPicture, endPicture;
+//@synthesize test, startPicture, endPicture;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -39,8 +39,7 @@
         if (iref) {
             startUIImage = [UIImage imageWithCGImage:iref];
             
-            [[self startPicture] setImage: startUIImage];
-            [startUIImage retain];
+            [((UIImageView *)[self viewWithTag:1]) setImage: startUIImage];
         }
     };
     //result block for destImage
@@ -51,8 +50,7 @@
         if (iref) {
             destUIImage = [UIImage imageWithCGImage:iref];
             
-            [[self endPicture] setImage:destUIImage];
-            [destImageURL retain];
+            [((UIImageView *)[self viewWithTag:2]) setImage:destUIImage];
         }
     };
     
@@ -65,7 +63,7 @@
     //Fetch and retain start Image
     if(startImageURL && [[startImageURL absoluteString] length])
     {
-        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:startImageURL
                        resultBlock:startresultblock
                       failureBlock:failureblock];
@@ -73,7 +71,7 @@
     //Fetch and retain destination Image
     if(destImageURL && [[destImageURL absoluteString] length])
     {
-        ALAssetsLibrary* assetslibrary = [[[ALAssetsLibrary alloc] init] autorelease];
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
         [assetslibrary assetForURL:destImageURL
                        resultBlock:destresultblock
                       failureBlock:failureblock];

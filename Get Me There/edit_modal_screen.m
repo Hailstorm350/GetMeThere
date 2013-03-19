@@ -17,13 +17,14 @@
 @implementation edit_modal_screen
 
 
-@synthesize imageView;
-@synthesize takePictureButton;
-@synthesize selectFromLibrary;
+//@synthesize imageView;
+//@synthesize takePictureButton;
+//@synthesize selectFromLibrary;
 @synthesize finalInheritedRoute;
-@synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight, newEvent, indexRow, givenName, viewContollerData, modalScreenEventData, inheritedEvent, imageURL;
+//@synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight
+@synthesize newEvent, indexRow, givenName, viewContollerData, inheritedEvent, imageURL;
 
-@synthesize events=_events, context, fetchedResultsController=_fetchedResultsController, fetchedResultsControllerInherited;
+@synthesize events=_events, context, fetchedResultsController=_fetchedResultsController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,31 +40,26 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    @autoreleasepool {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription 
-                                       entityForName:@"Event" inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                                  initWithKey:@"details.closeDate" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        
-        [fetchRequest setFetchBatchSize:20];
-        
-        NSFetchedResultsController *theFetchedResultsController = 
-        [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                            managedObjectContext:context sectionNameKeyPath:nil
-                                                       cacheName:@"Row"];
-        self.fetchedResultsController = theFetchedResultsController;
-        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-        
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
-        
-        return _fetchedResultsController;    
-    }
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription 
+                                   entityForName:@"Event" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
+                              initWithKey:@"details.closeDate" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController = 
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                        managedObjectContext:context sectionNameKeyPath:nil
+                                                   cacheName:@"Row"];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+    
+    
+    return _fetchedResultsController;
 }
 
 
@@ -71,7 +67,7 @@
     [descriptionOfEvent resignFirstResponder];
 }
 -(IBAction) doneButtonPressed: (id) sender{
-    if([textField.text length]<=0)
+    if([descriptionOfEvent.text length]<=0)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
                                                         message:@"You must enter a an event description"
@@ -79,14 +75,13 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
     }
     else if(newEvent)
     {
         Event *newEventObject =[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
 
         
-        newEventObject.Name=textField.text;
+        newEventObject.Name=descriptionOfEvent.text;
         //   newRoute.Picture=(NSValueTransformer *)imageView;
         if(goStraight.selectedSegmentIndex==1){
             newEventObject.Arrow=@"straight";
@@ -119,7 +114,7 @@
         [finalInheritedRoute addEventObject:newEventObject];
 
         newEventObject.Picture = imageURL;
-        NSLog(@"Event Picture URL is: %@", imageURL);
+        //NSLog(@"Event Picture URL is: %@", imageURL);
         NSError *error;
         if (![context save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -129,7 +124,7 @@
     }
     else
     {
-        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
         
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
         
@@ -146,7 +141,7 @@
         Event *info=[array objectAtIndex:0];
         
         
-        info.Name=textField.text;
+        info.Name=descriptionOfEvent.text;
         if(goStraight.selectedSegmentIndex==1){
             info.Arrow=@"straight";
         }
@@ -202,7 +197,6 @@
     
 	[self presentModalViewController:picker animated:YES];
     
-    [picker release];
 }
 
 -(IBAction) takePicture{
@@ -227,12 +221,9 @@
             if (error) {
                 NSLog(@"error");
             } else {
-                //We have the URL!!!
                 self.imageURL = [assetURL absoluteString];
-                [assetURL release];
             }
         }];
-        [library release];
     } else {
         self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
     }
@@ -281,7 +272,7 @@
     if([inheritedEvent.Row integerValue]!=indexRow){ //Not a new route
 
         Event *info=inheritedEvent;
-        textField.text=info.Name;
+        descriptionOfEvent.text=info.Name;
        
         //TODO replace all this crappy logic with something useful: redesign UI for picker
         if([info.Arrow isEqualToString:@"straight"])
@@ -317,23 +308,11 @@
     }
     self.title = @"Event";
     
-    if( ![UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceFront ])
+    if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         takePictureButton.hidden = YES;
     
 }
 
-- (void)viewDidUnload
-{
-    self.fetchedResultsController = nil;
-    self.textField=nil;
-    //    self.imageView = nil;
-    //	self.takePictureButton = nil;
-    //	self.selectFromCameraRollButton = nil;
-    //[super viewDidUnload];
-    self.fetchedResultsController = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -343,17 +322,22 @@
 
 - (void)dealloc
 {
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-    self.events=nil;
-    //    [imageView release];
-    //	[takePictureButton release];
-    //	[selectFromCameraRollButton release];
-    [textField release];
-    [super dealloc];
+//    [descriptionOfEvent release];
+//    [rightOrLeft release];
+//    [transitStop release];
+//    [goStraight release];
+//    [sharpOrNormal release];
+    _fetchedResultsController = nil;
+//    [imageView release];
+//    [takePictureButton release];
+//    [selectFromLibrary release];
 }
 
 
 
+- (void)viewDidUnload {
+    descriptionOfEvent = nil;
+    [super viewDidUnload];
+}
 @end
 

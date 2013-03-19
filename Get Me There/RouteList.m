@@ -43,9 +43,6 @@
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
         
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
         
         return _fetchedResultsController;
     }
@@ -139,6 +136,7 @@
     //NSLog(@"indexPath.row=%d", indexPath.row);
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text=info.Name;
+    
     //NSLog(@"the text label is %@", cell.textLabel.text);
     /*NSLog(@"info.Arrow=%@", info.Arrow);
     if([info.Arrow isEqualToString:@"straight"]){
@@ -167,7 +165,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
          [self configureCell:cell atIndexPath:indexPath];
@@ -231,15 +229,10 @@
     }
     else
     {
-        Route *artist =[_fetchedResultsController objectAtIndexPath:indexPath];
-        //Route_edit_screenViewController *indexName = artist.artistName;
-        //self.enterAlbumInfoViewController.artist = artist;
-        //self.enterAlbumInfoViewController.managedObjectContext = self.managedObjectContext;
-        //artist.inheritedIndexRow=indexPath.row;
+        Route *thisRoute =[_fetchedResultsController objectAtIndexPath:indexPath];
         Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
-        //information.inheritedIndexRow=indexPath.row;
-        information.inheritedName=artist.Name;
-        information.inheritedRoute=artist;
+        information.inheritedName=thisRoute.Name;
+        information.inheritedRoute=thisRoute;
         information.inheritedIndexRow=indexPath.row;
         NSLog(@"the name of the route that i'm passing is %@", information.inheritedRoute.Name);
         [self.navigationController pushViewController:information animated:YES];
@@ -249,6 +242,7 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    NSLog(@"self.tableView: %@", self.tableView);
     [self.tableView beginUpdates];
 }
 
@@ -303,9 +297,8 @@
 
 -(void)dealloc
 {
-    [super dealloc];
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
+    _fetchedResultsController = nil;
+    //[self.fetchedResultsController release], self.fetchedResultsController = nil;
 }
 
 @end

@@ -14,12 +14,12 @@
 @interface Event : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSString * Arrow;
-@property (nonatomic, retain) NSString * Name;
+@property (nonatomic, strong) NSString * Arrow;
+@property (nonatomic, strong) NSString * Name;
 @property (nonatomic, strong) NSString * Picture;
-@property (nonatomic, retain) NSNumber * Row;
-@property (nonatomic, retain) NSNumber * Transit;
-@property (nonatomic, retain) NSSet *route;
+@property (nonatomic, strong) NSNumber * Row;
+@property (nonatomic, strong) NSNumber * Transit;
+@property (nonatomic, strong) NSSet *route;
 
 
 @end

@@ -20,7 +20,6 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    @autoreleasepool {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Route" inManagedObjectContext:context];
         [fetchRequest setEntity:entity];
@@ -36,13 +35,8 @@
                                                        cacheName:nil];
         self.fetchedResultsController = theFetchedResultsController;
         _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-        
-        [sort release];
-        [fetchRequest release];
-        [theFetchedResultsController release];
-        
-        return _fetchedResultsController;    
-    }
+
+        return _fetchedResultsController;
 }
 
 
@@ -64,12 +58,6 @@
     return self;
 }
 */
-- (void)dealloc
-{
-    [super dealloc];
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -125,7 +113,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationPortrait]; //TODO Why does this still work?
+    //[[UIDevice currentDevice] setOrientation:UIInterfaceOrientationPortrait]; //TODO Why does this still work?
     
 }
 
@@ -149,7 +137,7 @@
     
     UserManual *information=[[UserManual alloc]init];
     [self presentModalViewController:information animated:YES];
-    [information release];
+//    [information release];
 }
 -(IBAction) GuardianButtonPressed{
     
@@ -159,8 +147,8 @@
     UIBarButtonItem *_backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:nil action:nil];
     self.navigationItem.backBarButtonItem = _backButton;
     
-    // [_backButton release], _backButton = nil;
-    // [information release], _myViewController = nil;
+//    [_backButton release], _backButton = nil;
+//    [information release];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -181,7 +169,7 @@
 - (void)configureCell:(beginningCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.test.text=info.Name;
+    ((UILabel *)[cell viewWithTag:3]).text=info.Name;
     //NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@",info.StartPicture, info.DestinationPicture);
 
     //Tell cell to load route's start and end images
@@ -215,9 +203,8 @@
     Route *primaryDirection = [_fetchedResultsController objectAtIndexPath:indexPath];
     ShowPrimaryDirection *information = [[ShowPrimaryDirection alloc]init];
     information.currentEvent = 0;
-    information.routeName = primaryDirection.Name; 
+    information.routeName = primaryDirection.Name;
     [self.navigationController pushViewController:information animated:YES];
-    
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -274,5 +261,22 @@
     //NSLog(@"it's over!");
     [self.tableView endUpdates];
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+//- (void)dealloc
+//{
+//    [_fetchedResultsController release], _fetchedResultsController = nil;
+//    [context release];
+//    [super dealloc];
+//}
+
 
 @end

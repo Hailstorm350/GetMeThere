@@ -14,14 +14,14 @@
 #import "PanicButtonViewController.h"
 @implementation Guardian_Home_Screen
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+//- (id)initWithStyle:(UITableViewStyle)style
+//{
+//    self = [super initWithStyle:style];
+//    if (self) {
+//        // Custom initialization
+//    }
+//    return self;
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -96,7 +96,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     if(indexPath.row==0)
@@ -180,17 +180,20 @@
         RouteCreatorScreen *information=[[RouteCreatorScreen alloc]init];
    
         [self.navigationController pushViewController:information animated:YES];
+        //[information release];
     }
     else if(indexPath.row==2)
     {
         PanicButtonViewController *information=[[PanicButtonViewController alloc]init];
         
         [self.navigationController pushViewController:information animated:YES];
+        //[information release];
     }
 
     else if(indexPath.row==0){
         RouteList *listOfRoutes=[[RouteList alloc]init];
         [self.navigationController pushViewController:listOfRoutes animated:YES];
+        //[listOfRoutes release];
     }
 }
 
