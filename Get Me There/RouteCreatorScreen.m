@@ -131,7 +131,6 @@
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-//    [picker release];
 }
 
 -(IBAction)doneButtonPressed
@@ -146,8 +145,6 @@
                                   delegate:self cancelButtonTitle:@"OK" 
                                   otherButtonTitles:nil];
         [saveAlert show];
-//        [saveAlert release];
-//        [msg release];
         
     }
     else if(nameOfRoute.text.length>0){

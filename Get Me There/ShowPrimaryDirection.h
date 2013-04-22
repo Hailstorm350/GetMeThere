@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+
 @class Route;
 @interface ShowPrimaryDirection : UIViewController {
     UIImageView *directionImage;
@@ -32,5 +33,5 @@
 - (IBAction)contactListButtonPressed;
 - (IBAction)nextButtonPressed;
 - (IBAction)prevButtonPressed;
-
+- (id)initWithRoute: (NSString *)route;
 @end

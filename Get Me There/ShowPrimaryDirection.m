@@ -11,6 +11,7 @@
 #import "Event.h"
 #import "Route.h"
 #import "Get_Me_ThereAppDelegate.h"
+
 @implementation ShowPrimaryDirection
 @synthesize directionImage, arrowImage, panicCallButton, nextDirButton, prevDirButton, routeName, currentEvent;
 @synthesize fetchedResultsController = _fetchedResultsController;
@@ -20,29 +21,23 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
-    @autoreleasepool {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        
-        NSPredicate *predicate=[NSPredicate predicateWithFormat:@"route.Name=%@", routeName];
-        [fetchRequest setPredicate:predicate];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"Row" ascending:YES];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        
-        [fetchRequest setFetchBatchSize:20];
-        
-        NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController = theFetchedResultsController;
-        _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
-
-//        [sort release];
-//        [fetchRequest release];
-//        [theFetchedResultsController release];
-        
-        return _fetchedResultsController;
-    }
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate=[NSPredicate predicateWithFormat:@"route.Name=%@", routeName];
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:@"Row" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
+    
+    return _fetchedResultsController;
 }
 
 - (IBAction)contactListButtonPressed {
@@ -51,16 +46,17 @@
 //    [toPush release];
 }
 - (IBAction)nextButtonPressed {
+    //Finish the route
     if([nextDirButton.titleLabel.text isEqualToString: @"Finish"]){
         UIAlertView *finishedAlert = [[UIAlertView alloc]
                                   initWithTitle:@"You have arrived!"
                                   message:@"You have arrived. Please charge your phone!"
                                   delegate:self cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
+        
+        [self dismissModalViewControllerAnimated:YES];
         [finishedAlert show];
-//        [finishedAlert release];
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
+    }else{ //Continue the route
         currentEvent += 1;
         [self viewLogic];
     }
@@ -111,7 +107,7 @@
         CGImageRef iref = [rep fullResolutionImage]; //  Thumbnail is not wanted
         
         if (iref) {
-            eventImage = [UIImage imageWithCGImage:iref];
+            eventImage = [UIImage imageWithCGImage:iref scale:[rep scale] orientation: 0];
             
             [[self directionImage] setImage: eventImage];
 //            [eventImage retain];
@@ -144,6 +140,16 @@
     return self;
 }
 
+- (id)initWithRoute: (NSString *)route
+{
+    self = [super init];
+    if (self){
+        currentEvent = 0;
+        routeName = route;
+    }
+    return self;
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -153,6 +159,7 @@
 }
 
 #pragma mark - View lifecycle
+
 
 - (void)viewDidLoad
 {
@@ -170,37 +177,25 @@
     [self viewLogic];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    self.fetchedResultsController = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (UIInterfaceOrientationIsLandscape(interfaceOrientation));
-}
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskLandscape;
-}
-
-
 - (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    [[UIDevice currentDevice] setOrientation:UIInterfaceOrientationLandscapeLeft]; //TODO Why does this still work?
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+}
+
+- (BOOL) shouldAutorotate{
+    return YES;
+}
+
+- (NSUInteger) supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationLandscapeLeft;
 }
 
 @end

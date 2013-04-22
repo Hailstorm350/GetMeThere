@@ -12,6 +12,7 @@
 #import "Route.h"
 #import "Get_Me_ThereAppDelegate.h"
 #import "ShowPrimaryDirection.h"
+
 @implementation Where_Am_IViewController
 @synthesize context, fetchedResultsController=_fetchedResultsController;
 
@@ -92,8 +93,6 @@
     self.title = @"Routes";   
 }
 
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
@@ -101,20 +100,9 @@
     [super viewWillAppear:animated];
 }
 
-- (void)viewDidUnload
-{
-    //[super viewDidUnload];
-    self.fetchedResultsController = nil;
-    //self.fetchedResultsController=nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //[[UIDevice currentDevice] setOrientation:UIInterfaceOrientationPortrait]; //TODO Why does this still work?
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -127,10 +115,6 @@
     [super viewDidDisappear:animated];
 }
 
--(NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
 
 -(IBAction) informationButtonPressed
 {
@@ -141,9 +125,9 @@
 }
 -(IBAction) GuardianButtonPressed{
     
-    Guardian_Home_Screen *information=[[Guardian_Home_Screen alloc]initWithNibName:@"Guardian_Home_Screen" bundle:nil];
+    Guardian_Home_Screen *guardianView=[[Guardian_Home_Screen alloc]initWithNibName:@"Guardian_Home_Screen" bundle:nil];
     
-    [self.navigationController pushViewController:information animated:YES];
+    [self.navigationController pushViewController:guardianView animated:YES];
     UIBarButtonItem *_backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:nil action:nil];
     self.navigationItem.backBarButtonItem = _backButton;
     
@@ -180,7 +164,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"the current row is %d", indexPath.row);
+    
     static NSString *cellIdentifier = @"beginningCell";
     beginningCell *cell = (beginningCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell == nil)
@@ -201,10 +185,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Route *primaryDirection = [_fetchedResultsController objectAtIndexPath:indexPath];
-    ShowPrimaryDirection *information = [[ShowPrimaryDirection alloc]init];
-    information.currentEvent = 0;
-    information.routeName = primaryDirection.Name;
-    [self.navigationController pushViewController:information animated:YES];
+    ShowPrimaryDirection *naviView = [[ShowPrimaryDirection alloc] initWithRoute: primaryDirection.Name];
+    [self.navigationController presentModalViewController:naviView animated:YES];
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -255,28 +237,22 @@
     }
 }
 
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     //NSLog(@"it's over!");
     [self.tableView endUpdates];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (BOOL)shouldAutorotate
-{
+- (BOOL) shouldAutorotate{
+    NSLog(@"shouldAutorotate called from whereAmIcontroller");
     return NO;
 }
-//- (void)dealloc
-//{
-//    [_fetchedResultsController release], _fetchedResultsController = nil;
-//    [context release];
-//    [super dealloc];
-//}
 
+- (NSUInteger) supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
 
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationPortrait;
+}
 @end

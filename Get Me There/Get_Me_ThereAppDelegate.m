@@ -24,7 +24,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    self.window.rootViewController = navigationController;
+    [self.window setRootViewController:navigationController];
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications]; //Necessary in iOS 6
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -104,9 +104,20 @@
         UIViewController *presentedViewController = [[(UINavigationController *)self.window.rootViewController viewControllers] lastObject];
         orientations = [presentedViewController supportedInterfaceOrientations];
     }
-    
+    //NSLog(@"Call to SupportedInterfaceOrientationsForWindow in AppDelegate!!!");
     return orientations;
 }
+- (BOOL)application:(UIApplication *)application shouldAutorotateForWindow:(UIWindow *)window{
+    BOOL retVal = YES;
+    if(self.window.rootViewController){
+        UIViewController *presentedViewController = [[(UINavigationController *)self.window.rootViewController viewControllers] lastObject];
+        retVal = [presentedViewController shouldAutorotate];
+    }
+    
+    
+    return retVal;
+}
+
 
 
 #pragma mark - Core Data stack
