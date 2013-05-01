@@ -263,24 +263,22 @@ BOOL didCreateNew;
     edit_modal_screen *editer=[[edit_modal_screen alloc]init];
     if(indexPath.row==[[_fetchedResultsController fetchedObjects] count]){
         didCreateNew=TRUE;
-        editer.newEvent=TRUE;
+        editer.isNewEvent=TRUE;
     }
     else{
         didCreateNew=FALSE;
-        editer.newEvent=FALSE;
-        Event *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-        //NSLog(@"I'm passing to the modal screen the event %@, which has the properties %@", info.Name, info.Transit);
-        editer.inheritedEvent=info;
-        editer.givenName=info.Name;
+        editer.isNewEvent=FALSE;
+        Event *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+        editer.eventObject=event;
     }
 
     editer.finalInheritedRoute=inheritedRoute;
     NSArray *allEvents = 
     [[[_fetchedResultsController sections] objectAtIndex:0] objects];
     editer.indexRow=[allEvents count];
-    //NSLog(@"the count of the array passed in is %d", [allEvents count]);
+
     [self presentModalViewController:editer animated:YES];
-    //[editer release];
+
 }
 
 //- (void)dealloc

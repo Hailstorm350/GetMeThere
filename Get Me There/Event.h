@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
+#import "CoreLocationController.h"
 @class Route;
 
 @interface Event : NSManagedObject {
+
 @private
 }
 @property (nonatomic, strong) NSString * Arrow;
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) NSNumber * Transit;
 @property (nonatomic, strong) NSSet *route;
 
+    - (void) setLocation: (CLLocationCoordinate2D) coord;
 
 @end
 
@@ -30,4 +32,5 @@
 - (void)removeRouteObject:(Route *)value;
 - (void)addRoutes:(NSSet *)values;
 - (void)removeRoutes:(NSSet *)values;
+
 @end

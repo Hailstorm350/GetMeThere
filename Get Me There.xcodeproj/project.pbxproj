@@ -36,6 +36,8 @@
 		02F00BA5153547D300B89881 /* Route_edit_screenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */; };
 		409E1BF216F7BD3600A728E3 /* routeArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 409E1BF116F7BD3600A728E3 /* routeArrow.png */; };
 		409E1BF316F7D85500A728E3 /* Get_Me_There.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02683CEE1534C3F2008E5147 /* Get_Me_There.xcdatamodeld */; };
+		40D9FBEA17309AE300549C1B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D9FBE917309AE300549C1B /* CoreLocation.framework */; };
+		40D9FBED17309C0800549C1B /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D9FBEC17309C0800549C1B /* CoreLocationController.m */; };
 		5124A5D8155AFA9700E43D1E /* destination_Picture.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5124A5D6155AFA9700E43D1E /* destination_Picture.xib */; };
 		51890D8B1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 51890D8A1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg */; };
 		51F5E08D1559A49000308326 /* Panic_button_primary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0891559A49000308326 /* Panic_button_primary.xib */; };
@@ -143,6 +145,9 @@
 		02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Route_edit_screenViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		02F00BA3153547D300B89881 /* Route_edit_screenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Route_edit_screenViewController.xib; sourceTree = "<group>"; };
 		409E1BF116F7BD3600A728E3 /* routeArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = routeArrow.png; sourceTree = SOURCE_ROOT; };
+		40D9FBE917309AE300549C1B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		40D9FBEB17309C0800549C1B /* CoreLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationController.h; sourceTree = "<group>"; };
+		40D9FBEC17309C0800549C1B /* CoreLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLocationController.m; sourceTree = "<group>"; };
 		5124A5D4155AFA9700E43D1E /* destination_Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = destination_Picture.h; sourceTree = "<group>"; };
 		5124A5D5155AFA9700E43D1E /* destination_Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = destination_Picture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5124A5D6155AFA9700E43D1E /* destination_Picture.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = destination_Picture.xib; sourceTree = "<group>"; };
@@ -185,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40D9FBEA17309AE300549C1B /* CoreLocation.framework in Frameworks */,
 				EFCBB8E516F6649D0073078F /* AssetsLibrary.framework in Frameworks */,
 				02683CD81534C3F1008E5147 /* UIKit.framework in Frameworks */,
 				02683CDA1534C3F1008E5147 /* Foundation.framework in Frameworks */,
@@ -231,6 +237,7 @@
 		02683CD61534C3F1008E5147 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40D9FBE917309AE300549C1B /* CoreLocation.framework */,
 				EFCBB8E416F6649D0073078F /* AssetsLibrary.framework */,
 				02683CD71534C3F1008E5147 /* UIKit.framework */,
 				02683CD91534C3F1008E5147 /* Foundation.framework */,
@@ -247,6 +254,8 @@
 				02CCBE6F154C7CB7008EBB24 /* beginningCell.h */,
 				02CCBE70154C7CB7008EBB24 /* beginningCell.m */,
 				02CCBE72154C7D7C008EBB24 /* beginningCell.xib */,
+				40D9FBEB17309C0800549C1B /* CoreLocationController.h */,
+				40D9FBEC17309C0800549C1B /* CoreLocationController.m */,
 				5124A5D4155AFA9700E43D1E /* destination_Picture.h */,
 				5124A5D5155AFA9700E43D1E /* destination_Picture.m */,
 				5124A5D6155AFA9700E43D1E /* destination_Picture.xib */,
@@ -277,10 +286,8 @@
 				51F5E09C1559A52E00308326 /* PanicButtonInfo.m */,
 				51F5E09D1559A52E00308326 /* PanicButtonViewController.h */,
 				51F5E09E1559A52E00308326 /* PanicButtonViewController.m */,
-				02E23AF415420001004CC9CF /* Route.h */,
 				51F5E0A81559AB8E00308326 /* PanicButtonViewController.xib */,
-				EF7F6A471725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.h */,
-				EF7F6A481725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m */,
+				02E23AF415420001004CC9CF /* Route.h */,
 				02E23AF515420001004CC9CF /* Route.m */,
 				02F00BA1153547D200B89881 /* Route_edit_screenViewController.h */,
 				02F00BA2153547D200B89881 /* Route_edit_screenViewController.m */,
@@ -298,6 +305,8 @@
 				025A52BD1545C86F0095F51A /* TableViewCell.h */,
 				025A52BE1545C86F0095F51A /* TableViewCell.m */,
 				025A52BF1545C86F0095F51A /* TableViewCell.xib */,
+				EF7F6A471725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.h */,
+				EF7F6A481725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m */,
 				02F00B7F1535366D00B89881 /* UserManual.h */,
 				02F00B801535366D00B89881 /* UserManual.m */,
 				02F00B811535366D00B89881 /* UserManual.xib */,
@@ -512,6 +521,7 @@
 				EFCBB8E116F6642A0073078F /* TableViewCell.m in Sources */,
 				409E1BF316F7D85500A728E3 /* Get_Me_There.xcdatamodeld in Sources */,
 				EF7F6A491725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m in Sources */,
+				40D9FBED17309C0800549C1B /* CoreLocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

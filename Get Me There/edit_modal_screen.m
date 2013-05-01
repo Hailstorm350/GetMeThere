@@ -12,19 +12,21 @@
 #import "Route_edit_screenViewController.h"
 #import "Event.h"
 #import "Route.h"
-//#import "Revised_Route_Edit_ScreenAppDelegate.h" 
 #import "Get_Me_ThereAppDelegate.h"
+
 @implementation edit_modal_screen
 
-
-//@synthesize imageView;
-//@synthesize takePictureButton;
-//@synthesize selectFromLibrary;
 @synthesize finalInheritedRoute;
-//@synthesize textField, rightOrLeft, sharpOrNormal, transitStop, goStraight
-@synthesize newEvent, indexRow, givenName, viewContollerData, inheritedEvent, imageURL;
 
-@synthesize events=_events, context, fetchedResultsController=_fetchedResultsController;
+@synthesize isNewEvent, indexRow, viewContollerData, imageURL, eventObject;
+
+@synthesize context, fetchedResultsController=_fetchedResultsController;
+
+@synthesize locCtl;
+
+CLLocationCoordinate2D locCoord;
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,10 +64,15 @@
     return _fetchedResultsController;
 }
 
+-(IBAction) saveLocation{
+    //Save Location
+    eventObject 
+}
 
 -(IBAction)doneWithKeyboard{
     [descriptionOfEvent resignFirstResponder];
 }
+
 -(IBAction) doneButtonPressed: (id) sender{
     if([descriptionOfEvent.text length]<=0)
     {
@@ -76,44 +83,41 @@
                                               otherButtonTitles:nil];
         [alert show];
     }
-    else if(newEvent)
+    else if(isNewEvent)
     {
-        Event *newEventObject =[NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
-
-        
-        newEventObject.Name=descriptionOfEvent.text;
+        eventObject.Name=descriptionOfEvent.text;
         //   newRoute.Picture=(NSValueTransformer *)imageView;
         if(goStraight.selectedSegmentIndex==1){
-            newEventObject.Arrow=@"straight";
+            eventObject.Arrow=@"straight";
         }
         else if(rightOrLeft.selectedSegmentIndex==1){
             if(sharpOrNormal.selectedSegmentIndex==1){
-                newEventObject.Arrow=@"left turn";
+                eventObject.Arrow=@"left turn";
             }
             else{
-                newEventObject.Arrow=@"slight left";
+                eventObject.Arrow=@"slight left";
             }
         }
         else if(rightOrLeft.selectedSegmentIndex==0){
             if(sharpOrNormal.selectedSegmentIndex==1){
-                newEventObject.Arrow=@"right turn";
+                eventObject.Arrow=@"right turn";
             }
             else{
-                newEventObject.Arrow=@"slight right";
+                eventObject.Arrow=@"slight right";
             }
         }
         if(transitStop.selectedSegmentIndex==0)           
-            newEventObject.Transit=[NSNumber numberWithBool:false];
+            eventObject.Transit=[NSNumber numberWithBool:false];
         else{
-            newEventObject.Transit=[NSNumber numberWithBool:true];
+            eventObject.Transit=[NSNumber numberWithBool:true];
         }
-        //NSLog(@"the inherited row is %d", indexRow);
+        
         NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
-        newEventObject.Row= newRow;
-        //[newEventObject addRouteObject: finalInheritedRoute]; //TODO this needs to work for inverse in CoreData to function correctly
-        [finalInheritedRoute addEventObject:newEventObject];
+        eventObject.Row= newRow;
+        //[eventObject addRouteObject: finalInheritedRoute]; //TODO this needs to work for inverse in CoreData to function correctly
+        [finalInheritedRoute addEventObject:eventObject];
 
-        newEventObject.Picture = imageURL;
+        eventObject.Picture = imageURL;
         //NSLog(@"Event Picture URL is: %@", imageURL);
         NSError *error;
         if (![context save:&error]) {
@@ -130,8 +134,7 @@
         
         [request setEntity:entity];
         
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", givenName];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", [eventObject Name]];
         
         [request setPredicate:predicate];
         
@@ -183,25 +186,20 @@
         [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
-
- http://www.iphonedevsdk.com/forum/iphone-sdk-development/42457-save-image-core-data.html
-*/
-
-
--(IBAction) getPhoto{
-	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;
-    
-    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    
-	[self presentModalViewController:picker animated:YES];
-    
-}
+//THIS IS DISABLED BECAUSE IT WAS DECIDED TO NOT ALLOW PHOTO PICKING
+//-(IBAction) getPhoto{
+//	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+//	picker.delegate = (id<UINavigationControllerDelegate,UIImagePickerControllerDelegate>) self;
+//    
+//    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+//    
+//	[self presentModalViewController:picker animated:YES];
+//    
+//}
 
 -(IBAction) takePicture{
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;
+	picker.delegate = (id<UINavigationControllerDelegate,UIImagePickerControllerDelegate>) self;
     
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 
@@ -232,11 +230,7 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-/*
- - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
- [picker dismissViewControllerAnimated:YES completion:nil];
- }
- */
+
 -(IBAction) rightOrLeftControl{
     
 }
@@ -247,10 +241,19 @@
     
 }
 -(IBAction) transitStopControl{
-    
+    //Handle Transit control event?
 }
 
+- (void) locationError:(NSError *)error{
+    //Log the location error
+    NSLog(@"%@", [error description]);
+}
 
+- (void) locationUpdate:(CLLocation *)location{
+    //Update location data to be current
+    latitude = location.coordinate.latitude;
+    longitude = location.coordinate.longitude;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -269,48 +272,52 @@
     if(self.context == nil)
         self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
-    if([inheritedEvent.Row integerValue]!=indexRow){ //Not a new route
+    if(eventObject == nil && isNewEvent) //New route!
+        eventObject = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
+    
+    if(!isNewEvent && [eventObject.Row integerValue] != indexRow){ //Not a new route
 
-        Event *info=inheritedEvent;
-        descriptionOfEvent.text=info.Name;
+        descriptionOfEvent.text = eventObject.Name;
        
         //TODO replace all this crappy logic with something useful: redesign UI for picker
-        if([info.Arrow isEqualToString:@"straight"])
-            goStraight.selectedSegmentIndex=1;
-        else if([info.Arrow isEqualToString:@"slight right"]){
-            rightOrLeft.selectedSegmentIndex=0;
-            sharpOrNormal.selectedSegmentIndex=0;
-            goStraight.selectedSegmentIndex=0;
+        if([eventObject.Arrow isEqualToString:@"straight"])
+            goStraight.selectedSegmentIndex = 1;
+        else if([eventObject.Arrow isEqualToString:@"slight right"]){
+            rightOrLeft.selectedSegmentIndex = 0;
+            sharpOrNormal.selectedSegmentIndex = 0;
+            goStraight.selectedSegmentIndex = 0;
         }
-        else if([info.Arrow isEqualToString:@"Right"]){
-            rightOrLeft.selectedSegmentIndex=0;
-            sharpOrNormal.selectedSegmentIndex=1;
-            goStraight.selectedSegmentIndex=0;
+        else if([eventObject.Arrow isEqualToString:@"Right"]){
+            rightOrLeft.selectedSegmentIndex = 0;
+            sharpOrNormal.selectedSegmentIndex = 1;
+            goStraight.selectedSegmentIndex = 0;
         }
-        else if([info.Arrow isEqualToString:@"slight left"]){
-            rightOrLeft.selectedSegmentIndex=1;
-            sharpOrNormal.selectedSegmentIndex=0;
-            goStraight.selectedSegmentIndex=0;
+        else if([eventObject.Arrow isEqualToString:@"slight left"]){
+            rightOrLeft.selectedSegmentIndex = 1;
+            sharpOrNormal.selectedSegmentIndex = 0;
+            goStraight.selectedSegmentIndex = 0;
         }
-        else if([info.Arrow isEqualToString:@"Left"]){
-            rightOrLeft.selectedSegmentIndex=1;
-            sharpOrNormal.selectedSegmentIndex=1;
-            goStraight.selectedSegmentIndex=0;
+        else if([eventObject.Arrow isEqualToString:@"Left"]){
+            rightOrLeft.selectedSegmentIndex = 1;
+            sharpOrNormal.selectedSegmentIndex = 1;
+            goStraight.selectedSegmentIndex = 0;
         }
         
-    
-    imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: imageURL]]];
-    if([info.Transit compare:[NSNumber numberWithBool:NO]]==NSOrderedSame){
-        transitStop.selectedSegmentIndex=0;
-    }
-    else
-        transitStop.selectedSegmentIndex=1;
+        //TODO I don't think this UIImage line works...
+        imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: imageURL]]];
+        if([eventObject.Transit compare:[NSNumber numberWithBool:NO]] == NSOrderedSame){
+            transitStop.selectedSegmentIndex=0;
+        }
+        else
+            transitStop.selectedSegmentIndex=1;
     }
     self.title = @"Event";
     
     if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         takePictureButton.hidden = YES;
-    
+    locCtl = [[CoreLocationController alloc] init];
+    locCtl.delegate = self;
+    [locCtl.locMgr startUpdatingLocation];
 }
 
 
@@ -322,15 +329,9 @@
 
 - (void)dealloc
 {
-//    [descriptionOfEvent release];
-//    [rightOrLeft release];
-//    [transitStop release];
-//    [goStraight release];
-//    [sharpOrNormal release];
+    
     _fetchedResultsController = nil;
-//    [imageView release];
-//    [takePictureButton release];
-//    [selectFromLibrary release];
+
 }
 
 
