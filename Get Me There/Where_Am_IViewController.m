@@ -244,7 +244,7 @@
 }
 
 - (BOOL) shouldAutorotate{
-    NSLog(@"shouldAutorotate called from whereAmIcontroller");
+    
     return NO;
 }
 

@@ -11,7 +11,7 @@
 #import "CoreLocationController.h"
 
 @class Route;
-@interface ShowPrimaryDirection : UIViewController {
+@interface ShowPrimaryDirection : UIViewController<CoreLocationControllerDelegate> {
     UIImageView *directionImage;
     UIImageView *arrowImage;
     UIButton *panicCallButton;
@@ -22,6 +22,7 @@
     NSInteger currentEvent;
     
 }
+@property (nonatomic, strong) CoreLocationController *locCtl;
 @property (nonatomic) NSInteger currentEvent;
 @property (nonatomic, strong) IBOutlet UIImageView *directionImage;
 @property (nonatomic, strong) IBOutlet UIImageView *arrowImage;

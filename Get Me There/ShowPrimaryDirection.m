@@ -16,6 +16,7 @@
 @synthesize directionImage, arrowImage, panicCallButton, nextDirButton, prevDirButton, routeName, currentEvent;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize context;
+@synthesize locCtl;
 - (NSFetchedResultsController *)fetchedResultsController {
     
     if (_fetchedResultsController != nil) {
@@ -42,8 +43,8 @@
 
 - (IBAction)contactListButtonPressed {
     Panic_button_primary * toPush = [[Panic_button_primary alloc] init];
-    [self.navigationController pushViewController: toPush animated:YES];
-//    [toPush release];
+    [self presentModalViewController:toPush animated:YES];
+
 }
 - (IBAction)nextButtonPressed {
     //Finish the route
@@ -72,9 +73,11 @@
 -(BOOL)isLastEvent{
     return currentEvent == [[[[_fetchedResultsController sections] objectAtIndex:0] objects] count] - 1;
 }
+
 -(BOOL)isFirstEvent{
     return currentEvent == 0;
 }
+
 -(void)viewLogic{
     
     //Grab the current event for display
@@ -97,6 +100,14 @@
         prevDirButton.hidden = NO;
 }
 
+- (void)locationUpdate:(CLLocation *)location{
+    //Do Stuff
+}
+
+- (void)locationError:(NSError *)error{
+    //DO Stuff
+}
+
 -(void)setDestinationUIImage:(NSURL *)eventImageURL
 {
     __block UIImage * eventImage;
@@ -105,12 +116,11 @@
     {
         ALAssetRepresentation *rep = [myasset defaultRepresentation];
         CGImageRef iref = [rep fullResolutionImage]; //  Thumbnail is not wanted
-        
+
         if (iref) {
-            eventImage = [UIImage imageWithCGImage:iref scale:[rep scale] orientation: 0];
-            
+            eventImage = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:[rep orientation]];
+
             [[self directionImage] setImage: eventImage];
-//            [eventImage retain];
         }
     };
 
@@ -174,6 +184,11 @@
         exit(-1); 
     }
     
+    //Start Location Services
+    locCtl = [[CoreLocationController alloc] init];
+    locCtl.delegate = self;
+    [locCtl.locMgr startUpdatingLocation];
+    
     [self viewLogic];
 }
 
@@ -184,6 +199,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    //Stop updating location to save battery
+    [locCtl.locMgr stopUpdatingLocation];
 }
 
 - (BOOL) shouldAutorotate{

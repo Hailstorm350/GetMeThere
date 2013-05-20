@@ -234,7 +234,7 @@
         information.inheritedName=thisRoute.Name;
         information.inheritedRoute=thisRoute;
         information.inheritedIndexRow=indexPath.row;
-        NSLog(@"the name of the route that i'm passing is %@", information.inheritedRoute.Name);
+        
         [self.navigationController pushViewController:information animated:YES];
     }
 
@@ -242,7 +242,6 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    NSLog(@"self.tableView: %@", self.tableView);
     [self.tableView beginUpdates];
 }
 

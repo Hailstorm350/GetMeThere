@@ -21,8 +21,11 @@
 @property (nonatomic, strong) NSNumber * Row;
 @property (nonatomic, strong) NSNumber * Transit;
 @property (nonatomic, strong) NSSet *route;
+@property (nonatomic, strong) NSNumber * latitude;
+@property (nonatomic, strong) NSNumber * longitude;
 
-    - (void) setLocation: (CLLocationCoordinate2D) coord;
+- (void) setLocation: (CLLocationCoordinate2D) coord;
+- (CLLocationCoordinate2D) getLocationAsCLCoordinate;
 
 @end
 

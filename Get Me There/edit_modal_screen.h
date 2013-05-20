@@ -8,6 +8,7 @@
 #import <CoreData/CoreData.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 #import "CoreLocationController.h"
 
 
@@ -15,8 +16,9 @@
 @class Route;
 @class Event;
 
-@interface edit_modal_screen : UIViewController<UIImagePickerControllerDelegate, CoreLocationControllerDelegate >
+@interface edit_modal_screen : UIViewController<UIImagePickerControllerDelegate, CoreLocationControllerDelegate, MKMapViewDelegate>
 {
+    MKMapView *mapView;
     IBOutlet UITextField *descriptionOfEvent;
     UISegmentedControl *rightOrLeft;
     UISegmentedControl *transitStop;
@@ -37,7 +39,7 @@
 -(IBAction) sharpOrNormalControl;
 -(IBAction) goStraightControl;
 -(IBAction) transitStopControl;
--(IBAction) getPhoto;
+//-(IBAction) getPhoto;
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) Route_edit_screenViewController *viewContollerData;
@@ -48,5 +50,7 @@
 @property (nonatomic, strong) Route *finalInheritedRoute;
 @property (nonatomic, strong) Event *eventObject;
 @property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) IBOutlet MKMapView *mapView;
+
 
 @end

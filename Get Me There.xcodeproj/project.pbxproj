@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02457059155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02457058155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg */; };
+		02457059155B10D300550306 /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02457058155B10D300550306 /* placeholder.jpg */; };
 		025A52C11545C86F0095F51A /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025A52BF1545C86F0095F51A /* TableViewCell.xib */; };
 		025FC49215374C85003B21C8 /* RouteCreatorScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025FC49015374C85003B21C8 /* RouteCreatorScreen.xib */; };
 		025FC4971537558C003B21C8 /* RouteList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 025FC4951537558C003B21C8 /* RouteList.xib */; };
@@ -39,7 +39,7 @@
 		40D9FBEA17309AE300549C1B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D9FBE917309AE300549C1B /* CoreLocation.framework */; };
 		40D9FBED17309C0800549C1B /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D9FBEC17309C0800549C1B /* CoreLocationController.m */; };
 		5124A5D8155AFA9700E43D1E /* destination_Picture.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5124A5D6155AFA9700E43D1E /* destination_Picture.xib */; };
-		51890D8B1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 51890D8A1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg */; };
+		51890D8B1559BE7500667555 /* panic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 51890D8A1559BE7500667555 /* panic.jpg */; };
 		51F5E08D1559A49000308326 /* Panic_button_primary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0891559A49000308326 /* Panic_button_primary.xib */; };
 		51F5E0911559A4C300308326 /* PanicButtonCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0901559A4C300308326 /* PanicButtonCell2.xib */; };
 		51F5E0A01559A52E00308326 /* EditContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0941559A52D00308326 /* EditContactViewController.xib */; };
@@ -49,12 +49,15 @@
 		D1743D65155B9A2000B57B3D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D1743D64155B9A2000B57B3D /* Default.png */; };
 		D1743D67155B9A5800B57B3D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1743D66155B9A5800B57B3D /* Icon.png */; };
 		EF00DB98170C8BB700365359 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF00DB97170C8BB700365359 /* Default-568h@2x.png */; };
+		EF79B5411731A7B900F468DA /* UIImagePickerController+RotationFix.m in Sources */ = {isa = PBXBuildFile; fileRef = EF79B5401731A7B900F468DA /* UIImagePickerController+RotationFix.m */; };
+		EF79B5431732244100F468DA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF79B5421732244100F468DA /* MapKit.framework */; };
 		EF7F6A491725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6A481725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m */; };
 		EF866DC216EE961C0083046A /* left turn.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DBD16EE961C0083046A /* left turn.png */; };
 		EF866DC316EE961C0083046A /* right turn.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DBE16EE961C0083046A /* right turn.png */; };
 		EF866DC416EE961C0083046A /* slight left.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DBF16EE961C0083046A /* slight left.png */; };
 		EF866DC516EE961C0083046A /* slight right.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DC016EE961C0083046A /* slight right.png */; };
 		EF866DC616EE961C0083046A /* straight.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DC116EE961C0083046A /* straight.png */; };
+		EFBE4B54174478C100F8E129 /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFBE4B53174478C100F8E129 /* CameraOverlayView.m */; };
 		EFCBB8BB16F6642A0073078F /* EditContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0931559A52D00308326 /* EditContactViewController.m */; };
 		EFCBB8BD16F6642A0073078F /* destination_Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5124A5D5155AFA9700E43D1E /* destination_Picture.m */; };
 		EFCBB8BF16F6642A0073078F /* PanicButtonDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E09A1559A52E00308326 /* PanicButtonDetails.m */; };
@@ -90,7 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02457058155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "question_mark_sticker-p217885673497729412envb3_400.jpg"; sourceTree = "<group>"; };
+		02457058155B10D300550306 /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
 		025A52BD1545C86F0095F51A /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		025A52BE1545C86F0095F51A /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		025A52BF1545C86F0095F51A /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
@@ -151,7 +154,7 @@
 		5124A5D4155AFA9700E43D1E /* destination_Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = destination_Picture.h; sourceTree = "<group>"; };
 		5124A5D5155AFA9700E43D1E /* destination_Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = destination_Picture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5124A5D6155AFA9700E43D1E /* destination_Picture.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = destination_Picture.xib; sourceTree = "<group>"; };
-		51890D8A1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg"; sourceTree = "<group>"; };
+		51890D8A1559BE7500667555 /* panic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = panic.jpg; sourceTree = "<group>"; };
 		51F5E0871559A49000308326 /* Panic_button_primary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panic_button_primary.h; sourceTree = "<group>"; };
 		51F5E0881559A49000308326 /* Panic_button_primary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Panic_button_primary.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		51F5E0891559A49000308326 /* Panic_button_primary.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Panic_button_primary.xib; sourceTree = "<group>"; };
@@ -175,6 +178,9 @@
 		D1743D64155B9A2000B57B3D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D1743D66155B9A5800B57B3D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		EF00DB97170C8BB700365359 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		EF79B53F1731A7B900F468DA /* UIImagePickerController+RotationFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+RotationFix.h"; sourceTree = "<group>"; };
+		EF79B5401731A7B900F468DA /* UIImagePickerController+RotationFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+RotationFix.m"; sourceTree = "<group>"; };
+		EF79B5421732244100F468DA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EF7F6A471725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Rotation_IOS6.h"; sourceTree = "<group>"; };
 		EF7F6A481725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Rotation_IOS6.m"; sourceTree = "<group>"; };
 		EF866DBD16EE961C0083046A /* left turn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left turn.png"; sourceTree = "<group>"; };
@@ -182,6 +188,8 @@
 		EF866DBF16EE961C0083046A /* slight left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slight left.png"; sourceTree = "<group>"; };
 		EF866DC016EE961C0083046A /* slight right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slight right.png"; sourceTree = "<group>"; };
 		EF866DC116EE961C0083046A /* straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = straight.png; sourceTree = "<group>"; };
+		EFBE4B52174478C100F8E129 /* CameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayView.h; sourceTree = "<group>"; };
+		EFBE4B53174478C100F8E129 /* CameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayView.m; sourceTree = "<group>"; };
 		EFCBB8E416F6649D0073078F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -190,6 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF79B5431732244100F468DA /* MapKit.framework in Frameworks */,
 				40D9FBEA17309AE300549C1B /* CoreLocation.framework in Frameworks */,
 				EFCBB8E516F6649D0073078F /* AssetsLibrary.framework in Frameworks */,
 				02683CD81534C3F1008E5147 /* UIKit.framework in Frameworks */,
@@ -237,6 +246,7 @@
 		02683CD61534C3F1008E5147 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF79B5421732244100F468DA /* MapKit.framework */,
 				40D9FBE917309AE300549C1B /* CoreLocation.framework */,
 				EFCBB8E416F6649D0073078F /* AssetsLibrary.framework */,
 				02683CD71534C3F1008E5147 /* UIKit.framework */,
@@ -254,6 +264,8 @@
 				02CCBE6F154C7CB7008EBB24 /* beginningCell.h */,
 				02CCBE70154C7CB7008EBB24 /* beginningCell.m */,
 				02CCBE72154C7D7C008EBB24 /* beginningCell.xib */,
+				EFBE4B52174478C100F8E129 /* CameraOverlayView.h */,
+				EFBE4B53174478C100F8E129 /* CameraOverlayView.m */,
 				40D9FBEB17309C0800549C1B /* CoreLocationController.h */,
 				40D9FBEC17309C0800549C1B /* CoreLocationController.m */,
 				5124A5D4155AFA9700E43D1E /* destination_Picture.h */,
@@ -305,6 +317,8 @@
 				025A52BD1545C86F0095F51A /* TableViewCell.h */,
 				025A52BE1545C86F0095F51A /* TableViewCell.m */,
 				025A52BF1545C86F0095F51A /* TableViewCell.xib */,
+				EF79B53F1731A7B900F468DA /* UIImagePickerController+RotationFix.h */,
+				EF79B5401731A7B900F468DA /* UIImagePickerController+RotationFix.m */,
 				EF7F6A471725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.h */,
 				EF7F6A481725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m */,
 				02F00B7F1535366D00B89881 /* UserManual.h */,
@@ -321,13 +335,13 @@
 			isa = PBXGroup;
 			children = (
 				409E1BF116F7BD3600A728E3 /* routeArrow.png */,
-				02457058155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg */,
+				02457058155B10D300550306 /* placeholder.jpg */,
 				EF866DBD16EE961C0083046A /* left turn.png */,
 				EF866DBE16EE961C0083046A /* right turn.png */,
 				EF866DBF16EE961C0083046A /* slight left.png */,
 				EF866DC016EE961C0083046A /* slight right.png */,
 				EF866DC116EE961C0083046A /* straight.png */,
-				51890D8A1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg */,
+				51890D8A1559BE7500667555 /* panic.jpg */,
 				51F5E0A61559A9FF00308326 /* Facebook-Silhouette_normal.gif.png */,
 				02D6BF8515374BAB000CACD4 /* plus sign.png */,
 				D1743D64155B9A2000B57B3D /* Default.png */,
@@ -451,9 +465,9 @@
 				51F5E0A71559AA0000308326 /* Facebook-Silhouette_normal.gif.png in Resources */,
 				51F5E0A91559AB9500308326 /* PanicButtonViewController.xib in Resources */,
 				51F5E0AE1559BAF800308326 /* ShowPrimaryDirection.xib in Resources */,
-				51890D8B1559BE7500667555 /* red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg in Resources */,
+				51890D8B1559BE7500667555 /* panic.jpg in Resources */,
 				5124A5D8155AFA9700E43D1E /* destination_Picture.xib in Resources */,
-				02457059155B10D300550306 /* question_mark_sticker-p217885673497729412envb3_400.jpg in Resources */,
+				02457059155B10D300550306 /* placeholder.jpg in Resources */,
 				D1743D65155B9A2000B57B3D /* Default.png in Resources */,
 				D1743D67155B9A5800B57B3D /* Icon.png in Resources */,
 				EF866DC216EE961C0083046A /* left turn.png in Resources */,
@@ -522,6 +536,8 @@
 				409E1BF316F7D85500A728E3 /* Get_Me_There.xcdatamodeld in Sources */,
 				EF7F6A491725C6C3009D7B5F /* UINavigationController+Rotation_IOS6.m in Sources */,
 				40D9FBED17309C0800549C1B /* CoreLocationController.m in Sources */,
+				EF79B5411731A7B900F468DA /* UIImagePickerController+RotationFix.m in Sources */,
+				EFBE4B54174478C100F8E129 /* CameraOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

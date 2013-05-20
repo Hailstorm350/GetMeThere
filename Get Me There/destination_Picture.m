@@ -78,7 +78,7 @@
 		exit(-1);  // Fail
 	}
     
-    endImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
+    endImage.image = [UIImage imageNamed:@"placeholder.jpg"];
 
     self.title = @"Destination Picture";
     
@@ -111,7 +111,6 @@
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
 	[self presentModalViewController:picker animated:YES];
-    
 }
 
 #pragma mark -
@@ -128,6 +127,7 @@
             } else {
                 //We have the URL!!!
                 self.imageURL = [assetURL absoluteString];
+                NSLog(@"imageURL is: %@", self.imageURL);
             }
         }];
     } else {
@@ -143,7 +143,7 @@
 
 -(IBAction)doneButtonPressed
 {
-    if(endImage.image==[UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"]){
+    if(endImage.image==[UIImage imageNamed:@"placeholder.jpg"]){
         NSString *msg = nil;
         
         msg = [[NSString alloc] initWithFormat: @"You must select a beginning image to continue."];

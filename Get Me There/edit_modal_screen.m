@@ -13,6 +13,7 @@
 #import "Event.h"
 #import "Route.h"
 #import "Get_Me_ThereAppDelegate.h"
+//#import "CameraOverlayView.h"
 
 @implementation edit_modal_screen
 
@@ -22,11 +23,9 @@
 
 @synthesize context, fetchedResultsController=_fetchedResultsController;
 
-@synthesize locCtl;
+@synthesize locCtl, mapView;
 
 CLLocationCoordinate2D locCoord;
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,16 +63,11 @@ CLLocationCoordinate2D locCoord;
     return _fetchedResultsController;
 }
 
--(IBAction) saveLocation{
-    //Save Location
-    eventObject 
-}
-
--(IBAction)doneWithKeyboard{
+- (IBAction) doneWithKeyboard{
     [descriptionOfEvent resignFirstResponder];
 }
 
--(IBAction) doneButtonPressed: (id) sender{
+- (IBAction) doneButtonPressed: (id) sender{
     if([descriptionOfEvent.text length]<=0)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
@@ -179,10 +173,10 @@ CLLocationCoordinate2D locCoord;
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+
 }
 
-
--(IBAction) cancelButtonPressed: (id) sender{
+- (IBAction) cancelButtonPressed: (id) sender{
         [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -201,15 +195,16 @@ CLLocationCoordinate2D locCoord;
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = (id<UINavigationControllerDelegate,UIImagePickerControllerDelegate>) self;
     
+    //CameraOverlayView *overlay = [[CameraOverlayView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-
+    //picker.cameraOverlayView = overlay;
 	[self presentModalViewController:picker animated:YES];
     
 }
 
-#pragma mark -
+#pragma mark - 
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
 	imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
@@ -226,37 +221,28 @@ CLLocationCoordinate2D locCoord;
         self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
     }
 }
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
-{
+
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *)  picker{
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
--(IBAction) rightOrLeftControl{
+- (IBAction) rightOrLeftControl{
     
 }
--(IBAction) sharpOrNormalControl{
+
+- (IBAction) sharpOrNormalControl{
     
 }
--(IBAction) goStraightControl{
+
+- (IBAction) goStraightControl{
     
 }
--(IBAction) transitStopControl{
+
+- (IBAction) transitStopControl{
     //Handle Transit control event?
 }
 
-- (void) locationError:(NSError *)error{
-    //Log the location error
-    NSLog(@"%@", [error description]);
-}
-
-- (void) locationUpdate:(CLLocation *)location{
-    //Update location data to be current
-    latitude = location.coordinate.latitude;
-    longitude = location.coordinate.longitude;
-}
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
@@ -264,8 +250,7 @@ CLLocationCoordinate2D locCoord;
 
 #pragma mark - View lifecycle
 
-
--(void)viewDidLoad{
+- (void) viewDidLoad{
     
     [super viewDidLoad];
 
@@ -303,8 +288,9 @@ CLLocationCoordinate2D locCoord;
             goStraight.selectedSegmentIndex = 0;
         }
         
-        //TODO I don't think this UIImage line works...
-        imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: imageURL]]];
+        //Load the thumb image preview into view
+        [self loadImgPreview:[NSURL URLWithString:imageURL]];
+        
         if([eventObject.Transit compare:[NSNumber numberWithBool:NO]] == NSOrderedSame){
             transitStop.selectedSegmentIndex=0;
         }
@@ -315,30 +301,128 @@ CLLocationCoordinate2D locCoord;
     
     if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         takePictureButton.hidden = YES;
+    
+    //Start and configure Location Services
     locCtl = [[CoreLocationController alloc] init];
     locCtl.delegate = self;
+    [locCtl.locMgr setDesiredAccuracy:kCLLocationAccuracyBestForNavigation];
     [locCtl.locMgr startUpdatingLocation];
+    
+    //Set up Map View
+    mapView.delegate = self;
+    //mapView.mapType = MKMapTypeStandard;
+    
+    //Show user location if new event, or pin on event location
+    MKCoordinateRegion region;
+    
+    if(isNewEvent){
+        mapView.showsUserLocation = YES;
+        region = MKCoordinateRegionMakeWithDistance (
+                                            mapView.userLocation.location.coordinate, 50, 50);
+    }else{
+        // Place a single pin
+        [self dropPin:[eventObject getLocationAsCLCoordinate]];
+        
+        region = MKCoordinateRegionMakeWithDistance(eventObject.getLocationAsCLCoordinate, 50, 50);
+    }
+    [mapView setRegion:region animated:NO];
 }
 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (BOOL) shouldAutorotate{
+    return NO;
 }
 
-- (void)dealloc
-{
+- (NSUInteger) supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (void) dealloc{
     
     _fetchedResultsController = nil;
 
 }
 
+- (void) loadImgPreview:(NSURL *)thumbURL{
+    __block UIImage * thumbUIImage;
+    //result block for startImage
+    ALAssetsLibraryAssetForURLResultBlock thumbresultblock = ^(ALAsset *myasset)
+    {
+        //ALAssetRepresentation *rep = [myasset defaultRepresentation];    // Change to commented lines when
+        CGImageRef iref = [myasset thumbnail];//[rep fullResolutionImage]; //  Thumbnail is not wanted
+        
+        if (iref) {
+            thumbUIImage = [UIImage imageWithCGImage:iref];
+            
+            [imageView setImage: thumbUIImage];
+        }
+    };
+    
+    //failure block for all cases
+    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
+    {
+        NSLog(@"Image Retrieval Error - %@",[myerror localizedDescription]);
+    };
+    
+    //Fetch and retain thumbnail
+    if(thumbURL && [[thumbURL absoluteString] length])
+    {
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+        [assetslibrary assetForURL:thumbURL
+                       resultBlock:thumbresultblock
+                      failureBlock:failureblock];
+    }
 
 
-- (void)viewDidUnload {
-    descriptionOfEvent = nil;
-    [super viewDidUnload];
+}
+
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //Stop updating location and save battery life.
+    [locCtl.locMgr stopUpdatingLocation];
+}
+
+#pragma mark - Map View functionality
+
+- (void) mapView:(MKMapView *)mapView didUpdateUserLocation: (MKUserLocation *)userLocation{
+    self.mapView.centerCoordinate = userLocation.location.coordinate;
+}
+
+- (void) locationError:(NSError *)error{
+    //Log the location error
+    NSLog(@"%@", [error description]);
+}
+
+- (void) locationUpdate:(CLLocation *)location{
+    //Update location data to be current
+    locCoord.latitude = location.coordinate.latitude;
+    locCoord.longitude = location.coordinate.longitude;
+
+}
+
+- (IBAction) saveLocation{
+    //save the location to our event object
+    [eventObject setLocation:locCoord];
+    
+    //Clear existing annotations
+//    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
+//    for (id annotation in mapView.annotations)
+//        if (annotation != mapView.userLocation)
+//            [toRemove addObject:annotation];
+//    [mapView removeAnnotations:toRemove];
+    [mapView removeAnnotations:[mapView annotations]];
+    
+    //Add annotation for current location
+    [self dropPin:locCoord];
+    for (id annotation in mapView.annotations) {
+        NSLog(@"%@", annotation);
+    }
+
+}
+- (void) dropPin:(CLLocationCoordinate2D)coord{
+    // Place a single pin
+    MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+    [pin setCoordinate:coord];
+    [self.mapView addAnnotation:pin];
 }
 @end
 

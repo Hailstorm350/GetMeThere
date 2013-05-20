@@ -39,13 +39,16 @@
 					<object class="IBUIImageView" id="374673402">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{358, 300}</string>
+						<string key="NSFrameSize">{355, 300}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="232888781"/>
 						<string key="NSReuseIdentifierKey">_NS:567</string>
-						<int key="IBUIContentMode">1</int>
+						<int key="IBUIContentMode">2</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
+							<integer value="260" key="IBUIAccessibilityTraits"/>
+						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUIImageView" id="232888781">
@@ -141,7 +144,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="265243568"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg</string>
+							<string key="NSResourceName">panic.jpg</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="160256425"/>
 						<reference key="IBUIFont" ref="539001181"/>
@@ -391,7 +394,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">red_silhouette_of_a_cellular_phone_0071-1002-1523-4920_SMU.jpg</string>
+			<string key="NS.key.0">panic.jpg</string>
 			<string key="NS.object.0">{246, 300}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

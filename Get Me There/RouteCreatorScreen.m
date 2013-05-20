@@ -10,6 +10,7 @@
 #import "Route_edit_screenViewController.h"
 #import "Get_Me_ThereAppDelegate.h"
 #import "Route.h"
+#import "CameraOverlayView.h"
 
 @implementation RouteCreatorScreen
 //@synthesize takePictureButton, selectFromLibrary, homeImage, nameOfRoute;
@@ -58,7 +59,6 @@
 }
 
 #pragma mark - View lifecycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -72,7 +72,7 @@
 		exit(-1);  // Fail
 	}
     if(homeImage.image == nil)
-        homeImage.image = [UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"];
+        homeImage.image = [UIImage imageNamed:@"placeholder.jpg"];
 
     self.title = @"Route Creation";
     
@@ -84,11 +84,11 @@
     self.fetchedResultsController = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    // Return YES for supported orientations
+//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//}
 -(IBAction) getPhoto{
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
@@ -103,7 +103,7 @@
 	picker.delegate = self;
     
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-
+    //picker.cameraOverlayView = [[CameraOverlayView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	[self presentModalViewController:picker animated:YES];
 }
 
@@ -135,7 +135,7 @@
 
 -(IBAction)doneButtonPressed
 {
-    if(homeImage.image==[UIImage imageNamed:@"question_mark_sticker-p217885673497729412envb3_400.jpg"]){
+    if(homeImage.image==[UIImage imageNamed:@"placeholder.jpg"]){
         NSString *msg = nil;
         
         msg = [[NSString alloc] initWithFormat: @"You must select a beginning image to continue."];
@@ -200,5 +200,7 @@
 //    [super dealloc];
 //
 //}
-
+- (BOOL) shouldAutorotate{
+    return NO;
+}
 @end
