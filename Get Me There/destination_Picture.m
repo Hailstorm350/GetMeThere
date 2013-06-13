@@ -24,11 +24,11 @@
         NSEntityDescription *entity = [NSEntityDescription 
                                        entityForName:@"Route" inManagedObjectContext:context];
         [fetchRequest setEntity:entity];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", inheritedRoute.Name];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", inheritedRoute.name];
         
         [fetchRequest setPredicate:predicate];   
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                                  initWithKey:@"Row" ascending:NO];
+                                  initWithKey:@"sortOrder" ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
         
         [fetchRequest setFetchBatchSize:20];
@@ -127,7 +127,7 @@
             } else {
                 //We have the URL!!!
                 self.imageURL = [assetURL absoluteString];
-                NSLog(@"imageURL is: %@", self.imageURL);
+                NSLog(@"destinationURL is: %@", self.imageURL); //DEBUG
             }
         }];
     } else {
@@ -157,7 +157,7 @@
     }
     else {
 
-        inheritedRoute.DestinationPicture=imageURL;
+        inheritedRoute.destinationPictureURL=imageURL;
         
         NSError *error;
         if (![context save:&error]) {
@@ -174,8 +174,5 @@
 -(IBAction)cancelButtonPressed{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
-
 
 @end

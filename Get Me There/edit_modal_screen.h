@@ -20,14 +20,18 @@
 {
     MKMapView *mapView;
     IBOutlet UITextField *descriptionOfEvent;
-    UISegmentedControl *rightOrLeft;
     UISegmentedControl *transitStop;
-    UISegmentedControl *goStraight;
-    UISegmentedControl *sharpOrNormal;
     NSFetchedResultsController *_fetchedResultsController;
     UIImageView *imageView;
 	UIButton *takePictureButton;
 	UIButton *selectFromLibrary;
+    IBOutlet UILabel* turnTransitLabel;
+    IBOutlet UIButton* transitToggleButton;
+    IBOutlet UISlider* rangeSlider;
+    IBOutlet UILabel* rangeLabel;
+    IBOutlet UISlider* turnSlider;
+    IBOutlet UILabel* turnTypeLabel;
+    IBOutlet UISegmentedControl* transitSegCtl;
 }
 
 -(IBAction) saveLocation;
@@ -35,12 +39,12 @@
 -(IBAction) doneButtonPressed: (id) sender;
 -(IBAction) cancelButtonPressed: (id)sender;
 -(IBAction) takePicture;
--(IBAction) rightOrLeftControl;
--(IBAction) sharpOrNormalControl;
--(IBAction) goStraightControl;
--(IBAction) transitStopControl;
-//-(IBAction) getPhoto;
+-(IBAction) transitToggle;
+-(IBAction) rangeSliderChange:(id)sender;
+-(IBAction) turnSliderChange:(id)sender;
+-(NSString*) getTurnType;
 
+@property (nonatomic, strong) IBOutlet UILabel* turnTransitLabel;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) Route_edit_screenViewController *viewContollerData;
 @property (nonatomic, strong) CoreLocationController *locCtl;
@@ -51,6 +55,12 @@
 @property (nonatomic, strong) Event *eventObject;
 @property (nonatomic, strong) NSString *imageURL;
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
-
+@property BOOL isTransit;
+@property (nonatomic, strong) IBOutlet UIButton* transitToggleButton;
+@property (nonatomic, strong) IBOutlet UISlider* rangeSlider;
+@property (nonatomic, strong) IBOutlet UILabel* rangeLabel;
+@property (nonatomic, strong) IBOutlet UISlider* turnSlider;
+@property (nonatomic, strong) IBOutlet UILabel* turnTypeLabel;
+@property (nonatomic, strong) IBOutlet UISegmentedControl* transitSegCtl;
 
 @end

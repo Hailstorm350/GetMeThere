@@ -14,8 +14,7 @@
     IBOutlet UIImageView *startPicture;
     IBOutlet UIImageView *endPicture;
 }
-//@property (nonatomic, strong) IBOutlet UIImageView *startPicture;
-//@property (nonatomic, strong) IBOutlet UIImageView *endPicture;
-//@property (nonatomic, retain) IBOutlet UILabel *test;
+@property (nonatomic, strong) IBOutlet UIImageView *startPicture;
+@property (nonatomic, strong) IBOutlet UIImageView *endPicture;
 -(void)setUIImages:(NSURL *)startImageURL : (NSURL *) destImageURL;
 @end

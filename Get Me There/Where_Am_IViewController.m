@@ -26,7 +26,7 @@
         [fetchRequest setEntity:entity];
         
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                                  initWithKey:@"Row" ascending:YES];
+                                  initWithKey:@"sortOrder" ascending:YES];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
         [fetchRequest setFetchBatchSize:20];
         
@@ -153,13 +153,11 @@
 - (void)configureCell:(beginningCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     
-    ((UILabel *)[cell viewWithTag:3]).text=info.Name;
-    //NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@",info.StartPicture, info.DestinationPicture);
+    ((UILabel *)[cell viewWithTag:3]).text=info.name;
+    NSLog(@"in ConfigureCell. startURL: %@ ; destURL: %@ \nRoute is: %@",info.startPictureURL, info.destinationPictureURL, info);
 
     //Tell cell to load route's start and end images
-    [cell setUIImages:[NSURL URLWithString:info.StartPicture]:[NSURL URLWithString:info.DestinationPicture]];
-
-
+    [cell setUIImages:[NSURL URLWithString: info.startPictureURL]:[NSURL URLWithString:info.destinationPictureURL]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -185,7 +183,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Route *primaryDirection = [_fetchedResultsController objectAtIndexPath:indexPath];
-    ShowPrimaryDirection *naviView = [[ShowPrimaryDirection alloc] initWithRoute: primaryDirection.Name];
+    ShowPrimaryDirection *naviView = [[ShowPrimaryDirection alloc] initWithRoute: primaryDirection.name];
     [self.navigationController presentModalViewController:naviView animated:YES];
 }
 

@@ -29,11 +29,11 @@ BOOL didCreateNew;
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:context];
         [fetchRequest setEntity:entity];
         
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"route.Name=%@", inheritedRoute.Name];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"route.name=%@", inheritedRoute.name];
         
         [fetchRequest setPredicate:predicate];   
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                                  initWithKey:@"Row" ascending:YES];
+                                  initWithKey:@"sortOrder" ascending:YES];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
         
         [fetchRequest setFetchBatchSize:20];
@@ -94,7 +94,7 @@ BOOL didCreateNew;
         
         [self.navigationController popToRootViewControllerAnimated:YES]; //Pop back to Root
     }
-    else if(!inheritedRoute.DestinationPicture){
+    else if(!inheritedRoute.destinationPictureURL){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
                                                         message:@"Please provide a destination picture"
                                                        delegate:self
@@ -192,31 +192,21 @@ BOOL didCreateNew;
     NSArray *allEvents = [[[_fetchedResultsController sections] objectAtIndex:0] objects];
 
     Event *info = [allEvents objectAtIndex:indexPath.row];
-    //NSLog(@"the number of objects in the array is %d and the index path is %d, and the events row number is %d", [allEvents count], indexPath.row, [info.Row integerValue]);
-    cell.textLabel.text=info.Name;
-    //NSLog(@"info.Arrow=%@", info.Arrow);
-    
-    cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", info.Arrow]];
 
+    cell.textLabel.text=info.name;
     
+    cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", info.direction]];  
 }
 
 -(NSInteger)tableView:(UITableView *) tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = 
     [[_fetchedResultsController sections] objectAtIndex:0];
- //   NSSet *allOfMyEventsInTheList=inheritedRoute.Event;
- //   NSArray *objects=[allOfMyEventsInTheList allObjects];
- //   NSLog(@"number of rows in section is %d", [objects count]);
- //   return [objects count]+2;
-    //NSLog(@"number of rows in section is %d", [sectionInfo numberOfObjects]);
     return ([sectionInfo numberOfObjects]+2);
 }
 
-//The program never reaches this function!
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"cellForRowAtIndexPath %d", indexPath.item);
     static NSString *CellIdentifier=@"MediaCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell==nil)

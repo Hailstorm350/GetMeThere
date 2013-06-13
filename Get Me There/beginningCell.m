@@ -9,7 +9,7 @@
 #import "beginningCell.h"
 
 @implementation beginningCell
-//@synthesize test, startPicture, endPicture;
+@synthesize startPicture, endPicture;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -30,6 +30,7 @@
 {
     __block UIImage * startUIImage;
     __block UIImage * destUIImage;
+    NSLog(@"in mainPage startURL: %@", startImageURL);
     //result block for startImage
     ALAssetsLibraryAssetForURLResultBlock startresultblock = ^(ALAsset *myasset)
     {
@@ -39,7 +40,7 @@
         if (iref) {
             startUIImage = [UIImage imageWithCGImage:iref];
             
-            [((UIImageView *)[self viewWithTag:1]) setImage: startUIImage];
+            [startPicture setImage: startUIImage];
         }
     };
     //result block for destImage
@@ -50,7 +51,7 @@
         if (iref) {
             destUIImage = [UIImage imageWithCGImage:iref];
             
-            [((UIImageView *)[self viewWithTag:2]) setImage:destUIImage];
+            [endPicture setImage: destUIImage];
         }
     };
     

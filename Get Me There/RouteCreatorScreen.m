@@ -31,18 +31,18 @@
     }
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription 
-                                   entityForName:@"Route" inManagedObjectContext:context];
+                                   entityForName:@"Route" inManagedObjectContext:self.context];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                              initWithKey:@"Row" ascending:NO];
+                              initWithKey:@"sortOrder" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     [fetchRequest setFetchBatchSize:20];
     
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
-                                        managedObjectContext:context sectionNameKeyPath:nil
+                                        managedObjectContext:self.context sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
@@ -77,11 +77,11 @@
     self.title = @"Route Creation";
     
     if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-        takePictureButton.hidden = YES;
+        takePictureButton.hidden = YES; //TODO maybe just exit here? no camera should mean no usage
 }
 
 - (void)viewDidUnload {
-    self.fetchedResultsController = nil;
+    //self.fetchedResultsController = nil;
 }
 
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -111,7 +111,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissViewControllerAnimated:YES completion:nil];
-	homeImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
+	homeImage.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera){
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         // Request to save the image to camera roll
@@ -119,13 +119,14 @@
             if (error) {
                 NSLog(@"error");
             } else {
+                //We have the URL!!!
                 self.imageURL = [assetURL absoluteString];
+                NSLog(@"StartURL is: %@", self.imageURL); //DEBUG
             }
         }];
     } else {
         self.imageURL = [[info objectForKey: UIImagePickerControllerReferenceURL] absoluteString];
     }
-
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)  picker
@@ -150,10 +151,10 @@
     else if(nameOfRoute.text.length>0){
         
         Route *newRoute = [NSEntityDescription insertNewObjectForEntityForName:@"Route" inManagedObjectContext:context];
-        //NSLog(@"StartPicture: %@\n imageURL: %@\n",newRoute.StartPicture, imageURL);
-        newRoute.StartPicture = imageURL;
+        NSLog(@"inRouteCreator: StartPictureURL: %@\n imageURL: %@\n",newRoute.startPictureURL, imageURL); //DEBUG
+        newRoute.startPictureURL = imageURL;
         
-        newRoute.Name = nameOfRoute.text;
+        newRoute.name = nameOfRoute.text;
         
         NSError *error;
 
@@ -161,12 +162,10 @@
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
 
-        Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
+        Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc] init];
         information.inheritedRoute=newRoute;
         
         [self.navigationController pushViewController:information animated:YES];
-//        [information release];
-//        NSLog(@"RouteCreatorScreen retain count=%d",[self retainCount]);
     }
     else
     {

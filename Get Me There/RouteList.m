@@ -31,7 +31,7 @@
                                        entityForName:@"Route" inManagedObjectContext:context];    [fetchRequest setEntity:entity];
         
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] 
-                                  initWithKey:@"Row" ascending:NO];
+                                  initWithKey:@"sortOrder" ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
         
         [fetchRequest setFetchBatchSize:20];
@@ -135,23 +135,23 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     //NSLog(@"indexPath.row=%d", indexPath.row);
     Route *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text=info.Name;
+    cell.textLabel.text=info.name;
     
     //NSLog(@"the text label is %@", cell.textLabel.text);
-    /*NSLog(@"info.Arrow=%@", info.Arrow);
-    if([info.Arrow isEqualToString:@"straight"]){
+    /*NSLog(@"info.direction=%@", info.direction);
+    if([info.direction isEqualToString:@"straight"]){
         cell.imageView.image=[UIImage imageNamed:@"straight.png"];
     }
-    else if([info.Arrow isEqualToString:@"slight right"]){
+    else if([info.direction isEqualToString:@"slight right"]){
         cell.imageView.image=[UIImage imageNamed:@"slight right.png"];
     }
-    else if([info.Arrow isEqualToString:@"Right"]){
+    else if([info.direction isEqualToString:@"Right"]){
         cell.imageView.image=[UIImage imageNamed:@"right turn.png"];
     }
-    else if([info.Arrow isEqualToString:@"slight left"]){
+    else if([info.direction isEqualToString:@"slight left"]){
         cell.imageView.image=[UIImage imageNamed:@"slight left.png"];
     }
-    else if([info.Arrow isEqualToString:@"Left"]){
+    else if([info.direction isEqualToString:@"Left"]){
         NSLog(@"here i am");
         cell.imageView.image=[UIImage imageNamed:@"left turn.png"];
         
@@ -231,7 +231,7 @@
     {
         Route *thisRoute =[_fetchedResultsController objectAtIndexPath:indexPath];
         Route_edit_screenViewController *information=[[Route_edit_screenViewController alloc]init];
-        information.inheritedName=thisRoute.Name;
+        information.inheritedName=thisRoute.name;
         information.inheritedRoute=thisRoute;
         information.inheritedIndexRow=indexPath.row;
         

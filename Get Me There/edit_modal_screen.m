@@ -21,9 +21,11 @@
 
 @synthesize isNewEvent, indexRow, viewContollerData, imageURL, eventObject;
 
-@synthesize context, fetchedResultsController=_fetchedResultsController;
+@synthesize context, fetchedResultsController = _fetchedResultsController;
 
-@synthesize locCtl, mapView;
+@synthesize locCtl, mapView, turnTransitLabel, isTransit, transitToggleButton;
+
+@synthesize rangeSlider, rangeLabel, turnTypeLabel, turnSlider, transitSegCtl;
 
 CLLocationCoordinate2D locCoord;
 
@@ -55,7 +57,7 @@ CLLocationCoordinate2D locCoord;
     NSFetchedResultsController *theFetchedResultsController = 
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                         managedObjectContext:context sectionNameKeyPath:nil
-                                                   cacheName:@"Row"];
+                                                   cacheName:@"sortOrder"];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = (id<NSFetchedResultsControllerDelegate>) self;
     
@@ -68,7 +70,7 @@ CLLocationCoordinate2D locCoord;
 }
 
 - (IBAction) doneButtonPressed: (id) sender{
-    if([descriptionOfEvent.text length]<=0)
+    if([descriptionOfEvent.text length] <= 0)//TODO ENABLE FOR DEPLOY || imageURL == nil)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Information"
                                                         message:@"You must enter a an event description"
@@ -79,40 +81,26 @@ CLLocationCoordinate2D locCoord;
     }
     else if(isNewEvent)
     {
-        eventObject.Name=descriptionOfEvent.text;
-        //   newRoute.Picture=(NSValueTransformer *)imageView;
-        if(goStraight.selectedSegmentIndex==1){
-            eventObject.Arrow=@"straight";
-        }
-        else if(rightOrLeft.selectedSegmentIndex==1){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                eventObject.Arrow=@"left turn";
-            }
-            else{
-                eventObject.Arrow=@"slight left";
-            }
-        }
-        else if(rightOrLeft.selectedSegmentIndex==0){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                eventObject.Arrow=@"right turn";
-            }
-            else{
-                eventObject.Arrow=@"slight right";
-            }
-        }
-        if(transitStop.selectedSegmentIndex==0)           
-            eventObject.Transit=[NSNumber numberWithBool:false];
+        eventObject.name=descriptionOfEvent.text;
+
+        eventObject.direction = [self getTurnType];
+        //TODO implement turn storage
+        
+        if(transitStop.selectedSegmentIndex==0)
+            eventObject.isTransit=[NSNumber numberWithBool:false];
         else{
-            eventObject.Transit=[NSNumber numberWithBool:true];
+            eventObject.isTransit=[NSNumber numberWithBool:true];
         }
         
         NSNumber *newRow=[NSNumber numberWithInteger:indexRow];
-        eventObject.Row= newRow;
+        eventObject.sortOrder= newRow;
         //[eventObject addRouteObject: finalInheritedRoute]; //TODO this needs to work for inverse in CoreData to function correctly
         [finalInheritedRoute addEventObject:eventObject];
 
-        eventObject.Picture = imageURL;
-        //NSLog(@"Event Picture URL is: %@", imageURL);
+        eventObject.pictureURL = imageURL;
+        
+        eventObject.radius = [NSNumber numberWithFloat:[self.rangeSlider value] * 20];
+        NSLog(@"Radius saved as: %f meters", [eventObject.radius doubleValue]);
         NSError *error;
         if (![context save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -128,7 +116,7 @@ CLLocationCoordinate2D locCoord;
         
         [request setEntity:entity];
         
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name=%@", [eventObject Name]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", [eventObject name]];
         
         [request setPredicate:predicate];
         
@@ -138,42 +126,26 @@ CLLocationCoordinate2D locCoord;
         Event *info=[array objectAtIndex:0];
         
         
-        info.Name=descriptionOfEvent.text;
-        if(goStraight.selectedSegmentIndex==1){
-            info.Arrow=@"straight";
-        }
-        else if(rightOrLeft.selectedSegmentIndex==1){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                info.Arrow=@"Left";
-            }
-            else{
-                info.Arrow=@"slight left";
-            }
-        }
-        else if(rightOrLeft.selectedSegmentIndex==0){
-            if(sharpOrNormal.selectedSegmentIndex==1){
-                info.Arrow=@"Right";
-            }
-            else{
-                info.Arrow=@"slight right";
-            }
-        }
+        info.name=descriptionOfEvent.text;
+        
+        eventObject.direction = [self getTurnType];
         
         if(transitStop.selectedSegmentIndex==0) {
-            info.Transit=[NSNumber numberWithBool:false];
+            info.isTransit=[NSNumber numberWithBool:false];
         }
         else{
-            info.Transit=[NSNumber numberWithBool:true];
-        }    
+            info.isTransit=[NSNumber numberWithBool:true];
+        }
         
-        info.Picture=imageURL;
+        eventObject.radius = [NSNumber numberWithFloat:[self.rangeSlider value] * 20];
+        NSLog(@"Radius saved as: %f meters", [eventObject.radius doubleValue]);
+        info.pictureURL=imageURL;
         
         if (![context save:&error]) {
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-
 }
 
 - (IBAction) cancelButtonPressed: (id) sender{
@@ -234,13 +206,63 @@ CLLocationCoordinate2D locCoord;
     
 }
 
-- (IBAction) goStraightControl{
-    
+- (IBAction) transitToggle{
+    //Toggle to/from Transit event mode
+    if(!isTransit){
+        [turnTransitLabel setText:@"Transit:"];
+        [transitToggleButton setTitle:@"Make Turn" forState:UIControlStateNormal];
+        [transitToggleButton setTitle:@"Make Turn" forState:UIControlStateHighlighted];
+        
+//        [rightOrLeft setTitle:@"Pull Cord" forSegmentAtIndex:0];
+//        [rightOrLeft setTitle:@"Take Exit" forSegmentAtIndex:1];
+//        
+//        [rightOrLeft setWidth:85 forSegmentAtIndex:0];
+//        [rightOrLeft setWidth:85 forSegmentAtIndex:1];
+//        
+//        [sharpOrNormal setHidden:YES];
+        isTransit = true;
+    }else{
+        [turnTransitLabel setText:@"Turn:"];
+        [transitToggleButton setTitle:@"Make Transit" forState:UIControlStateNormal];
+        [transitToggleButton setTitle:@"Make Transit" forState:UIControlStateHighlighted];
+//        [rightOrLeft setTitle:@"Right" forSegmentAtIndex:0];
+//        [rightOrLeft setTitle:@"Left" forSegmentAtIndex:1];
+//        [rightOrLeft setWidth:75 forSegmentAtIndex:0];
+//        [rightOrLeft setWidth:75 forSegmentAtIndex:1];
+//        [sharpOrNormal setHidden:NO];
+        isTransit = false;
+    }
 }
 
-- (IBAction) transitStopControl{
-    //Handle Transit control event?
+- (IBAction) rangeSliderChange:(id)sender{
+    int meters = (int)([(UISlider*) sender value] * 20);
+    [rangeLabel setText:[NSString stringWithFormat:@"%d Meters", meters]];
 }
+
+- (IBAction) turnSliderChange:(id)sender{
+    [turnTypeLabel setText:[self getTurnType]];
+}
+
+- (NSString*) getTurnType{
+    NSString * retStr;
+    float val = [turnSlider value];
+    if(val < .2){ //Left Turn
+        retStr = @"Left";
+    }else if(val < .4){ //Slight Left Turn
+        retStr = @"Slight Left";
+    }else if(val < .6){ //Go Straight
+        retStr = @"Straight";
+    }else if(val < .8){ //Slight Right Turn
+        retStr = @"Slight Right";
+    }else{ //Right Turn
+        retStr = @"Right";
+    }
+    return retStr;
+}
+
+//- (float) yardsToMeters:(NSNumber*) yards{
+//    return [yards floatValue] * .914;
+//}
 
 - (void)didReceiveMemoryWarning{
     // Releases the view if it doesn't have a superview.
@@ -257,46 +279,20 @@ CLLocationCoordinate2D locCoord;
     if(self.context == nil)
         self.context = [[Get_Me_ThereAppDelegate sharedAppDelegate] managedObjectContext];
     
-    if(eventObject == nil && isNewEvent) //New route!
+    if(eventObject == nil && isNewEvent){ //New route!
         eventObject = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:context];
-    
-    if(!isNewEvent && [eventObject.Row integerValue] != indexRow){ //Not a new route
-
-        descriptionOfEvent.text = eventObject.Name;
-       
-        //TODO replace all this crappy logic with something useful: redesign UI for picker
-        if([eventObject.Arrow isEqualToString:@"straight"])
-            goStraight.selectedSegmentIndex = 1;
-        else if([eventObject.Arrow isEqualToString:@"slight right"]){
-            rightOrLeft.selectedSegmentIndex = 0;
-            sharpOrNormal.selectedSegmentIndex = 0;
-            goStraight.selectedSegmentIndex = 0;
-        }
-        else if([eventObject.Arrow isEqualToString:@"Right"]){
-            rightOrLeft.selectedSegmentIndex = 0;
-            sharpOrNormal.selectedSegmentIndex = 1;
-            goStraight.selectedSegmentIndex = 0;
-        }
-        else if([eventObject.Arrow isEqualToString:@"slight left"]){
-            rightOrLeft.selectedSegmentIndex = 1;
-            sharpOrNormal.selectedSegmentIndex = 0;
-            goStraight.selectedSegmentIndex = 0;
-        }
-        else if([eventObject.Arrow isEqualToString:@"Left"]){
-            rightOrLeft.selectedSegmentIndex = 1;
-            sharpOrNormal.selectedSegmentIndex = 1;
-            goStraight.selectedSegmentIndex = 0;
-        }
-        
+        //MKCircle *circle = [MKCircle circleWithCenterCoordinate:locCoord radius:10];
+        //[mapView addOverlay:circle];
+    }
+    if(!isNewEvent && [eventObject.sortOrder integerValue] != indexRow){ //Not a new route
+        descriptionOfEvent.text = eventObject.name;
+        MKCircle *circle = [MKCircle circleWithCenterCoordinate: CLLocationCoordinate2DMake((CLLocationDegrees)[eventObject.latitude floatValue], (CLLocationDegrees) [eventObject.longitude floatValue]) radius:[eventObject.radius floatValue]];
+        [mapView addOverlay:circle];
         //Load the thumb image preview into view
         [self loadImgPreview:[NSURL URLWithString:imageURL]];
-        
-        if([eventObject.Transit compare:[NSNumber numberWithBool:NO]] == NSOrderedSame){
-            transitStop.selectedSegmentIndex=0;
-        }
-        else
-            transitStop.selectedSegmentIndex=1;
+        [self.rangeSlider setValue:([[eventObject radius] floatValue]/20)];
     }
+    [self rangeSliderChange:self.rangeSlider];
     self.title = @"Event";
     
     if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -310,7 +306,6 @@ CLLocationCoordinate2D locCoord;
     
     //Set up Map View
     mapView.delegate = self;
-    //mapView.mapType = MKMapTypeStandard;
     
     //Show user location if new event, or pin on event location
     MKCoordinateRegion region;
@@ -326,6 +321,24 @@ CLLocationCoordinate2D locCoord;
         region = MKCoordinateRegionMakeWithDistance(eventObject.getLocationAsCLCoordinate, 50, 50);
     }
     [mapView setRegion:region animated:NO];
+//    [rightOrLeft setFrame:CGRectMake(17, 210, 150, 30)];
+//    [sharpOrNormal setFrame:CGRectMake(17, 240, 150, 30)];
+
+    if(eventObject.isTransit){
+        isTransit = true;
+        [self.transitToggleButton setTitle:@"Make Turn" forState:UIControlStateNormal];
+        [self.transitToggleButton setTitle:@"Make Turn" forState:UIControlStateHighlighted];
+
+        [transitSegCtl setHidden:NO];
+        [turnSlider setHidden:YES];
+    }
+    else{
+        isTransit = false;
+        [self.transitToggleButton setTitle:@"Make Transit" forState:UIControlStateNormal];
+        [self.transitToggleButton setTitle:@"Make Transit" forState:UIControlStateHighlighted];
+    }
+    
+    [turnTransitLabel setText:(isTransit ? @"Transit:" : @"Turn:")];
 }
 
 - (BOOL) shouldAutorotate{
@@ -334,12 +347,6 @@ CLLocationCoordinate2D locCoord;
 
 - (NSUInteger) supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
-- (void) dealloc{
-    
-    _fetchedResultsController = nil;
-
 }
 
 - (void) loadImgPreview:(NSURL *)thumbURL{
@@ -371,8 +378,6 @@ CLLocationCoordinate2D locCoord;
                        resultBlock:thumbresultblock
                       failureBlock:failureblock];
     }
-
-
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -396,7 +401,6 @@ CLLocationCoordinate2D locCoord;
     //Update location data to be current
     locCoord.latitude = location.coordinate.latitude;
     locCoord.longitude = location.coordinate.longitude;
-
 }
 
 - (IBAction) saveLocation{
@@ -404,25 +408,27 @@ CLLocationCoordinate2D locCoord;
     [eventObject setLocation:locCoord];
     
     //Clear existing annotations
-//    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
-//    for (id annotation in mapView.annotations)
-//        if (annotation != mapView.userLocation)
-//            [toRemove addObject:annotation];
-//    [mapView removeAnnotations:toRemove];
     [mapView removeAnnotations:[mapView annotations]];
     
     //Add annotation for current location
     [self dropPin:locCoord];
-    for (id annotation in mapView.annotations) {
-        NSLog(@"%@", annotation);
-    }
-
+    //Set Center of MapView to new Pin
+    self.mapView.centerCoordinate = locCoord;
 }
+
 - (void) dropPin:(CLLocationCoordinate2D)coord{
     // Place a single pin
     MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
     [pin setCoordinate:coord];
     [self.mapView addAnnotation:pin];
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)map viewForOverlay:(id <MKOverlay>)overlay
+{
+    MKCircleView *circleView = [[MKCircleView alloc] initWithOverlay:overlay];
+    circleView.strokeColor = [UIColor redColor];
+    circleView.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
+    return circleView;
 }
 @end
 

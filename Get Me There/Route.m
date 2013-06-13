@@ -11,9 +11,9 @@
 
 
 @implementation Route
-@dynamic DestinationPicture;
-@dynamic StartPicture;
-@dynamic Name;
-@dynamic Event;
-@dynamic Row;
+@dynamic startPictureURL;
+@dynamic destinationPictureURL;
+@dynamic name;
+@dynamic event;
+@dynamic sortOrder;
 @end

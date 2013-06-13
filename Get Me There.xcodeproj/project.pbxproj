@@ -39,7 +39,6 @@
 		40D9FBEA17309AE300549C1B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D9FBE917309AE300549C1B /* CoreLocation.framework */; };
 		40D9FBED17309C0800549C1B /* CoreLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D9FBEC17309C0800549C1B /* CoreLocationController.m */; };
 		5124A5D8155AFA9700E43D1E /* destination_Picture.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5124A5D6155AFA9700E43D1E /* destination_Picture.xib */; };
-		51890D8B1559BE7500667555 /* panic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 51890D8A1559BE7500667555 /* panic.jpg */; };
 		51F5E08D1559A49000308326 /* Panic_button_primary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0891559A49000308326 /* Panic_button_primary.xib */; };
 		51F5E0911559A4C300308326 /* PanicButtonCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0901559A4C300308326 /* PanicButtonCell2.xib */; };
 		51F5E0A01559A52E00308326 /* EditContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F5E0941559A52D00308326 /* EditContactViewController.xib */; };
@@ -57,6 +56,7 @@
 		EF866DC416EE961C0083046A /* slight left.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DBF16EE961C0083046A /* slight left.png */; };
 		EF866DC516EE961C0083046A /* slight right.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DC016EE961C0083046A /* slight right.png */; };
 		EF866DC616EE961C0083046A /* straight.png in Resources */ = {isa = PBXBuildFile; fileRef = EF866DC116EE961C0083046A /* straight.png */; };
+		EFA0CFD81763D4560011F556 /* PanicPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = EFA0CFD71763D4560011F556 /* PanicPhone.png */; };
 		EFBE4B54174478C100F8E129 /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFBE4B53174478C100F8E129 /* CameraOverlayView.m */; };
 		EFCBB8BB16F6642A0073078F /* EditContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F5E0931559A52D00308326 /* EditContactViewController.m */; };
 		EFCBB8BD16F6642A0073078F /* destination_Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5124A5D5155AFA9700E43D1E /* destination_Picture.m */; };
@@ -154,7 +154,6 @@
 		5124A5D4155AFA9700E43D1E /* destination_Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = destination_Picture.h; sourceTree = "<group>"; };
 		5124A5D5155AFA9700E43D1E /* destination_Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = destination_Picture.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5124A5D6155AFA9700E43D1E /* destination_Picture.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = destination_Picture.xib; sourceTree = "<group>"; };
-		51890D8A1559BE7500667555 /* panic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = panic.jpg; sourceTree = "<group>"; };
 		51F5E0871559A49000308326 /* Panic_button_primary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panic_button_primary.h; sourceTree = "<group>"; };
 		51F5E0881559A49000308326 /* Panic_button_primary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Panic_button_primary.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		51F5E0891559A49000308326 /* Panic_button_primary.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Panic_button_primary.xib; sourceTree = "<group>"; };
@@ -188,6 +187,7 @@
 		EF866DBF16EE961C0083046A /* slight left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slight left.png"; sourceTree = "<group>"; };
 		EF866DC016EE961C0083046A /* slight right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slight right.png"; sourceTree = "<group>"; };
 		EF866DC116EE961C0083046A /* straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = straight.png; sourceTree = "<group>"; };
+		EFA0CFD71763D4560011F556 /* PanicPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PanicPhone.png; sourceTree = "<group>"; };
 		EFBE4B52174478C100F8E129 /* CameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayView.h; sourceTree = "<group>"; };
 		EFBE4B53174478C100F8E129 /* CameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayView.m; sourceTree = "<group>"; };
 		EFCBB8E416F6649D0073078F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -334,6 +334,7 @@
 		02683CE01534C3F1008E5147 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EFA0CFD71763D4560011F556 /* PanicPhone.png */,
 				409E1BF116F7BD3600A728E3 /* routeArrow.png */,
 				02457058155B10D300550306 /* placeholder.jpg */,
 				EF866DBD16EE961C0083046A /* left turn.png */,
@@ -341,7 +342,6 @@
 				EF866DBF16EE961C0083046A /* slight left.png */,
 				EF866DC016EE961C0083046A /* slight right.png */,
 				EF866DC116EE961C0083046A /* straight.png */,
-				51890D8A1559BE7500667555 /* panic.jpg */,
 				51F5E0A61559A9FF00308326 /* Facebook-Silhouette_normal.gif.png */,
 				02D6BF8515374BAB000CACD4 /* plus sign.png */,
 				D1743D64155B9A2000B57B3D /* Default.png */,
@@ -465,7 +465,6 @@
 				51F5E0A71559AA0000308326 /* Facebook-Silhouette_normal.gif.png in Resources */,
 				51F5E0A91559AB9500308326 /* PanicButtonViewController.xib in Resources */,
 				51F5E0AE1559BAF800308326 /* ShowPrimaryDirection.xib in Resources */,
-				51890D8B1559BE7500667555 /* panic.jpg in Resources */,
 				5124A5D8155AFA9700E43D1E /* destination_Picture.xib in Resources */,
 				02457059155B10D300550306 /* placeholder.jpg in Resources */,
 				D1743D65155B9A2000B57B3D /* Default.png in Resources */,
@@ -477,6 +476,7 @@
 				EF866DC616EE961C0083046A /* straight.png in Resources */,
 				409E1BF216F7BD3600A728E3 /* routeArrow.png in Resources */,
 				EF00DB98170C8BB700365359 /* Default-568h@2x.png in Resources */,
+				EFA0CFD81763D4560011F556 /* PanicPhone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

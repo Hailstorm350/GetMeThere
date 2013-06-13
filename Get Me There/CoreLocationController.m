@@ -12,7 +12,7 @@
 
 @implementation CoreLocationController
 
-@synthesize locMgr, delegate;
+@synthesize locMgr, delegate, currentlyMonitoredEvent;
 
 
 - (id)init {
@@ -20,7 +20,7 @@
     
 	if(self != nil) {
 		self.locMgr = [[CLLocationManager alloc] init] ; // Create new instance of locMgr
-		self.locMgr.delegate = self; // Set the delegate as self.
+		self.locMgr.delegate = self; // Set the Location Manager delegate as self.
 	}
     
 	return self;
@@ -36,6 +36,11 @@
 	if([self.delegate conformsToProtocol:@protocol(CoreLocationControllerDelegate)]) {  // Check if the class assigning itself as the delegate conforms to our protocol.  If not, the message will go nowhere.  Not good.
 		[self.delegate locationError:error];
 	}
+}
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region{
+    if([self.delegate conformsToProtocol:@protocol(CoreLocationControllerDelegate)]) {
+    
+    }
 }
 
 @end

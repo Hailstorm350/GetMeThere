@@ -15,14 +15,15 @@
 
 @private
 }
-@property (nonatomic, strong) NSString * Arrow;
-@property (nonatomic, strong) NSString * Name;
-@property (nonatomic, strong) NSString * Picture;
-@property (nonatomic, strong) NSNumber * Row;
-@property (nonatomic, strong) NSNumber * Transit;
+@property (nonatomic, strong) NSString * direction;
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * pictureURL;
+@property (nonatomic, strong) NSNumber * sortOrder;
+@property (nonatomic, strong) NSNumber * isTransit;
 @property (nonatomic, strong) NSSet *route;
 @property (nonatomic, strong) NSNumber * latitude;
 @property (nonatomic, strong) NSNumber * longitude;
+@property (nonatomic, strong) NSNumber * radius;
 
 - (void) setLocation: (CLLocationCoordinate2D) coord;
 - (CLLocationCoordinate2D) getLocationAsCLCoordinate;

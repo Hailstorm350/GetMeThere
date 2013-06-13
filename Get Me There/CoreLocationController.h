@@ -19,7 +19,8 @@
 	CLLocationManager *locMgr;
 }
 
-@property (nonatomic, retain) CLLocationManager *locMgr;
+@property (nonatomic, strong) CLLocationManager *locMgr;
 @property (nonatomic, assign) id delegate;
+@property int currentlyMonitoredEvent;
 
 @end

@@ -14,11 +14,11 @@
 @interface Route : NSManagedObject {
 @private
 }
-@property (nonatomic, strong) NSString * DestinationPicture;
-@property (nonatomic, strong) NSString * Name;
-@property (nonatomic, strong) NSString * StartPicture;
-@property (nonatomic, strong) NSSet *Event;
-@property (nonatomic, strong) NSNumber *Row;
+@property (nonatomic, strong) NSString * destinationPictureURL;
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * startPictureURL;
+@property (nonatomic, strong) NSSet *event;
+@property (nonatomic, strong) NSNumber *sortOrder;
 @end
 
 @interface Route (CoreDataGeneratedAccessors)

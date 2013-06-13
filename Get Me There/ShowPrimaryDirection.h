@@ -11,7 +11,7 @@
 #import "CoreLocationController.h"
 
 @class Route;
-@interface ShowPrimaryDirection : UIViewController<CoreLocationControllerDelegate> {
+@interface ShowPrimaryDirection : UIViewController<CoreLocationControllerDelegate, CLLocationManagerDelegate> {
     UIImageView *directionImage;
     UIImageView *arrowImage;
     UIButton *panicCallButton;
@@ -20,10 +20,11 @@
     NSFetchedResultsController *_fetchedResultsController;
     NSString *routeName;
     NSInteger currentEvent;
-    
 }
 @property (nonatomic, strong) CoreLocationController *locCtl;
 @property (nonatomic) NSInteger currentEvent;
+@property (nonatomic, strong) NSArray* eventsList;
+
 @property (nonatomic, strong) IBOutlet UIImageView *directionImage;
 @property (nonatomic, strong) IBOutlet UIImageView *arrowImage;
 @property (nonatomic, strong) IBOutlet UIButton *panicCallButton;
@@ -32,8 +33,10 @@
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSString *routeName;
+@property (nonatomic, strong) CLLocation * currentPosition;
+
 - (IBAction)contactListButtonPressed;
-- (IBAction)nextButtonPressed;
-- (IBAction)prevButtonPressed;
+- (void)nextEvent;
+- (void)previousEvent;
 - (id)initWithRoute: (NSString *)route;
 @end

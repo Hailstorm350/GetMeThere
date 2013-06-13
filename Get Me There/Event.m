@@ -11,19 +11,20 @@
 
 
 @implementation Event
-@dynamic Arrow;
-@dynamic Name;
-@dynamic Picture;
-@dynamic Row;
-@dynamic Transit;
+@dynamic direction;
+@dynamic name;
+@dynamic pictureURL;
+@dynamic sortOrder;
+@dynamic isTransit;
 @dynamic route;
 @dynamic latitude;
 @dynamic longitude;
+@dynamic radius;
 
 - (void) setLocation:(CLLocationCoordinate2D)coord{
     [self setLongitude: [NSNumber numberWithDouble:coord.longitude]];
     [self setLatitude: [NSNumber numberWithDouble:coord.latitude]];
-    NSLog(@"Location updated to: %f, %f", coord.longitude, coord.latitude);
+    //NSLog(@"Location updated to: %f, %f", coord.longitude, coord.latitude);
 }
 
 - (CLLocationCoordinate2D) getLocationAsCLCoordinate{
